@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+/********************************************************************
+                 design by meiseayoung in 2011/3
+                 contect email:meiseayoung@163.com/gmail/hotmail
+*******************************************************************/
+*{
+	margin:0 auto;
+	font-style:normal;
+}
+a img{
+	border:0;
+}
+body{
+	width:900px;
+}
+h2{
+	text-align:center;
+}
+ul{ 
+	list-style:none;
+	margin-top:20px;
+	border-top:2px solid #0F0;
+	border-bottom:2px solid #0F0;
+	height:230px;
+}
+li{
+	width:160px;
+	height:46px;
+        line-height:45px;
+	float:left;
+}
+a{
+	color:#000;
+	font-size:14px;
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:underline;
+	color:#F00;
+}
+.jingxuan{
+	color:#F00;
+}

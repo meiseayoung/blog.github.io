@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+/********************************************************************
+                 design by meiseayoung in 2011/3
+                 contect email:meiseayoung@163.com/gmail/hotmail
+*******************************************************************/
+*{
+	margin:0 auto;
+	padding:0;
+	font-size:14px;
+	text-decoration:none;
+	font-style:normal;
+}
+body{
+	width:960px;
+}
+a img{
+	border:0;
+}
+table{
+	width:960px;
+	border:1px solid #0Fc;
+	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+    behavior:url(style/PIE.htc);
+}
+thead{
+	background-color:#0fc;
+	width:auto;
+	height:30px;
+	display:block;
+	border-radius:8px;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+    behavior:url(style/PIE.htc);
+}
+.t_head{
+	height:32px;
+	line-height:32px;
+}
+td{
+	height:30px;
+	width:192px;
+	border:1px solid #CFF;
+}
+td a{
+	text-align:left;
+	margin-left:5px;}
+th{
+	text-align:left;
+	line-height:30px;
+}
+th b{
+	margin-left:5px;
+}
+a{
+	color:#000;
+}
+a:hover{
+	color:#F00;
+	text-decoration:underline;
+}
+.jingxuan{
+	color:#F00;
+}
+img.maximg{
+	max-width:18px;
+	max-height:18px;
+	overflow:hidden;
+	-width:18px;
+	-height:18px;
+}

@@ -1,0 +1,87 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+	border:0;
+}
+a{
+	text-decoration:none;
+}
+ul{
+	list-style-type:none;
+}
+#xunlei{
+	position:relative;
+	width:740px;
+	height:310px;
+	overflow:hidden;
+	margin:0 auto;
+}
+#picList{
+	width:740px;
+	height:310px;
+    margin:0 auto;
+	/*overflow:hidden;*/
+    background:#666;/*用于测试*/
+}
+.pic_list li{
+	position:absolute;
+	top:0;
+	left:0;
+	opacity:0;
+	filter:alpha(opacity=0);
+}
+.pic_list li.on{
+	opacity:100;
+	filter:alpha(opacity=1);
+	}
+#icoList{
+	position:absolute;
+	top:256px;
+	left:0;
+	height:54px;
+	width:9999px;
+	margin:0 auto;
+	overflow:hidden;
+	background:#099;/*用于测试*/
+	opacity:0.8;
+}
+.ico_list li{
+	width:54px;
+	height:54px;
+	margin:0 4px;
+	float:left;
+	border-radius:27px;
+	text-align:center;
+	background:#fff;/*用于测试*/
+	opacity:1;
+}
+.ico_list li.active{
+	background:#96F;
+}
+.ico_list li a{
+	line-height:54px;
+	font-size:24px;
+}
+#textList{
+	position:absolute;
+	width:740px;
+	top:232px;
+	left:0;
+	background:#FFF;
+	opacity:0.6;
+}
+#textList ul li{
+	width:auto;
+	height:24px;
+	line-height:24px;
+	text-align:left;
+	float:left;
+	display:none;
+	font-size:16px;
+}
+#textList ul li.show{
+	display:block;
+}
+

@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0 auto;
+	padding:0;
+	font-style:normal;
+}
+img{
+	border:0;
+}
+ul li{
+	list-style:none;
+}
+a{
+	font-size:14px;
+	text-decoration:none;
+}
+a:hover{
+	color:#F00;
+	text-decoration:underline;
+}
+.all{
+	width:960px;
+	margin:0 auto;	
+
+}
+.item_first{
+        overflow:hidden;/*解决高度自适应时border不能渲染的问题*/
+	border:2px solid #3F0;
+	border-bottom:0;
+	border-radius:10px 20px 0 0;
+	-moz-border-radius:10px 20px 0 0;
+	-webkit-border-radius:10px 20px 0 0;
+	behavior:url(style/PIE.htc);
+}
+.item_2,.item_4,.item_last{
+        overflow:hidden;
+	border-left:2px solid #3F0;
+	border-right:2px solid #3f0;
+}
+.item_3{
+        overflow:hidden;
+	border-left:2px solid #3F0;
+	border-right:2px solid #3f0;
+}
+.item_last{
+        overflow:hidden;
+	border-bottom:2px solid #3F0;
+	border-radius:0 0 10px 20px;
+	-moz-border-radius:0 0 10px 20px;
+	-webkit-border-radius:0 0 10px 20px;
+	behavior:url(style/PIE.htc);
+}
+
+
+h2{
+	display:block;
+	width:140px;
+	float:left;
+	font-size:16px;
+	line-height:40px;
+}
+.all ul{
+	display:block;
+	width:820px;
+	float:left;
+}
+.all ul li{
+	display:block;
+	float:left;
+	width:164px;
+	height:40px;
+	text-align:left;
+	line-height:40px;
+}
+em{
+	color:#F00;
+}
+#header{
+	width:960px;
+}
