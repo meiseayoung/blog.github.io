@@ -216,6 +216,9 @@ h3 a{
 	font-size:12px;
 	text-decoration:none;
 }
+h3 a:hover{
+	text-decoration: none;
+}
 #footer{
 	clear:both;
 	width:994px;
