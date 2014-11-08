@@ -627,7 +627,7 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
 
 <!-----------------------------------点击最小化图片关闭遮罩层--------------------------------------------------------->
 <script>
-			 (function(){var leftX=document.getElementsByClassName('left_x')[0];
+			 (function(){var leftX=document.getElementsByClassName('left_x')[0]||document.getElementsByClassName('right_x')[0];
 				             leftX.onclick=function(){
 												      var oDiv=document.getElementsByClassName('activeDiv');
 												      var xy=document.getElementsByClassName('xy');
