@@ -716,7 +716,7 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
     
         function resizeCanvas() {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight+scrollY;
+            canvas.height = document.body.clientHeight;
             w = canvas.width;
             h = canvas.height;
             refreshTarget();
