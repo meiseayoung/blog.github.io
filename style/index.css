@@ -7,7 +7,7 @@
 *{
 	margin:0 auto;
 	padding:0;
-    font-style:normal;
+        font-style:normal;
 	border:none;/*初始化INPUT元素的边框*/
 }
 ol,ul,li{
@@ -99,8 +99,8 @@ a.search{
 	float:left;
 	border:2px #0F0 solid;
 	-webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
 	behavior:url(style/PIE.htc);/*ie֧Բǵ*/
 	font-size:16px;
 
@@ -249,6 +249,7 @@ h3 a{
 	color:#F00;
 }
 #footer p{
+	display:block;
 	height:30px;
 	float:right;
 	line-height:30px;
