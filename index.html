@@ -659,6 +659,9 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
 	window.onload = function(){
         var bgimg = document.body.appendChild(document.createElement("canvas"));
         var canvas_id = "newCanvas"
+        bgimg.style.position = "absolute";
+        bgimg.style.top = "0px";
+        bgimg.style.left = "0px";
         bgimg.setAttribute("id",canvas_id)
 		function Target(_rad) {
             this.x = 0;
