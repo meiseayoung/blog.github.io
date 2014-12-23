@@ -14,6 +14,7 @@ ol,ul,li{
 	list-style: none;
 }
 a{
+	color:#fff;
 	outline:none;/*	blr:expression(this.onFocus=this.blur());解决IE下A标签有虚线的问题*/
 }
 a img{
