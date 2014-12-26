@@ -51,12 +51,12 @@ function getByClass(oParent,oClass){
 
 <div id="search" >
 <ul>
-    <li><a href="http://www.baidu.com/">网页</a></li>
-    <li><a href="http://news.baidu.com/">新闻</a></li>
-    <li><a href="http://tieba.baidu.com/index.html">贴吧</a></li>
-    <li><a href="http://image.baidu.com/">图片</a></li>
-    <li><a href="http://mp3.baidu.com/">音乐</a></li>
-    <li><a href="http://ditu.baidu.com">地图</a></li>
+    <li><a href="http://www.baidu.com/" class="tabin">网页</a></li>
+    <li><a href="http://news.baidu.com/" class="tabin">新闻</a></li>
+    <li><a href="http://tieba.baidu.com/index.html" class="tabin">贴吧</a></li>
+    <li><a href="http://image.baidu.com/" class="tabin">图片</a></li>
+    <li><a href="http://mp3.baidu.com/" class="tabin">音乐</a></li>
+    <li><a href="http://ditu.baidu.com" class="tabin">地图</a></li>
     <li><a href="http://www.baidu.com/more/" >更多</a></li>
 </ul>
 <a href="" class="search"></a>
@@ -66,9 +66,9 @@ function getByClass(oParent,oClass){
 <script>
 function navTab(i){    
 	var oLi=document.getElementsByClassName("tabin");
-    var searchImg=document.getElementsByClassName("search")[0];
+        var searchImg=document.getElementsByClassName("search")[0];
 	var bgimgPosition=new Array("0","-50","-100","-150","-200","-250");
-    var i; 
+        var i; 
        for(i=0;i<oLi.length;i++){
         (function(i){
                 oLi[i].onclick=function(){
