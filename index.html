@@ -64,23 +64,22 @@ function getByClass(oParent,oClass){
 </div>
 <!----------------------------------搜索框的TAB切换效果--------------------------------->
 <script>
-function navTab(){
-	var oDiv=document.getElementById('search');
-	var oNav=oDiv.getElementsByTagName('ul')[0];
-	var oLi=oNav.getElementsByTagName('li');
-	var bgimgPosition=new Array("0px","-50px","-100px","-150px","-200px","-250px");
-	var searchImg=oDiv.getElementsByClassName('search')[0];
-	for(var i=0;i<oLi.length;i++){
-		for(var j=0;j<bgimgPosition.length;j++){
-		oLi[i].onclick=function(){ 
-		    return false;
-			searchImg.style.backgroundPosition=bgimgPosition[j];
-			searchImg.href=this.getAttribute('href');
-			 
-                                  }
-			}
-			}
-	}
+function navTab(i){    
+	var oLi=document.getElementsByClassName("tabin");
+    var searchImg=document.getElementsByClassName("search")[0];
+	var bgimgPosition=new Array("0","-50","-100","-150","-200","-250");
+    var i; 
+       for(i=0;i<oLi.length;i++){
+        (function(i){
+                oLi[i].onclick=function(){
+                            searchImg.style.backgroundPosition=bgimgPosition[i]+"px";
+                            return false;
+                }
+            }
+        )(i)
+                               } 
+        
+}
 navTab()
 </script>
 <!----------------------------------搜索框的TAB切换效果--------------------------------->
