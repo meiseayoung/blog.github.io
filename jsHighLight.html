@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="javascriptCodeHighLight.css"/>
+    <script>
+        function jsHighLight(str,keyWord,baseDateType){
+        var newStr;
+        var str="(function(){function abc(){var a=123;var c='tedvar';node.getElemtsByTagName('*');this.data={};this.go=function(){alert(123)};var newstr=new String ();var arr=new Array();var obj=new Object();" +
+                "return this;return true;return false}})()";
+
+        var keyWords=["window","document","abstract", "arguments", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "debugger", "default", "delete", "do", "double", "else", "enum", "export", "extends", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import", "in", "instanceof", "int", "interface", "let", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "undefined", "var", "void", "volatile", "while", "with", "yield"];
+        var baseDateTypes=["String","Number","Array","Function","Object"];
+        var eventWords=["onload","onUnload","onFocus","onBlur","onChange","onSubmit","onMouseOver","onMouseOut","onClick","onMouseDown","onMouseUp","onMouseMove","onresize","removeChild","replaceChild","appendChild","replaceChild","insertBefore"]
+//        var fnName=str.match(/(?:function\s+)\w+\W/g);
+        var fnName=str.match(/\w+(?:\(|\s\()/g);
+        var varName=str.match(/(?:var\s+)\w+?=|\s=/g);
+        var attrName=str.match(/(?:;\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()/g);
+        var strValue=str.match(/'\w+'/g);
+        // var re=/function|var|this|for|switch|case|new|return|String|Number|Array|Function|Object|(function\s+(\w*)+\W)|(var\s+(\w*)+=|\s=)/g;
+        //var re=/(?:function\s+)\w+\W|(?:var\s+)\w+?=|\s=|(?:;\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
+        var re=/\w+(?:\(|\s\()|(?:var\s+)\w+?=|\s=|(?:;\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
+        /*****************************************************************************************
+         上面注释的正则不会匹配后面的(function\s+(\w*)+\W)|(var\s+(\w*)+=|\s=)；
+         原来在于：
+         表10- 3 中列出的匹配重复字符是尽可能多地匹配，而且允许后续的正则表达式继续匹配。
+         因此，我们称之为“ 贪婪的” 匹配。我们同样可以使用正则表达式进行非贪婪匹配。
+         只须在待匹配的字符后跟随一个问号即可：“??”、“+?”、“*?” 或“{ 1, 5}?”。
+         比如，正则表达式/ a+/ 可以匹配一个或多个连续的字母a。当使用" aaa" 作为匹配字符串时，
+         正则表达式会匹配它的三个字符。但是/ a+?/ 也可以匹配一个或多个连续字母a，但它是尽可能少地匹配。
+         我们同样将" aaa" 作为匹配字符串，但后一个模式只能匹配第一个a。
+         使用非贪婪的匹配模式所得到的结果可能和期望并不一致。考虑以下正则表达式/ a+ b/，
+         它可以匹配一个或多个a，以及一个b。当使用" aaab" 作为匹配字符串时，它会匹配整个字符串。
+         现在再试一下非贪婪匹配的版本/ a+? b/，它匹配尽可能少的a 和一个b。当用它来匹配" aaab" 时，
+         你期望它能匹配一个a 和最后一个b。但实际上，这个模式却匹配了整个字符串，和该模式的贪婪匹配一模一样。
+         这是因为正则表达式的模式匹配总是会寻找字符串中第一个可能匹配的位置。
+         由于该匹配是从字符串的第一个字符开始的，因此在这里不考虑它的子串中更短的匹配。
+         ------------------------------------------摘自javascript权威指南
+
+         /*****************************************************************************************/
+        newStr = str.replace(re, function (match) {
+            for (var i = 0; i < keyWords.length; i++) {
+                switch (match) {
+                    case keyWords[i]:
+                        return "<a class='js_keyWords'>" + match + "</a>";
+                    case baseDateTypes[i]:
+                        return "<a class='js_baseDataType'>" + match + "</a>";
+                    case varName[i]:
+                        return "<a class='js_keyWords'>var " + "</a><a class='js_varName'>" + match.slice(4, -1) + "</a>=";
+                    case fnName[i]:
+                        return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>(";
+                    case strValue[i]:
+                        return "<a class='js_strValue'>"+match+"</a>";
+                    case attrName[i]:
+                                return "<a class='js_attrName'>" + match.slice(0, -1) + "</a>"+match.slice(match.length-1);
+                }
+            }
+        })
+        document.body.innerHTML=newStr;
+    };
+
+    window.onload=function(){
+            jsHighLight();
+    }
+    </script>
+</head>
+<body>
+</body>
+</html>

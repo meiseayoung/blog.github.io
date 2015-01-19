@@ -1,0 +1,18 @@
+.js_baseDataType{
+    color: #ffaaaa;
+}
+.js_keyWords{
+    color: #009926;
+}
+.js_functionName{
+    color:#800080;
+}
+.js_varName{
+    color: #9966FF;
+}
+.js_strValue{
+    color:#000000;
+}
+.js_attrName{
+    color: slategrey;
+}
