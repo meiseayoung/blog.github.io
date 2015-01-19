@@ -7,7 +7,7 @@
     <script>
         function jsHighLight(str,keyWord,baseDateType){
         var newStr;
-        var str="(function(){function abc(){var a=123;var c='tedvar';node.getElemtsByTagName('*');this.data={};this.go=function(){alert(123)};var newstr=new String ();var arr=new Array();var obj=new Object();" +
+        var str="(function(){function abc(){var a=123;var c='tedvar';node.getElemtsByTagName('*');this.data={};this.x='4px';this.go=function(){alert(123)};var newstr=new String ();var arr=new Array();var obj=new Object();" +
                 "return this;return true;return false}})()";
 
         var keyWords=["window","document","abstract", "arguments", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "debugger", "default", "delete", "do", "double", "else", "enum", "export", "extends", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import", "in", "instanceof", "int", "interface", "let", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "undefined", "var", "void", "volatile", "while", "with", "yield"];
@@ -47,7 +47,7 @@
                     case fnName[i]:
                         return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>(";
                     case attrName[i]:
-                        return "<a class='js_attrName'>" + match.slice(0, -1) + "</a>"+match.slice(match.length-1);
+                        return "<a class='js_varName'>"+match.slice(0,match.search("\\."))+"</a>."+"<a class='js_attrName'>" + match.slice(match.search("\\.")+1,-1) + "</a>"+match.slice(match.length-1);
                     case strValue[i]:
                         return "<a class='js_strValue'>"+match+"</a>";
                     case keyWords[i]:
