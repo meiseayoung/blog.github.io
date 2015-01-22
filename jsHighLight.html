@@ -7,20 +7,20 @@
     <script>
         function jsHighLight(str,keyWord,baseDateType){
         var newStr;
-        var str="(function(){function abc(){var a=123;var c='tedvar';node.getElemtsByTagName('*');this.data={};this.x='4px';this.go=function(){alert(123)};var newstr=new String ();var arr=new Array();var obj=new Object();" +
-                "return this;return true;return false}})()";
+        var str="(function(){function abc(){var a=123;var c='tedvar';node.getElemtsByTagName('*');this.data={};this.x='4px';this.go=function(){alert(123);};var newstr=new String ();var arr=new Array();var obj=new Object();" +
+                "return this;return true;return false; try(){};catch;}})()";
 
         var keyWords=["window","document","abstract", "arguments", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "debugger", "default", "delete", "do", "double", "else", "enum", "export", "extends", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import", "in", "instanceof", "int", "interface", "let", "long", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "undefined", "var", "void", "volatile", "while", "with", "yield"];
         var baseDateTypes=["String","Number","Array","Function","Object"];
         var eventWords=["onload","onUnload","onFocus","onBlur","onChange","onSubmit","onMouseOver","onMouseOut","onClick","onMouseDown","onMouseUp","onMouseMove","onresize","removeChild","replaceChild","appendChild","replaceChild","insertBefore"]
 //        var fnName=str.match(/(?:function\s+)\w+\W/g);
         var fnName=str.match(/\w+(?:\(|\s\()/g);
-        var varName=str.match(/(?:var\s+)\w+?=|\s=/g);
-        var attrName=str.match(/(?:;\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()/g);
+        var varName=str.match(/(var\s+)\w+?(=|\s=)/g);
+        var attrName=str.match(/(?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()/g);
         var strValue=str.match(/'\w+'/g);
         // var re=/function|var|this|for|switch|case|new|return|String|Number|Array|Function|Object|(function\s+(\w*)+\W)|(var\s+(\w*)+=|\s=)/g;
         //var re=/(?:function\s+)\w+\W|(?:var\s+)\w+?=|\s=|(?:;\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
-        var re=/\w+(?:\(|\s\()|(?:var\s+)\w+?=|\s=|(?:;\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
+        var re=/(\w+(?:\(|\s\())|((var\s+)\w+?(=|\s=))|((?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\())|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
         /*****************************************************************************************
          上面注释的正则不会匹配后面的(function\s+(\w*)+\W)|(var\s+(\w*)+=|\s=)；
          原来在于：
@@ -57,19 +57,52 @@
                 }
             }
         })
-        document.body.innerHTML=newStr;
+      var spanNode=document.createElement("div");
+            spanNode.innerHTML=newStr;
+            document.body.appendChild(spanNode)
+
     };
 
     window.onload=function(){
             jsHighLight();
+            var codeHtml=document.getElementsByTagName("div")[0];
+            var codeBeautBtn=document.getElementsByClassName("codeBeaut")[0];
+            var reCodeBtn=document.getElementsByClassName("codeBeaut")[1];
+            var brNode=codeHtml.innerHTML.match(/\;|\}|\{/g);
+            codeBeautBtn.onclick=function(){
+                var newHtml=codeHtml.innerHTML.replace(/\;|\}|\{/g,function(match){
+                    for(var i=0;i<brNode.length;i++){
+                        switch (match){
+                            case brNode[i]:
+                                if(match==";"||match=="{")
+                                    return match+"<br />"
+                                else if(match=="}"){
+                                    return "<br />"+match;
+                                }
+
+                        }
+                    }
+
+                })
+                codeHtml.innerHTML=newHtml;
+
+                codeBeautBtn.disabled=true;
+            }
+        reCodeBtn.onclick=function(){
+            document.body.removeChild(codeHtml);
+            jsHighLight();
+            codeBeautBtn.disabled=false;
+            reCodeBtn.disabled=true;
+        }
     }
     </script>
 </head>
 <body>
 <p>
     以下是处理后的高亮代码：
-    create pull request:
 </p>
+<input type="button" value="美化源代码" class="codeBeaut"/>
+<input type="button" value="恢复源代码" class="codeBeaut"/>;
 <br />
 </body>
 </html>
