@@ -15,9 +15,10 @@
             var varName=str.match(/(var\s+)\w+?(=|\s=)/g);
             var attrName=str.match(/(?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()/g);
             var strValue=str.match(/'\w+'/g);
+            var comments=str.match(/\/\/(\w+|[\u4e00-\u9fa5]+)/g);
             // var re=/function|var|this|for|switch|case|new|return|String|Number|Array|Function|Object|(function\s+(\w*)+\W)|(var\s+(\w*)+=|\s=)/g;
             //var re=/(?:function\s+)\w+\W|(?:var\s+)\w+?=|\s=|(?:;\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
-            var re=/(\w+(?:\(|\s\())|((var\s+)\w+?(=|\s=))|((?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\())|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
+            var re=/(\/\/(\w+|[\u4e00-\u9fa5]+))|(\w+(?:\(|\s\())|((var\s+)\w+?(=|\s=))|((?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\())|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
             /*****************************************************************************************
              上面注释的正则不会匹配后面的(function\s+(\w*)+\W)|(var\s+(\w*)+=|\s=)；
              原来在于：
@@ -51,6 +52,8 @@
                             return "<a class='js_keyWords'>" + match + "</a>";
                         case baseDateTypes[i]:
                             return "<a class='js_baseDataType'>" + match + "</a>";
+                        case comments[i]:
+                            return "<a class='js_comments'>"+match+"</a>";
                     }
                 }
             })
@@ -59,7 +62,8 @@
             return newStr;
         };
     window.onload=function(){
-        var str="(function(){function abc(){var a=123;var c='tedvar';node.getElemtsByTagName('*');this.data={};this.x='4px';this.go=function(){alert(123);};var newstr=new String ();var arr=new Array();var obj=new Object();" +
+        var str="(function(){function abc(){var a=123;//这里是注释内容\n" +
+                "var c='tedvar';node.getElemtsByTagName('*');this.data={};this.x='4px';this.go=function(){alert(123);};var newstr=new String ();var arr=new Array();var obj=new Object();" +
                 "return this;return true;return false; try(){};catch;}})()";
         var codeHtml=document.createElement("div");
         codeHtml.innerHTML=str;
@@ -76,12 +80,13 @@
             }
         codeBeautBtn.onclick=function(){
             var oldCode=document.getElementsByTagName("div")[0].innerHTML;
-            var brNode=oldCode.match(/\;|\}|\{/g);
-            var brStr=oldCode.replace(/\;|\}|\{/g, function (match) {
+            var brNode=oldCode.match(/\{|\n|\;(?!\/+)/g);    //单行注释前面的分号会换行，没解决
+            console.log(brNode);
+            var brStr=oldCode.replace(/\{|\n|\;(?!\/+)/g, function (match) {
                     for (var i = 0; i < brNode.length; i++) {
                         switch (match) {
                             case brNode[i]:
-                                if (match == ";" || match == "{")
+                                if (match == ";" || match == "{"||match=="\n")
                                     return match + "<br />"
                                 else if (match == "}") {
                                     return "<br />" + match;
