@@ -45,8 +45,11 @@
                             return "<a class='js_keyWords'>var " + "</a><a class='js_varName'>" + match.slice(4, -1) + "</a>=";
                         case fnName[i]:
                             var matchSlice=match.slice(0,match.search(/\(/));
-                            if(matchSlice[i].indexOf(baseDateTypes.toString())!==-1)
+                            for(var j=0;j<matchSlice.length;j++){
+                            if(matchSlice[j].indexOf(baseDateTypes.toString())!==-1)
                                     return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>("
+                                
+                            }
                         //case attrName[i]:
                         //    return "<a class='js_varName'>"+match.slice(0,match.search("\\."))+"</a>."+"<a class='js_attrName'>" + match.slice(match.search("\\.")+1,-1) + "</a>"+match.slice(match.length-1);
                         case strValue[i]:
