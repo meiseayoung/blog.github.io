@@ -46,7 +46,7 @@
                         case fnName[i]:
                             var matchSlice=match.slice(0,match.search(/\(/));
                             for(var j=0;j<matchSlice.length;j++){
-                            if(matchSlice[j].indexOf(baseDateTypes.toString())!==-1)
+                            if(matchSlice[j].indexOf(baseDateTypes.toString())==-1)
                                     return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>("
                                 
                             }
