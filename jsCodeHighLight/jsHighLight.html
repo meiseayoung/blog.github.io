@@ -51,7 +51,7 @@
                                     return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>(";
                                 }
                                 else if(re.test(keyWords.toString())==true){
-                                    return "<a class='js_keyWords'>" + match + "</a>";
+                                    return "<a class='js_keyWords'>" + match.slice(0,match.length-1) + "</a>(";
                                 }
                             }
                             else if(re.test(baseDateTypes.toString())==true){
