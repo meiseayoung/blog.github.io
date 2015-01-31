@@ -46,7 +46,7 @@
                         case fnName[i]:
                             var matchSlice=match.slice(0,match.search(/\(/));
                             console.log(matchSlice.indexOf(baseDateTypes.toString()));
-                            console.log(matchSlice.$1,$2,$3);
+                            console.log(matchSlice.$1);
                                     return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>(";
                         //case attrName[i]:
                         //    return "<a class='js_varName'>"+match.slice(0,match.search("\\."))+"</a>."+"<a class='js_attrName'>" + match.slice(match.search("\\.")+1,-1) + "</a>"+match.slice(match.length-1);
