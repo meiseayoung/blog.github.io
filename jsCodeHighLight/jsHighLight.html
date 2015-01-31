@@ -76,7 +76,7 @@
         };
     window.onload=function(){
         var str="(function(){function abc(){var a=123;//这里是注释内容\n" +
-                "var c='tedvar';node.getElemtsByTagName('*');this.data={};this.x='4px';this.go=function(){alert(123);};var newstr=new String ();var arr=new Array();var obj=new Object();" +
+                "var c='tedvar';node.getElemtsByTagName('*');this.data={};this.x='4px';this.go=function(){alert(123);};var newstr=new String ();newstr.replace(/abc/g,'')var arr=new Array();var obj=new Object();" +
                 "return this;return true;return false; try(){};catch;}})()";
         var codeHtml=document.createElement("div");
         codeHtml.innerHTML=str;
