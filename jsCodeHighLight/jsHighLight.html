@@ -47,7 +47,7 @@
                             var matchSlice=fnName[i].slice(0,match.search(/\(/));
                             console.log(matchSlice);
                             for(var j=0;j<matchSlice.length;j++){
-                                if(matchSlice[j].indexOf(baseDateTypes)>-1){
+                                if(matchSlice[j].indexOf(baseDateTypes.toString())>-1){
                                     alert("匹配串中基本数据类型中");
                                 }
                                 else{
