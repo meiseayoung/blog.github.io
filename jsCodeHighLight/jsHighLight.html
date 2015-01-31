@@ -47,10 +47,10 @@
                             var matchSlice=fnName[i].slice(0,match.search(/\(/));
                             var re=new RegExp(matchSlice);
                             if(re.test(baseDateTypes.toString())==false){
-                                if(/function(?:\s+)/.test(match)==false){
+                                if(/function(?:\s+)/.test(matchSlice)==false){
                                     return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>(";
                                 }
-                                else if(/function(?:\s+)/.test(match)==true){
+                                else if(/function(?:\s+)/.test(matchSlice)==true){
                                     return "<a class='js_keyWords'>" + match + "</a>";
                                 }
                             }
