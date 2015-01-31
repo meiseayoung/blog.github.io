@@ -45,16 +45,13 @@
                             return "<a class='js_keyWords'>var " + "</a><a class='js_varName'>" + match.slice(4, -1) + "</a>=";
                         case fnName[i]:
                             var matchSlice=fnName[i].slice(0,match.search(/\(/));
-                            console.log(matchSlice);
-                            for(var j=0;j<matchSlice.length;j++){
-                                if(matchSlice[j].indexOf(baseDateTypes.toString())>-1){
-                                    alert("匹配串中基本数据类型中");
-                                }
-                                else{
-                                    alert("匹配串不在基本数据类型中");
-                                }
-                            }
+                            var re=new RegExp(matchSlice);
+                            if(re.test(baseDateTypes.toString())==false){
                                     return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>(";
+                            }
+                            else if(re.test(baseDateTypes.toString())==true){
+                                    return "<a class='js_baseDataType'>" + match + "</a>(";
+                            }
                         //case attrName[i]:
                         //    return "<a class='js_varName'>"+match.slice(0,match.search("\\."))+"</a>."+"<a class='js_attrName'>" + match.slice(match.search("\\.")+1,-1) + "</a>"+match.slice(match.length-1);
                         case strValue[i]:
