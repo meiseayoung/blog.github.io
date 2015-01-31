@@ -47,10 +47,15 @@
                             var matchSlice=fnName[i].slice(0,match.search(/\(/));
                             var re=new RegExp(matchSlice);
                             if(re.test(baseDateTypes.toString())==false){
+                                if(/function\s+/.test(match)==false){
                                     return "<a class='js_functionName'>" + match.slice(0,match.length-1) + "</a>(";
+                                }
+                                else{
+                                    return "<a class='js_keyWords'>" + match + "</a>";
+                                }
                             }
                             else if(re.test(baseDateTypes.toString())==true){
-                                    return "<a class='js_baseDataType'>" + match + "</a>(";
+                                    return "<a class='js_baseDataType'>" + match + "</a>";
                             }
                         //case attrName[i]:
                         //    return "<a class='js_varName'>"+match.slice(0,match.search("\\."))+"</a>."+"<a class='js_attrName'>" + match.slice(match.search("\\.")+1,-1) + "</a>"+match.slice(match.length-1);
