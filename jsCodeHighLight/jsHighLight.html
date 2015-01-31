@@ -13,13 +13,13 @@
             var eventWords=["onload","onUnload","onFocus","onBlur","onChange","onSubmit","onMouseOver","onMouseOut","onClick","onMouseDown","onMouseUp","onMouseMove","onresize","removeChild","replaceChild","appendChild","replaceChild","insertBefore"]
             var fnName=str.match(/\w+(?:\(|\s\()/g);
             var varName=str.match(/(var\s+)\w+?(=|\s=)/g);
-//            var attrName=str.match(/(?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()/g);
+            var attrName=str.match(/(?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()/g);
             var strValue=str.match(/'\w+'/g);
             var comments=str.match(/\/\/(\w+|[\u4e00-\u9fa5]+)/g);
             // var re=/function|var|this|for|switch|case|new|return|String|Number|Array|Function|Object|(function\s+(\w*)+\W)|(var\s+(\w*)+=|\s=)/g;
             //var re=/(?:function\s+)\w+\W|(?:var\s+)\w+?=|\s=|(?:;\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
             //var re=/(\/\/(\w+|[\u4e00-\u9fa5]+))|(\w+(?:\(|\s\())|((var\s+)\w+?(=|\s=))|((?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\())|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
-            var re=/(\/\/(\w+|[\u4e00-\u9fa5]+))|(\w+(?:\(|\s\())|((var\s+)\w+?(=|\s=))|('\w+')|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
+            var re=/(\/\/(\w+|[\u4e00-\u9fa5]+))|(\w+(?:\(|\s\())|((var\s+)\w+?(=|\s=))|('\w+')|(?:\w+|\w+)\.(\w+)(?:=|\s=|\(|\s\()|(window|document|function|var|this|for|switch|case|new|return|if|in|null|abstract|arguments|boolean|break|throw|true|try|with|byte|catch|char|class|const|continue|debugger|default|delete|do|double|else|enum|export|extends|false|final|finally|float|goto|implements|import|instanceof|int|interface|let|long|native|package|private|protected|public|short|static|super|synchronized)|(String|Number|Array|Function|Object)/g;
             /*****************************************************************************************
              上面注释的正则不会匹配后面的(function\s+(\w*)+\W)|(var\s+(\w*)+=|\s=)；
              原来在于：
@@ -57,8 +57,8 @@
                             else if(re.test(baseDateTypes.toString())==true){
                                     return "<a class='js_baseDataType'>" + match.slice(0,match.length-1) + "</a>(";
                             }
-                        //case attrName[i]:
-                        //    return "<a class='js_varName'>"+match.slice(0,match.search("\\."))+"</a>."+"<a class='js_attrName'>" + match.slice(match.search("\\.")+1,-1) + "</a>"+match.slice(match.length-1);
+                        case attrName[i]:
+                            return "<a class='js_varName'>"+match.slice(0,match.search("\\."))+"</a>."+"<a class='js_attrName'>" + match.slice(match.search("\\.")+1,-1) + "</a>"+match.slice(match.length-1);
                         case strValue[i]:
                             return "<a class='js_strValue'>"+match+"</a>";
                         case keyWords[i]:
