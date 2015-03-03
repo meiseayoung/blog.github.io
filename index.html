@@ -3,6 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>欢迎来到我的个人主页</title>
+    <script src="javascript/sweet-alert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheet/sweet-alert.css">
 </head>
 <body>
 <h2>作品：</h2>
@@ -10,7 +12,12 @@
     <li><a href="http://www.bilinyi.com/hao123/index.html">仿HAO123导航网站</a></li>
     <li><a href="http://www.bilinyi.com/jsCodeHighLight/jsHighLight.html">javascript代码高亮</a></li>
     <li><a href="http://www.bilinyi.com/autoWrite/index.html">仿打字机效果</a></li>
-    <li><a href="">more……</a></li>
+    <li><a href="" class="alert">more……</a></li>
+    <script>
+        document.getElmentsByClass("alert")[0].onclick=function(){
+            sweetAlert("天呐", "这家伙很懒，没有其它内容啦", "error");
+        }
+    </script>
 </ol>
 
 </body>
