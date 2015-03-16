@@ -3,21 +3,24 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>欢迎来到我的个人主页</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <script src="jQuery/animate/jquery-2.0.0.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h2>作品：</h2>
-<ol>
-    <li><a href="http://www.bilinyi.com/hao123/index.html">仿HAO123导航网站</a></li>
-    <li><a href="http://www.bilinyi.com/jsCodeHighLight/jsHighLight.html">javascript代码高亮</a></li>
-    <li><a href="http://www.bilinyi.com/autoWrite/index.html">仿打字机效果</a></li>
-    <li><a href="http://www.bilinyi.com/jQuery/animate/animate.html">jQuery animate探索</a></li>
-    <li><a href="" class="nomore">more……</a></li>
-    <script>
-        document.getElementsByClassName("nomore")[0].onclick=function(){
-            alert("这家伙很懒，没有留下更多的东西啦！")
-        }
-    </script>
-</ol>
+<div class="container">
+    <h2>作品：</h2>
+    <ol class="list-group">
+        <li><a  class="list-group-item" href="http://www.bilinyi.com/hao123/index.html" target="_blank">仿HAO123导航网站</a></li>
+        <li><a class="list-group-item" href="http://www.bilinyi.com/jsCodeHighLight/jsHighLight.html" target="_blank">javascript代码高亮</a></li>
+        <li><a class="list-group-item" href="http://www.bilinyi.com/autoWrite/index.html" target="_blank">仿打字机效果</a></li>
+        <li><a class="list-group-item" href="http://www.bilinyi.com/jQuery/animate/animate.html" target="_blank">jQuery animate探索</a></li>
+        <li><a class="list-group-item" href="" class="alert alert-warning" role="alert">more……</a></li>
+    </ol>
+
+</div>
+
+
 
 </body>
 </html>
