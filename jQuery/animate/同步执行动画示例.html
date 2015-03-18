@@ -9,12 +9,22 @@
             width: 150px;
             height: 100px;
             background-color: gray;
-            position: absolute;
+        }
+        #cssTransition{
+            width: 150px;
+            height: 100px;
+            transition:height 1s,width 1s;/********需要渐变的属性和激变时间，多个属性渐变用","隔开***************/
+            background-color: #00ffcc;
+        }
+        #cssTransition:hover{
+            width: 300px;
+            height: 300px;
         }
     </style>
 </head>
 <body>
 <div id="animateDiv">点击执行动画</div>
+<div id="cssTransition">鼠标移入执行CSS transition过渡效果</div>
 <script>
     $("#animateDiv").click(function(){
         $(this).animate({
