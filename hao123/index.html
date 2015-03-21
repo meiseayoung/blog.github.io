@@ -1,7 +1,7 @@
 ﻿<!doctype html>
   <!--/********************************************************************
                    design by meiseayoung in 2011/3
-                   contect email:meiseayoung@163.com/gmail/hotmail
+                   contact email:meiseayoung@163.com/gmail/hotmail
   *******************************************************************/-->
 <!--1.HTML规范
   ID命名规范：
@@ -51,12 +51,12 @@ function getByClass(oParent,oClass){
 
 <div id="search" >
 <ul>
-    <li><a href="http://www.baidu.com/" class="tabin">网页</a></li>
-    <li><a href="http://news.baidu.com/" class="tabin">新闻</a></li>
-    <li><a href="http://tieba.baidu.com/index.html" class="tabin">贴吧</a></li>
-    <li><a href="http://image.baidu.com/" class="tabin">图片</a></li>
-    <li><a href="http://mp3.baidu.com/" class="tabin">音乐</a></li>
-    <li><a href="http://ditu.baidu.com" class="tabin">地图</a></li>
+    <li><a dataurl="http://www.baidu.com/" class="tabin">网页</a></li>
+    <li><a dataurl="http://news.baidu.com/" class="tabin">新闻</a></li>
+    <li><a dataurl="http://tieba.baidu.com/index.html" class="tabin">贴吧</a></li>
+    <li><a dataurl="http://image.baidu.com/" class="tabin">图片</a></li>
+    <li><a dataurl="http://mp3.baidu.com/" class="tabin">音乐</a></li>
+    <li><a dataurl="http://ditu.baidu.com" class="tabin">地图</a></li>
     <li><a href="http://www.baidu.com/more/" >更多</a></li>
 </ul>
 <a href="" class="search"></a>
@@ -64,11 +64,11 @@ function getByClass(oParent,oClass){
 </div>
 <!----------------------------------搜索框的TAB切换效果--------------------------------->
 <script>
-function navTab(i){    
+function navTab(i){
 	var oLi=document.getElementsByClassName("tabin");
         var searchImg=document.getElementsByClassName("search")[0];
-	var bgimgPosition=new Array("0","-50","-100","-150","-200","-250");
-        var i; 
+	    var bgimgPosition=new Array("0","-50","-100","-150","-200","-250");
+        var i;
        for(i=0;i<oLi.length;i++){
         (function(i){
                 oLi[i].onclick=function(){
@@ -652,9 +652,9 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
 <p><a>Copyright ©2011-2015 weibugou.com 版权所有</a></p>
 </div>
 </body>
-<!--<script>
+<script>
 (function(){
-	window.onload = function(){
+    window.onload = function(){
         var bgimg = document.body.appendChild(document.createElement("canvas"));
         var canvas_id = "newCanvas"
         bgimg.style.position = "absolute";
@@ -662,7 +662,7 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
         bgimg.style.left = "0px";
         bgimg.style.zIndex = "-99999"
         bgimg.setAttribute("id",canvas_id)
-		function Target(_rad) {
+        function Target(_rad) {
             this.x = 0;
             this.y = 0;
             this.rotate = 0;
@@ -671,11 +671,11 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
             this.friction = Math.random(1)*0.8 + 0.1;
             this.speed = Math.random(1)*0.2 + 0.03;
             this.step = Math.random(1)*0.5 + 0.0001;
-    
+
             this.freq = Math.random(1)*0.09 + 0.01;
-            this.bold_rate = Math.random(1)*0.3 + 0.1;  
+            this.bold_rate = Math.random(1)*0.3 + 0.1;
         }
-    
+
         function VPoint(x, y){
             this.x = x;
             this.y = y;
@@ -683,36 +683,36 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
             this.vy = 0;
             this.target = null;
         }
-              
+
         var canvas = document.getElementById(canvas_id);
-        
+
         if ( ! canvas || ! canvas.getContext ) {
             return false;
         }
-        
+
         var w = 100;
         var h = 100;
-    
+
         var _targets;
         var _pts = [];
-    
+
         var _pre_sec = 0;
-    
-    
+
+
         var ctx = canvas.getContext('2d');
         ctx.fillStyle = "rgba(255, 0, 0, 255)";
         ctx.fillRect(0, 0, w, h);
-    
+
         for ( var i=0; i<5333; i++ ) {
             var pt = new VPoint(0,0);
             _pts.push(pt);
         }
-    
+
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas, false);
         setInterval(update, 1000/60);                                                 //图形旋转速率
-    
-    
+
+
         function resizeCanvas() {
             canvas.width = window.innerWidth||document.body.clientWidth;
             canvas.height = window.innerHeith+document.documentElement.scrollTop||document.body.clientHeight+document.documentElement.scrollTop||document.body.clientHeight+document.body.scrollTop;
@@ -720,7 +720,7 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
             h = canvas.height;
             refreshTarget();
         }
-    
+
         function refreshTarget(){
             _targets = [];
             var sw = w;
@@ -729,33 +729,33 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
             var size = sw / num_w;
             var num_h = parseInt(Math.max(1, sh / size) );                            //纵向图形个数随机范围
             var i;
-    
-            var offset_x = (sw - size * (num_w - 1)) / 2;                                   
-            var offset_y = (sh - size * (num_h - 1)) / 2;                                 
-    
+
+            var offset_x = (sw - size * (num_w - 1)) / 2;
+            var offset_y = (sh - size * (num_h - 1)) / 2;
+
             for ( i = 0; i<num_w; i++ ) {
                 for ( var j = 0; j<num_h; j++ ) {
-                    var t = new Target(size*0.25);                                   
+                    var t = new Target(size*0.25);
                     t.x = (size * i) + offset_x;
                     t.y = (size * j) + offset_y;
                     _targets.push(t);
                 }
             }
-    
+
             var l = _pts.length;
             for ( i = 0; i<l; i++ ) {
                 _pts[i].target = _targets[ i%_targets.length ];
             }
         }
-    
+
         function update(){
             var now_sec = new Date().getTime() / 1880 >> 0;                              //更新图形间隔时间
-    
+
             if ( now_sec - _pre_sec >= 1 ) {
                 refreshTarget();
                 _pre_sec = now_sec;
             }
-    
+
             var i = 0;
             var l = _targets.length;
             var t;
@@ -765,34 +765,34 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
                 t.rotate += t.rotate_speed;
             }
             l = _pts.length;
-    
+
             ctx.fillStyle = "rgba(55, 55, 55, 255)";
-            ctx.fillRect(0, 0, w, h);                                                   
-    
+            ctx.fillRect(0, 0, w, h);
+
             for ( i = 0; i<l; i++ ) {
                 pt = _pts[i];
                 t = pt.target;
                 var t_radius = Math.cos(t.rotate*2.321 + t.freq*i) * t.radius * t.bold_rate + t.radius;
                 var tx = t.x + Math.cos(t.rotate + t.step*i) * t_radius;
                 var ty = t.y + Math.sin(t.rotate + t.step*i) * t_radius;
-    
+
                 pt.vx += ( tx - pt.x ) * t.speed;
                 pt.vy += ( ty - pt.y ) * t.speed;
-    
+
                 pt.x += pt.vx;
                 pt.y += pt.vy;
-    
+
                 pt.vx *= t.friction;
                 pt.vy *= t.friction;
-    
+
                 if ( pt.x >= 0 && pt.x <= w && pt.y >= 0 && pt.y <= h ) {
                     ctx.fillStyle = "rgb(200, 200, 200)";
                     ctx.fillRect(pt.x, pt.y, 1.5, 1.5);
                 }
             }
-    
+
         }
-	};
+    };
 })();
-</script>-->
+</script>
 </html>
