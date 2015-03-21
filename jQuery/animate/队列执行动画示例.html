@@ -13,12 +13,31 @@
         #cssTransition{
             width: 150px;
             height: 100px;
-            transition:width 1s linear,height 1s linear 1000ms;/*transition全部四个属性值依次为被渐变的属性值>渐变时长>渐变效果>渐变延迟时长*/
+            transition:width 1s linear,height 1s linear 1000ms,transform 1s ease 2000ms;/*transition全部四个属性值依次为被渐变的属性值>渐变时长>渐变方式>渐变延迟时长*/
             background-color: #00ffcc;
         }
         #cssTransition:hover{
             width: 300px;
             height: 300px;
+            transform:rotate(180deg);
+        }
+        #cssAnimation{
+            width: 150px;
+            height: 100px;
+            background-color: #9966FF;
+            animation: widthBack 1s;
+        }
+        #cssAnimation:hover{
+            animation: widthTo 1s,heightTo 1s ease 1000ms;
+            animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
+        }
+        @keyframes widthTo {
+            from{width:150px}
+            to{width: 300px}
+        }
+        @keyframes heightTo {
+            from{height: 100px}
+            to{height: 300px}
         }
 
     </style>
@@ -26,6 +45,7 @@
 <body>
 <div id="animateDiv">点击执行动画</div>
 <div id="cssTransition">鼠标移入执行CSS transition过渡效果</div>
+<div id="cssAnimation">鼠标移入执行CSS animation动画效果</div>
 <script>
     $("#animateDiv").click(function(){
         $(this).animate({width:300},1000).animate({height:300},1000).animate({left:200},1000);
