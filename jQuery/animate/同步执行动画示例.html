@@ -27,8 +27,8 @@
         }
 
         #cssAnimation:hover{
-            -webkit-animation: widthTo 1s,heightTo 1s;
-            animation: widthTo 1s,heightTo 1s;
+            -webkit-animation: widthTo 1s,heightTo 1s,rotateTo 1s;
+            animation: widthTo 1s,heightTo 1s,rotateTo 1s;
             -webkit-animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
             animation-fill-mode: forwards;
         }
@@ -47,6 +47,14 @@
         @-webkit-keyframes heightTo {
             0%{height: 100px}
             100%{height: 300px}
+        }
+        @keyframes rotateTo {
+            from{transform:rotate(0deg)}
+            to{transform:rotate(180deg)}
+        }
+        @-webkit-keyframes rotateTo {
+            from{transform:rotate(0deg)}
+            to{transform:rotate(180deg)}
         }
         /******************************************************************
               这里的浏览器前缀兼容代码可通过emmet简写来快速编写
