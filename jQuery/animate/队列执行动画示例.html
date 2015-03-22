@@ -25,19 +25,39 @@
             width: 150px;
             height: 100px;
             background-color: #9966FF;
-            animation: widthBack 1s;
         }
         #cssAnimation:hover{
-            animation: widthTo 1s,heightTo 1s ease 1000ms;
+            animation: widthTo 1s,heightTo 1s ease 1000ms,rotateTo 1s ease 2000ms;
+            -webkit-animation:widthTo 1s,heightTo 1s ease 1000ms,rotateTo 1s ease 2000ms; ;
             animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
+            -webkit-animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
+
         }
         @keyframes widthTo {
             from{width:150px}
             to{width: 300px}
         }
+        @-webkit-keyframes widthTo {
+             from{width:150px}
+             to{width: 300px}
+         }
+
         @keyframes heightTo {
             from{height: 100px}
             to{height: 300px}
+        }
+        @-webkit-keyframes heightTo {
+            from{height: 100px}
+            to{height: 300px}
+        }
+
+        @keyframes rotateTo {
+            from{transform:rotate(0deg)}
+            to{transform:rotate(180deg)}
+        }
+        @-webkit-keyframes rotateTo {
+            from{transform:rotate(0deg)}
+            to{transform:rotate(180deg)}
         }
         /******************************************************************
               这里的浏览器前缀兼容代码可通过emmet简写来快速编写
