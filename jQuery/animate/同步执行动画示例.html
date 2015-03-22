@@ -26,7 +26,6 @@
             height: 100px;
             background-color: #9966FF;
         }
-
         #cssAnimation:hover{
             -webkit-animation: widthTo 1s,heightTo 1s,rotateTo 1s;
             animation: widthTo 1s,heightTo 1s,rotateTo 1s;
@@ -38,9 +37,9 @@
             100%{width: 300px}
         }
         @-webkit-keyframes widthTo {
-                     0%{width:150px}
-                     100%{width: 300px}
-                 }
+            0%{width:150px}
+            100%{width: 300px}
+        }
         @keyframes heightTo {
             0%{height: 100px}
             100%{height: 300px}
@@ -73,7 +72,10 @@
             width:300,
             height:300,
             left:200
-        },1000)
+        },1000).css({
+            "transform":"rotate(180deg)",
+            "transition":"transform 1s"
+        })
     })
 </script>
 </body>
