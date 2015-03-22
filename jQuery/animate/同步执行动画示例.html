@@ -24,20 +24,29 @@
             width: 150px;
             height: 100px;
             background-color: #9966FF;
-            animation: widthBack 1s;
         }
 
         #cssAnimation:hover{
+            -webkit-animation: widthTo 1s,heightTo 1s;
             animation: widthTo 1s,heightTo 1s;
-            animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
+            -webkit-animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
+            animation-fill-mode: forwards;
         }
         @keyframes widthTo {
-            from{width:150px}
-            to{width: 300px}
+            0%{width:150px}
+            100%{width: 300px}
         }
+        @-webkit-keyframes widthTo {
+                     0%{width:150px}
+                     100%{width: 300px}
+                 }
         @keyframes heightTo {
-            from{height: 100px}
-            to{height: 300px}
+            0%{height: 100px}
+            100%{height: 300px}
+        }
+        @-webkit-keyframes heightTo {
+            0%{height: 100px}
+            100%{height: 300px}
         }
 
     </style>
