@@ -2,12 +2,14 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>jQuery ajax探索一：处理xml文档</title>
+    <title>jQuery ajax探索一：处理xml和json文档</title>
     <script src="../jquery-2.0.0.js"></script>
 </head>
 <body>
-<input id="btn" type="button" value="点击拉取数据"/>
+<input id="btn" type="button" value="点击拉取xml数据"/>
+<input id="btn1" type="button" value="点击拉取json数据"/>
 <div id="inContent"></div>
+<div id="inContent1"></div>
 <script>
     $("#btn").click(function(){
     $.ajax(
@@ -23,6 +25,19 @@
     )
 })
 
+    $("#btn1").click(function(){
+        $.ajax(
+                {
+                    type:"GET",
+                    dataType:"json",
+                    url:"data.json",
+                    success:function(response,status,xhr){
+                        $("#inContent1").html("您的姓名是："+ response.name+"<br />您的年龄是:"+response.age)
+                    }
+
+                }
+        )
+    })
 </script>
 
 </body>
