@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jQuery ajax探索一：处理xml文档</title>
+    <script src="../jquery-2.0.0.js"></script>
+</head>
+<body>
+<input id="btn" type="button" value="点击拉取数据"/>
+<div id="inContent"></div>
+<script>
+    $("#btn").click(function(){
+    $.ajax(
+            {
+                type:"GET",
+                dataType:"xml",
+                url:"data.xml",
+                success:function(response,status,xhr){
+                    $("#inContent").html("您的姓名是："+ $(response).find("name").text()+"<br/>您的年龄是:"+$(response).find("age").text())
+                }
+
+            }
+    )
+})
+
+</script>
+
+</body>
+</html>
