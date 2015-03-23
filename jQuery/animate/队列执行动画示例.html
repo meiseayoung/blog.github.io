@@ -72,7 +72,7 @@
 <div id="cssAnimation">鼠标移入执行CSS animation动画效果</div>
 <script>
     $("#animateDiv").click(function(){
-        $(this).animate({width:300},1000).animate({height:300},1000).animate({left:200},0,function(){//这里的animate第二个参数不要设置为1000，那样的话会延迟执行后面的callback一秒钟
+        $(this).animate({width:300},1000).animate({height:300},1000).animate({left:200},000,function(){//这里的animate第二个参数不要设置为1000，那样的话会延迟执行后面的callback一秒钟
             $(this).css({
                 "transform":"rotate(180deg)",
                 "transition":"transform 1s"
