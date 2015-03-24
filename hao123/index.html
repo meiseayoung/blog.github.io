@@ -20,6 +20,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>仿HAO123网址导航网站</title>
 <link href="style/index.css" rel="stylesheet" type="text/css" />
+    <script src="../jQuery/jquery-2.0.0.js"></script>
 <script>
 window.onload=function targetBlank(){
 	var allA=document.body.getElementsByTagName('a');
@@ -649,7 +650,21 @@ placeholder(document.getElementById('search').getElementsByTagName('input')[0]);
     <li><a href="about.html#yingxiao">网络营销</a></li>
     <li><a href="about.html#jianyi">改进建议</a></li>
 </ul>
-<p><a>Copyright ©2011-2015 weibugou.com 版权所有</a></p>
+<p id="toTop"><a>Copyright ©2011-2015 weibugou.com 版权所有</a></p>
+    <script>
+        /**********************回到顶部方法一************************
+        var Location=window.location+"#";//这里不能把变量写到事件函数里面，那样的话每次都会在地址后面添加"#"
+        $("#toTop").click(function(){
+            window.location=Location;
+        })
+        *********************回到顶部方法一************************/
+
+        /****************************回到顶部方法二*******************************/
+         $("#toTop").click(function(){
+           $(document).scrollTop(0);
+        })
+        /*****************************回到顶部方法二*****************************/
+    </script>
 </div>
 </body>
 </html>

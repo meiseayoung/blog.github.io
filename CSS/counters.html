@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>css实现非有序列表计数</title>
+    <script src="../jQuery/jquery-2.0.0.js"></script>
     <style>
         body{
             position: fixed;  /*也可以使用绝对定位（使用absolute会产生两个滚动条），但不可以使用相对定位*/
@@ -11,12 +12,25 @@
         }
         iframe{
             width: 99%;
-            height: 100%;
+            height: 90%;
             border: none;
+        }
+        #backTop{
+            width: 800px;
+            height: 100px;
+            background-color: #fff;
         }
     </style>
 </head>
 <body>
     <iframe src="http://www.w3cplus.com/css3/css-counters.html" name="counters"></iframe>
+    <div id="backTop"><a>回到顶部</a></div>
+    <script>
+        $("#backTop").click(function(){
+            $("body").animate({
+                "scrollTop":0
+            },1000)
+        })
+    </script>
 </body>
 </html>
