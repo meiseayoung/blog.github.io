@@ -5,7 +5,7 @@
     <title>jQuery ajax探索一：处理xml和json文档</title>
     <style>
         #inContent{
-            width: 300px;
+            width: 300px;万花丛中过，片叶不沾身
             height: 200px;
             border: 1px solid #0000FF;
 
@@ -32,7 +32,7 @@
                 dataType:"xml",
                 url:"data.xml",
                 success:function(response,status,xhr){
-                    $("#inContent").html("您的姓名是："+ $(response).find("name").text()+"<br/>您的年龄是:"+$(response).find("age").text())
+                    $("#inContent").html("您的姓名是："+ $(response).find("group>name").text()+"<br/>您的年龄是:"+$(response).find("age").text())
                 }
 
             }
