@@ -27,34 +27,51 @@
             background-color: #9966FF;
         }
         #cssAnimation:hover{
-            -webkit-animation: widthTo 1s,heightTo 1s,rotateTo 1s;
-            animation: widthTo 1s,heightTo 1s,rotateTo 1s;
+            -webkit-animation: widthTo 2s,heightTo 2s,rotateTo 2s;
+            animation: widthTo 2s,heightTo 2s,rotateTo 2s;
             -webkit-animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
             animation-fill-mode: forwards;
         }
         @keyframes widthTo {
             0%{width:150px}
-            100%{width: 300px}
+            50%{width: 300px}
+            100%{width: 150px}
         }
         @-webkit-keyframes widthTo {
             0%{width:150px}
-            100%{width: 300px}
+            50%{width: 300px}
+            100%{width: 150px}
         }
         @keyframes heightTo {
             0%{height: 100px}
-            100%{height: 300px}
+            50%{height: 300px}
+            100%{height: 100px}
         }
         @-webkit-keyframes heightTo {
             0%{height: 100px}
-            100%{height: 300px}
+            50%{height: 300px}
+            100%{height: 100px}
         }
         @keyframes rotateTo {
-            from{transform:rotate(0deg)}
-            to{transform:rotate(180deg)}
+            0%{transform:rotate(0deg)}
+            50%{transform:rotate(180deg)}
+            100%{transform:rotate(0deg)}
         }
         @-webkit-keyframes rotateTo {
-            from{transform:rotate(0deg)}
-            to{transform:rotate(180deg)}
+            0%{transform:rotate(0deg)}
+            50%{transform:rotate(180deg)}
+            100%{transform:rotate(0deg)}
+        }
+        #cssAnimationAuto{
+            width: 150px;
+            height: 100px;
+            background-color: #445588;
+            -webkit-animation: widthTo 2s,heightTo 2s,rotateTo 2s;
+            animation: widthTo 2s,heightTo 2s,rotateTo 2s;
+            -webkit-animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
+            animation-fill-mode: forwards;
+            animation-iteration-count: infinite;/******************************动画执行次数******************************/
+            -webkit-animation-iteration-count:infinite ;
         }
         /******************************************************************
               这里的浏览器前缀兼容代码可通过emmet简写来快速编写
@@ -65,6 +82,7 @@
 <div id="animateDiv">点击执行动画</div>
 <div id="cssTransition">鼠标移入执行CSS transition过渡效果</div>
 <div id="cssAnimation">鼠标移入执行CSS animation动画效果</div>
+<div id="cssAnimationAuto">自动执行css animation动画效果</div>
 
 <script>
     $("#animateDiv").click(function(){

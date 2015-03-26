@@ -27,11 +27,10 @@
             background-color: #9966FF;
         }
         #cssAnimation:hover{
-            animation: widthTo 1s,heightTo 1s ease 1000ms,rotateTo 1s ease 2000ms;
+            animation: widthTo 1s,heightTo 1s ease 1000ms,rotateTo 1s ease 2000ms,widthBack 1s ease 3000ms,heightBack 1s ease 4000ms,rotateBack 1s ease 5000ms;
             -webkit-animation:widthTo 1s,heightTo 1s ease 1000ms,rotateTo 1s ease 2000ms; ;
             animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
             -webkit-animation-fill-mode: forwards;/*********************动画保存关键帧最后一个值**********************/
-
         }
         @keyframes widthTo {
             from{width:150px}
@@ -50,7 +49,6 @@
             from{height: 100px}
             to{height: 300px}
         }
-
         @keyframes rotateTo {
             from{transform:rotate(0deg)}
             to{transform:rotate(180deg)}
@@ -60,10 +58,37 @@
             to{transform:rotate(180deg)}
         }
 
+        @-webkit-keyframes rotateBack {
+            from{transform:rotate(180deg)}
+            to{transform:rotate(0deg)}
+        }
+        @keyframes rotateBack {
+            from{transform:rotate(180deg)}
+            to{transform:rotate(0deg)}
+        }
+
+        @-webkit-keyframes heightBack {
+            from{height: 300px}
+            to{height: 100px}
+        }
+
+        @keyframes heightBack {
+            from{height: 300px}
+            to{height: 100px}
+        }
+
+        @-webkit-keyframes widthBack {
+            from{width: 300px}
+            to{width:150px}
+        }
+        @keyframes widthBack {
+            from{width: 300px}
+            to{width:150px}
+        }
         /******************************************************************
               这里的浏览器前缀兼容代码可通过emmet简写来快速编写
               比如an------->>animation
-                  kr------->>keyframes
+                  @kf------->>keyframes
                   小技巧：在简写属性前加"-"可以快速编写浏览器前缀
         ******************************************************************/
     </style>
