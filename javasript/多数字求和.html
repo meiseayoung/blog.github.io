@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多数字求和</title>
+</head>
+<body>
+<script>
+      var str = "小明:87;小花:81;小红:97;小天:76;小张:74;小小:94;小西:90;小伍:76;小迪:64;小曼:76";
+      var arr = str.split(";"); 
+      for(var i=0;i<arr.length;i++){
+          arr[i]=arr[i].replace(/[^\w+]/g,"");
+      }
+      var newStr=arr.join("+");
+      console.log(eval(newStr));
+</script>
+</body>
+</html>
