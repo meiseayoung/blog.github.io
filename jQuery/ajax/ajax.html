@@ -27,7 +27,6 @@
 <body>
 <input id="btn" type="button" value="点击拉取xml数据"/>
 <input id="btn1" type="button" value="点击拉取json数据"/>
-<input id="btn2" type="button" value="点击拉取jsonp数据"/>
 <div id="inContent"></div>
 <div id="inContent1"></div>
 <div id="inContent2"></div>
@@ -56,14 +55,6 @@
                         $("#inContent1").html("您的姓名是："+ response.name+"<br />您的年龄是:"+response.age)
                     }
 
-                }
-        )
-    })
-    $("#btn2").click(function(){
-        $.ajax(
-                {
-                    type:"GET",
-                    dataType:"jsonp",
                 }
         )
     })
