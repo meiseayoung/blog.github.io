@@ -5,7 +5,7 @@
     <title>多数字求和</title>
 </head>
 <body>
-<h2>代码如下：</h2>
+<h2>方案一代码如下：</h2>
 <pre>
         var str = "小明:87;小花:81;小红:97;小天:76;小张:74;小小:94;小西:90;小伍:76;小迪:64;小曼:76";
         var arr = str.split(";");
@@ -14,6 +14,19 @@
         }
         var newStr=arr.join("+");
         document.write("求和结果为: "+eval(newStr));
+</pre>
+<h2>方案二代码如下: </h2>
+<em>代码由 <a href="mailto: 283125476@qq.com">M</a>提供</em>
+
+<pre>
+    var scoreStr = "小明:87;小花:81;小红:97;小天:76;小张:74;小小:94;小西:90;小伍:76;小迪:64;小曼:76";
+    var strArray = scoreStr.split(";");
+    var sum = 0;
+    for(var i=0;i&lt;strArray.length;i++){
+    var sumArray = strArray[i].substr(strArray[i].indexOf(":")+1);
+    sum += parseInt(sumArray);
+    }
+    document.write(sum);
 </pre>
 <script>
       var str = "小明:87;小花:81;小红:97;小天:76;小张:74;小小:94;小西:90;小伍:76;小迪:64;小曼:76";
