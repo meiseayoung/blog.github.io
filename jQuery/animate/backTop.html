@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多方法实现回到顶部效果</title>
+    <script src="../jquery-2.0.0.js"></script>
+</head>
+<body>
+<p><a href="">hello world1</a></p>
+
+<p><a href="">hello world2</a></p>
+
+<p><a href="">hello world3</a></p>
+
+<p><a href="">hello world4</a></p>
+
+<p><a href="">hello world5</a></p>
+
+<p><a href="">hello world6</a></p>
+
+<p><a href="">hello world7</a></p>
+
+<p><a href="">hello world8</a></p>
+
+<p><a href="">hello world9</a></p>
+
+<p><a href="">hello world10</a></p>
+
+<p><a href="">hello world11</a></p>
+
+<p><a href="">hello world12</a></p>
+
+<p><a href="">hello world13</a></p>
+
+<p><a href="">hello world14</a></p>
+
+<p><a href="">hello world15</a></p>
+
+<p><a href="">hello world16</a></p>
+
+<p><a href="">hello world17</a></p>
+
+<p><a href="">hello world18</a></p>
+
+<p><a href="">hello world19</a></p>
+
+<p><a href="">hello world20</a></p>
+
+<p><a href="">hello world21</a></p>
+
+<p><a href="">hello world22</a></p>
+
+<p><a href="">hello world23</a></p>
+
+<p><a href="">hello world24</a></p>
+
+<p><a href="">hello world25</a></p>
+
+<p><a href="">hello world26</a></p>
+
+<p><a href="">hello world27</a></p>
+
+<p><a href="">hello world28</a></p>
+
+<p><a href="">hello world29</a></p>
+
+<p><a href="">hello world30</a></p>
+
+<p><a href="">hello world31</a></p>
+
+<p><a href="">hello world32</a></p>
+
+<p><a href="">hello world33</a></p>
+
+<p><a href="">hello world34</a></p>
+
+<p><a href="">hello world35</a></p>
+<div class="backTop1">
+    <em>方法一点击回到顶部</em>
+</div>
+<div class="backTop2">
+    <em>方法二点击回到顶部</em>
+</div>
+<div class="backTop3">
+    <em>方法三点击回到顶部</em>
+</div>
+<h2>方法一</h2>
+<pre>
+        var Location=window.location+"#";//这里不能把变量写到事件函数里面，那样的话每次都会在地址后面添加"#"
+        $(".backTop").click(function(){
+            window.location=Location;
+        })
+</pre>
+<h2>方法二</h2>
+<pre>
+        $(".backTop").click(function(){
+           $(document).scrollTop(0);
+        })
+</pre>
+<h2>方法三</h2>
+<em>带动画效果</em>
+<pre>
+         $(".backTop").click(function(e){
+            $("html,body").animate({scrollTop: (e.pageY-$(this).offset().top)}, 1000);
+         })
+</pre>
+<script>
+    var Location=window.location+"#";
+    $(".backTop1").click(function(){
+        window.location=Location;
+    })
+
+    $(".backTop2").click(function(){
+        $(document).scrollTop(0);
+    })
+
+
+    $(".backTop3").click(function(e){
+        $("html,body").animate({scrollTop: (e.pageY-$(this).offset().top)}, 1000);
+    })
+</script>
+</body>
+</html>
