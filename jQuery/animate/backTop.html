@@ -95,6 +95,9 @@
 <div class="backTop3">
     <em>点击执行方法三回到顶部</em>
 </div>
+<div class="backTop4">
+    <em>点击执行方法四回到顶部</em>
+</div>
 <h2>方法一</h2>
 <pre>
         var Location=window.location+"#";//这里不能把变量写到事件函数里面，那样的话每次都会在地址后面添加"#"
@@ -103,7 +106,6 @@
         })
 </pre>
 <h2>方法二</h2>
-<em>代码由 <a href="mailto: 283125476@qq.com">M</a>提供</em>
 <pre>
         $(".backTop").click(function(){
            $(document).scrollTop(0);
@@ -116,6 +118,17 @@
             $("html,body").animate({scrollTop: (e.pageY-$(this).offset().top)}, 1000);
          })
 </pre>
+<h2>方法四</h2>
+<em>带动画效果</em>
+<em>代码由 <a href="mailto: 283125476@qq.com">M</a>提供</em>
+<pre>
+        function fScrollTop(){
+            $("html, body").animate({ scrollTop: 0 }, 399);
+            return false;
+        }
+        $(".backTop").click(function(){fScrollTop()});
+</pre>
+
 <script>
     var Location=window.location+"#";
     $(".backTop1").click(function(){
@@ -130,6 +143,13 @@
     $(".backTop3").click(function(e){
         $("html,body").animate({scrollTop: (e.pageY-$(this).offset().top)}, 1000);
     })
+
+    function fScrollTop(){
+        $("html, body").animate({ scrollTop: 0 }, 399);
+        return false;
+    }
+    $(".backTop4").click(function(){fScrollTop()});
+
 </script>
 </body>
 </html>
