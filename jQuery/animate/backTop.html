@@ -13,6 +13,9 @@
         .backTop3{
             background-color: #9ddcff;
         }
+        .backTop4{
+            background-color: violet;
+        }
     </style>
     <script src="../jquery-2.0.0.js"></script>
 </head>
@@ -86,18 +89,10 @@
 <p><a href="">hello world34</a></p>
 
 <p><a href="">hello world35</a></p>
-<div class="backTop1">
-    <em>点击执行方法一回到顶部</em>
-</div>
-<div class="backTop2">
-    <em>点击执行方法二回到顶部</em>
-</div>
-<div class="backTop3">
-    <em>点击执行方法三回到顶部</em>
-</div>
-<div class="backTop4">
-    <em>点击执行方法四回到顶部</em>
-</div>
+
+
+
+
 <h2>方法一</h2>
 <pre>
         var Location=window.location+"#";//这里不能把变量写到事件函数里面，那样的话每次都会在地址后面添加"#"
@@ -105,12 +100,18 @@
             window.location=Location;
         })
 </pre>
+<div class="backTop1">
+    <em>点击执行方法一回到顶部</em>
+</div>
 <h2>方法二</h2>
 <pre>
         $(".backTop").click(function(){
            $(document).scrollTop(0);
         })
 </pre>
+<div class="backTop2">
+    <em>点击执行方法二回到顶部</em>
+</div>
 <h2>方法三</h2>
 <em>带动画效果</em>
 <pre>
@@ -118,6 +119,9 @@
             $("html,body").animate({scrollTop: (e.pageY-$(this).offset().top)}, 1000);
          })
 </pre>
+<div class="backTop3">
+    <em>点击执行方法三回到顶部</em>
+</div>
 <h2>方法四</h2>
 <em>带动画效果</em>
 <em>代码由 <a href="mailto: 283125476@qq.com">M</a>提供</em>
@@ -128,7 +132,9 @@
         }
         $(".backTop").click(function(){fScrollTop()});
 </pre>
-
+<div class="backTop4">
+    <em>点击执行方法四回到顶部</em>
+</div>
 <script>
     var Location=window.location+"#";
     $(".backTop1").click(function(){
