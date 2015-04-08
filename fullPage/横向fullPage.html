@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            overflow: hidden;
+        }
+        #fullpage{
+            width: 100%;
+            height: 100%;
+            background-color: #009999;
+            position: relative;
+        }
+        #pageNav{
+            position: absolute;
+        }
+        #pageNav ul li a{
+            font-size: 1.8em;
+        }
+        #pageContainer .pages{
+            width: 100%;
+            height: 100%;
+            background-color:#009999 ;
+            text-align: center;
+            float: left;
+        }
+        #pageContainer .pages:nth-child(2){
+            background-color: sandybrown;
+        }
+        #pageContainer .pages:nth-child(3){
+            background-color: #6600FF;
+        }
+    </style>
+    <script src="../jQuery/jquery-2.0.0.js"></script>
+</head>
+<body>
+<div id="fullpage">
+
+    <div id="pageNav">
+        <ul>
+            <li><a href="">第1页</a></li>
+            <li><a href="">第2页</a></li>
+            <li><a href="">第3页</a></li>
+        </ul>
+    </div>
+
+    <div id="pageContainer">
+        <div class="pages">
+            <h2><em>第一屏</em></h2>
+        </div>
+        <div class="pages">
+            <h2><em>第二屏</em></h2>
+        </div>
+        <div class="pages">
+            <h2><em>第三屏</em></h2>
+        </div>
+    </div>
+
+</div>
+<script>
+    document.title="第一屏";
+    var $pageContainer=$('#pageContainer');
+    var $pages=$('.pages');
+    var $width=$(window).width();
+    var $height=$(window).height();
+    $pageContainer.css(
+            {
+                width:3*$width
+            }
+    );
+    $pages.css(
+            {
+                width:$width,
+                height:$height
+            }
+    )
+    var Location=window.location+"#";
+    $('body').css({height:$height});
+    $('#pageNav ul li').each(function(i){$(this).click(function(){
+        window.location=Location+i;
+        document.title="第"+(i+1)+"屏";
+        $pageContainer.animate({
+            marginLeft:-i*$width
+        })
+        return false;
+    })})
+    //在全屏情况下第三屏下面会留白，留白高度值等于标题栏屏幕高度减去可视区高度；
+</script>
+</body>
+</html>
