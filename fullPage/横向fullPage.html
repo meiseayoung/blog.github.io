@@ -69,6 +69,23 @@
     var $pages=$('.pages');
     var $width=$(window).width();
     var $height=$(window).height();
+    window.onresize=function(){
+        $width=$(window).width();
+        $height=$(window).height();
+        $pageContainer.css(
+                {
+                    width:3*$width,
+                    marginLeft:-window.location.toString()[window.location.toString().length-1]*$width
+                }
+        );
+        $pages.css(
+                {
+                    width:$width,
+                    height:$height
+                }
+        )
+    }
+
     $pageContainer.css(
             {
                 width:3*$width
@@ -82,7 +99,8 @@
     )
     var Location=window.location+"#";
     $('body').css({height:$height});
-    $('#pageNav ul li').each(function(i){$(this).click(function(){
+    $('#pageNav ul li').each(function(i){
+        $(this).click(function(){
         window.location=Location+i;
         document.title="第"+(i+1)+"屏";
         $pageContainer.animate({

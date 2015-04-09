@@ -71,6 +71,17 @@
     var $pageNav=$('#pageNav');
     var $pageContainer=$('#pageContainer');
     var $height=$(window).height();
+    window.onresize=function(){
+        $width=$(window).width();
+        $height=$(window).height();
+        $pageContainer.css(
+                {
+                    width:$width,
+                    height:$height
+                }
+        )
+    }
+
     var Location=window.location+"#";
     $('body').css({height:$height});
     $('#pageNav ul li').each(function(i){$(this).click(function(){
