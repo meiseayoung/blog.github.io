@@ -75,6 +75,7 @@
         }
     }
     ipt1.onkeyup=function(et){
+/*
         var e=et||window.event;
         if(e.keyCode>96 && e.keyCode<105){              //小键盘数字区对应的keyCode【96-105】
             return false;
@@ -87,6 +88,11 @@
         }
         else{
             ipt1.value=ipt1.value.replace(/[^\d\.]/g,"");
+        }
+*/
+        ipt1.value=ipt1.value.replace(/[^\d\.]/g,"");
+        if(ipt1.value.split('.').length-1>1){       //ipt1.value.split('.').length-1>1表示'.'符号出现的次数
+            ipt1.value=ipt1.value.slice(0,'.'.indexOf(ipt1.value))+ipt1.value.slice('.'.indexOf(ipt1.value),-1).replace(/\./);
         }
     }
 </script>
