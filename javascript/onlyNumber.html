@@ -9,11 +9,8 @@
 <h3>只允许输入整数</h3>
 <pre>
     var ipt=document.getElementById("input1");
-    var bnt=document.getElementById("bnt")
-    var str=document.getElementById("input1").value;
     ipt.onkeyup=function(et){
         var e=et||window.event;
-        alert(e.keyCode);
         if(e.keyCode&gt;96 && e.keyCode&lt;105){              //小键盘数字区对应的keyCode【96-105】
             return false;
         }
@@ -29,12 +26,9 @@
 <input type="text" id="input2" />
 <h3>只允许输入整数或小数</h3>
 <pre>
-    var ipt=document.getElementById("input2");
-    var bnt=document.getElementById("bnt")
-    var str=document.getElementById("input1").value;
+    var ipt1=document.getElementById("input2");
     ipt.onkeyup=function(et){
         var e=et||window.event;
-        alert(e.keyCode);
         if(e.keyCode&gt;96 && e.keyCode&lt;105){              //小键盘数字区对应的keyCode【96-105】
             return false;
         }
@@ -45,7 +39,7 @@
             return false;
         }
         else{
-            ipt.value=ipt.value.replace(/[^\d\.]/g,"");
+            ipt1.value=ipt1.value.replace(/[^\d\.]/g,"");
         }
     }
 
@@ -53,8 +47,6 @@
 <script>
     var ipt=document.getElementById("input1");
     var ipt1=document.getElementById("input2");
-    var str=ipt.value;
-    var str1=ipt1.value;
     ipt.onkeyup=function(et){
         var e=et||window.event;
         if(e.keyCode>96 && e.keyCode<105){              //小键盘数字区对应的keyCode【96-105】
