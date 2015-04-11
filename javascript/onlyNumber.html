@@ -20,7 +20,7 @@
         else if(e.keyCode&gt;49 && e.keyCode&lt;57){          //大键盘数字区对应的keyCode【49-57】
             return false;
         }
-        else{                                              //大键盘对应的“.”keyCode为190，小键盘对应的为110
+        else{
             ipt.value=ipt.value.replace(/\D/g,"");
         }
     }
