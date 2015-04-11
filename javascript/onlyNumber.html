@@ -56,6 +56,8 @@
     var ipt1=document.getElementById("input2");
     ipt1.onkeyup=function(){
         ipt1.value=ipt1.value.replace(/[^\d\.]/g,"");
+        if(ipt1.value.split('.').length-1&gt;1){       //ipt1.value.split('.').length-1&gt;1表示'.'符号出现的次数
+            ipt1.value=ipt1.value.slice(0,'.'.indexOf(ipt1.value))+ipt1.value.slice('.'.indexOf(ipt1.value),-1).replace(/\./);
     }
 </pre>
 <h2>方案二相对方案一优秀的地方在于：代码少，并且自动处理粘贴进来的内容或软键盘输入的内容。方案一只会在当下次键入值不为数字才会处理软键盘或粘贴进来的内容，如果下次键入值为数字则不会处理</h2>
