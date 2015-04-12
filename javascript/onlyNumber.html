@@ -30,6 +30,13 @@
         ipt.value=ipt.value.replace(/\D/g,"");
     }
 </pre>
+<p><em>方案三<i>(最优解)</i></em></p>
+<pre>
+    var ipt=document.getElementById("input1");
+    ipt.oninput=ipt.onpropertychange=function(){
+        ipt.value=ipt.value.replace(/\D/g,"");
+    }
+</pre>
 <input type="text" id="input2" />
 <h3>只允许输入整数或小数</h3>
 <p><em>方案一</em></p>
@@ -60,38 +67,24 @@
             ipt1.value=ipt1.value.slice(0,'.'.indexOf(ipt1.value))+ipt1.value.slice('.'.indexOf(ipt1.value),-1).replace(/\./);
     }
 </pre>
+<p><em>方案三<i>(最优解)</i></em></p>
+<pre>
+    var ipt1=document.getElementById("input2");
+    ipt1.oninput=ipt1.onpropertychange=function(){
+        ipt1.value=ipt1.value.replace(/[^\d\.]/g,"");
+        if(ipt1.value.split('.').length-1&gt;1){       //ipt1.value.split('.').length-1&gt;1表示'.'符号出现的次数
+            ipt1.value=ipt1.value.slice(0,'.'.indexOf(ipt1.value))+ipt1.value.slice('.'.indexOf(ipt1.value),-1).replace(/\./);
+    }
+</pre>
+
 <h2>方案二相对方案一优秀的地方在于：代码少，并且自动处理粘贴进来的内容或软键盘输入的内容。方案一只会在当下次键入值不为数字才会处理软键盘或粘贴进来的内容，如果下次键入值为数字则不会处理</h2>
 <script>
     var ipt=document.getElementById("input1");
     var ipt1=document.getElementById("input2");
-    ipt.onkeyup=function(et){
-        var e=et||window.event;
-        if(e.keyCode>96 && e.keyCode<105){              //小键盘数字区对应的keyCode【96-105】
-            return false;
-        }
-        else if(e.keyCode>49 && e.keyCode<57){          //大键盘数字区对应的keyCode【49-57】
-            return false;
-        }
-        else{
-            ipt.value=ipt.value.replace(/\D/g,"");
-        }
+    ipt.oninput=ipt.onpropertychange=function(){
+        ipt.value=ipt.value.replace(/\D/g,"");
     }
-    ipt1.onkeyup=function(et){
-/*
-        var e=et||window.event;
-        if(e.keyCode>96 && e.keyCode<105){              //小键盘数字区对应的keyCode【96-105】
-            return false;
-        }
-        else if(e.keyCode==190| e.keyCode==110){       //大键盘对应的“.”keyCode为190，小键盘对应的为110
-            return false;
-        }
-        else if(e.keyCode>49 && e.keyCode<57){          //大键盘数字区对应的keyCode【49-57】
-            return false;
-        }
-        else{
-            ipt1.value=ipt1.value.replace(/[^\d\.]/g,"");
-        }
-*/
+    ipt1.oninput=ipt1.onpropertychange=function(et){
         ipt1.value=ipt1.value.replace(/[^\d\.]/g,"");
         if(ipt1.value.split('.').length-1>1){       //ipt1.value.split('.').length-1>1表示'.'符号出现的次数
             ipt1.value=ipt1.value.slice(0,'.'.indexOf(ipt1.value))+ipt1.value.slice('.'.indexOf(ipt1.value),-1).replace(/\./);
