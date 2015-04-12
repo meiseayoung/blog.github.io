@@ -7,12 +7,24 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
     <style>
         body{
+/*
             filter: blur(0.08em);
             -webkit-filter:blur(0.08em) ;
+*/
         }
         .list-group-item:hover{
             margin-left: 3em;
             transition: all 1s ease;
+        }
+        #cnzz_stat_icon_1254750503{
+            visibility: hidden;
+        }
+        .list-group-item{
+            counter-increment: disc;
+        }
+        .list-group-item:before{
+            content: counter(disc)".  ";
+
         }
     </style>
     <script src="jQuery/jquery-2.0.0.js"></script>
@@ -20,29 +32,26 @@
 </head>
 <body>
 <div class="container">
-    <ol class="list-group">
-        <li><a  class="list-group-item" href="http://www.bilinyi.com/hao123/index.html" target="_blank">仿HAO123导航网站</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/jsCodeHighLight/jsHighLight.html" target="_blank">javascript代码高亮</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/autoWrite/index.html" target="_blank">仿打字机效果</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/javascript/sum.html" target="_blank">多数字求和</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/jQuery/animate/animate.html" target="_blank">jQuery animate探索</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/jQuery/animate/backTop.html" target="_blank">多方法实现回到顶部效果</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/fullPage/fullPage.html" target="_blank">fullPage实现</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/javascript/onlyNumber.html" target="_blank">使用javascript限制输入框只能输入数字</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/jQuery/ajax/ajax.html" target="_blank">jQuery ajax探索</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/CSS/counters.html" target="_blank">CSS实现非有序列表计数</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/CSS/cssSprite.html" target="_blank">CSS实现精灵动画</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/CSS/cssMakeContent.html" target="_blank">CSS生成网页伪内容</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/CSS/cssHandbook.html" target="_blank">CSS参考手册</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/CSS/MakeTriangle.html" target="_blank">纯CSS制作三角形</a></li>
-        <li><a class="list-group-item" href="http://www.bilinyi.com/map/test.html" target="_blank">高德地图URL API测试</a></li>
-
-        <li>
-            <a href="#" class="list-group-item active">more</a>
-        </li>
-    </ol>
-
+    <div class="list-group">
+        <a  class="list-group-item" href="http://www.bilinyi.com/hao123/index.html" target="_blank">仿HAO123导航网站</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/jsCodeHighLight/jsHighLight.html" target="_blank">javascript代码高亮</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/autoWrite/index.html" target="_blank">仿打字机效果</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/javascript/sum.html" target="_blank">多数字求和</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/jQuery/animate/animate.html" target="_blank">jQuery animate探索</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/jQuery/animate/backTop.html" target="_blank">多方法实现回到顶部效果</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/fullPage/fullPage.html" target="_blank">fullPage实现</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/javascript/onlyNumber.html" target="_blank">使用javascript限制输入框只能输入数字</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/jQuery/ajax/ajax.html" target="_blank">jQuery ajax探索</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/CSS/counters.html" target="_blank">CSS实现非有序列表计数</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/CSS/cssSprite.html" target="_blank">CSS实现精灵动画</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/CSS/cssMakeContent.html" target="_blank">CSS生成网页伪内容</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/CSS/cssHandbook.html" target="_blank">CSS参考手册</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/CSS/MakeTriangle.html" target="_blank">纯CSS制作三角形</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/map/test.html" target="_blank">高德地图URL API测试</a>
+        <a href="#" class="list-group-item active">more</a>
+    </div>
 </div>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254750503'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254750503' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
+
 </html>
