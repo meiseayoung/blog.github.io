@@ -72,7 +72,7 @@ function navTab(i){
         var i;
        for(i=0;i<oLi.length;i++){
         (function(i){
-                oLi[i].onclick=function(){
+                oLi[i].onmouseover=function(){          //这里如果使用clik事件的话会把前面绑定的事件覆盖掉
                             searchImg.style.backgroundPosition=bgimgPosition[i]+"px";
                             return false;
                 }

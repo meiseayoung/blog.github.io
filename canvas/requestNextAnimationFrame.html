@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            background-color: #dddddd;
+        }
+        #canvas{
+            background-color: #fff;
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 10px;
+            -webkit-box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+            -moz-box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+            box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+
+        }
+        #controls{
+            margin-left: 10px;
+            margin-right: 15px;
+        }
+    </style>
+    <script>
+        window.requestNextAnimationFrame=(function() {
+            var originalWebkitMethod,
+            wrapper = undefined,
+            callback = undefined,
+            geckoVersion = 0,
+            userAgent = navigator.userAgent,
+            index = 0,
+            self = this;//Workaround for Chrome 10 bug where
+            if (window.webkitRequestAnimationFrame) {
+                wrapper = function (time) {
+                    if (time === undefined) {
+                        time = +new Date();
+                    }
+                    self.callback(time);
+                };
+                originalWebkitMethod = window.webkitRequestAnimationFrame;
+                window.webkitRequestAnimationFrame = function (callback, element) {
+                    self.callback = callback;//Browser calls wrapper;wrapper calls callback
+                    originalWebkitMethod(wrapper, element);
+                }
+            }
+            //Workaround for Gecko 2. 0,which has a bug in //mozRequestAnimationFrame()that restricts animations //to 30- 40 fps.
+            if (window.mozRequestAnimationFrame) { //Check the Gecko version. Gecko is used by browsers //other than Firefox. Gecko 2. 0 corresponds to //Firefox 4. 0.
+                index = userAgent.indexOf(' rv:');
+                if (userAgent.indexOf(' Gecko') != -1) {
+                    geckoVersion = userAgent.substr(index + 3, 3);
+                    if (geckoVersion === ' 2. 0') {//Forces the return statement to fall through //to the setTimeout()function.
+                        window.mozRequestAnimationFrame = undefined;
+                    }
+                }
+            }
+            return window. requestAnimationFrame|| window. webkitRequestAnimationFrame|| window. mozRequestAnimationFrame || window. oRequestAnimationFrame || window. msRequestAnimationFrame || function(callback,element){
+                        var start,finish;window. setTimeout(function(){
+                            start=+ new Date();
+                            callback(start);
+                            finish=+ new Date();
+                            self. timeout= 1000/ 60-(finish- start);
+                        },self.timeout)}
+        })();
+    </script>
+</head>
+<body>
+    <div id="conctrols">
+        <input type="button" id="animateButton" value="Animate"/>
+    </div>
+<canvas id="canvas" width="750" height="500"></canvas>
+    <script>
+        var canvas=document.getElementById("#canvas");
+        var context=canvas.getContext("2d");
+        var paused=true;
+        var disc=[
+            {
+            x:150,
+            y:250,
+            lastX:150,
+            lastY:250,
+            velocityX:-3.2,
+            velocityY:3.5,
+            radius:25,
+            innerColor:"rgba(255,255,0,1)",
+            middleColor:"rgba(255,255,0,0.7)",
+            outerColor:"rgba(255,255,0,0.5)",
+            strokeStyle:"gray"
+            },
+            {
+            x:50,
+            y:150,
+            lastX:50,
+            lastY:150,
+            velocityX:2.2,
+            velocityY:2.5,
+            radius:25,
+            innerColor:' rgba(100,145,230,1. 0)',
+            middleColor:' rgba(100,145,230,0. 7)',
+            outerColor:' rgba(100,145,230,0. 5)',
+            strokeStyle:' blue'
+            },
+            {
+            x:150,
+            y:75,
+            lastX:150,
+            lastY:75,
+            velocityX:1.2,
+            velocityY:1.5,
+            radius:25,
+            innerColor:' rgba(255,0,0,1. 0)',
+            middleColor:' rgba(255,0,0,0. 7)',
+            outerColor:' rgba(255,0,0,0. 5)',
+            strokeStyle:' orange' 
+            },
+        ], 
+            numDiscs= discs. length,
+                animateButton= document. getElementById(' animateButton');
+                //Functions……
+            function drawBackground(){ //Listing omitted for brevity See Example 3. 1
+                // for a complete listing
+                }
+            function update(){
+                    var disc= null;
+                }
+            for(var i= 0;i <numDiscs;++ i) {
+                disc = discs[i];
+                if (disc.x + disc.velocityX + disc.radius > context.canvas.width || disc.x + disc.velocityX - disc.radius < 0)
+                    disc.velocityX = -disc.velocityX;
+            }
+        ]
+    </script>
+</body>
+</html>
