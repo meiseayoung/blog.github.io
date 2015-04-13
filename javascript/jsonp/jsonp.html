@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>跨域</title>
     <script>
-        function jsonp(This){      //这里函数名一定要和跨域JS中的函数名相同
-            alert(This.name);
+            function jsonp(This){      //这里函数名一定要和跨域JS中的函数名相同
+                alert(This.name);
         }
     </script>
     <script src="http://www.bilinyi.com/jsonp.js"></script>   <!--这里跨域JS中的格式一定为jsonp({})-->
 </head>
 <body>
-
+<input type="button" id="input1" value="点击使用JSONP获取数据"/>
 </body>
 </html>
