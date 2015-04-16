@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>飘浮加边界检测</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        #flow{
+            position: fixed;
+            width:300px;
+            height: 300px;
+            background-color: #CCCCCC;
+        }
+    </style>
+    <script src="../jQuery/jquery-2.0.0.js"></script>
+</head>
+<body>
+<div id="flow"></div>
+<script>
+    var obj=$("#flow").get(0);
+    var x=0,y=0;
+    var xSpeed=2,ySpeed=1;
+    var w=$(window).width()-300,h=$(window).height()-300;
+    function flow(){
+        obj.style.top=y+"px";
+        obj.style.left=x+"px";
+        if(x>w||x<0){xSpeed= -xSpeed} ;  //div是否到达边界，设置图片速度反向移动
+        if(y>h||y<0){ySpeed= -ySpeed} ;  //div是否到达边界，设置图片速度反向移动
+        x+=xSpeed;
+        y+=ySpeed;
+        setTimeout("flow()",10);
+    }
+    flow();
+</script>
+</body>
+</html>

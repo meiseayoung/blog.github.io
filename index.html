@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
     <title>欢迎来到我的个人主页</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./CSS/animate.css"/>
     <style>
         body{
 /*
@@ -24,7 +25,6 @@
         }
         .list-group-item:before{
             content: counter(disc)".  ";
-
         }
     </style>
     <script src="jQuery/jquery-2.0.0.js"></script>
@@ -41,6 +41,7 @@
         <a class="list-group-item" href="http://www.bilinyi.com/jQuery/animate/backTop.html" target="_blank">多方法实现回到顶部效果</a>
         <a class="list-group-item" href="http://www.bilinyi.com/fullPage/fullPage.html" target="_blank">fullPage实现</a>
         <a class="list-group-item" href="http://www.bilinyi.com/javascript/onlyNumber.html" target="_blank">使用javascript限制输入框只能输入数字</a>
+        <a class="list-group-item" href="http://www.bilinyi.com/javascript/flow.html" target="_blank">使用javascript实现漂浮广告效果</a>
         <a class="list-group-item" href="http://www.bilinyi.com/jQuery/ajax/ajax.html" target="_blank">jQuery ajax探索</a>
         <a class="list-group-item" href="http://www.bilinyi.com/javascript/jsonp/jsonp.html" target="_blank">跨域jsonp方法</a>
         <a class="list-group-item" href="http://www.bilinyi.com/CSS/counters.html" target="_blank">CSS实现非有序列表计数</a>
@@ -52,7 +53,9 @@
         <a href="#" class="list-group-item active">more</a>
     </div>
 </div>
+<script>
+    $(".active").click(function(){this.className="animated shake"});
+</script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254750503'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254750503' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
-
 </html>

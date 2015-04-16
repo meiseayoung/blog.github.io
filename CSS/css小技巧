@@ -1,0 +1,6 @@
+
+隐藏元素的四种方法:
+1.display:none;
+2.position:absolute;left:-9999px;
+3.visibility:hidden;
+4.opacity:0;
