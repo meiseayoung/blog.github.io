@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <title>前端书签</title>
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         #container{
-            margin: 0 15px;
+            margin: 20px 15px 0px 15px ;
+            background-color: #c0c0c0;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;;
+
         }
         #container a{
             color: #222222;
@@ -20,7 +30,11 @@
         }
         ul li{
             list-style-type: none;
-            padding:5px 0 5px 0 ;
+            padding:5px 0 5px 2px ;
+            counter-increment: num;
+        }
+        ul li:before{
+            content: counter(num)". ";
         }
     </style>
 </head>
