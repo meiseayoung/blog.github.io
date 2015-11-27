@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RactiveJS学习---</title>
+	<script src="ractive.js"></script>
+</head>
+<body>
+	<div id="container"></div>
+	<script id="temp" type="script/ractive">
+		<div>
+			<h1>这里是一个RactiveJS模板</h1>
+			<P>
+				<span>
+					<a href="">hello ractive template + {{templateName}}</a>
+				</span>
+			</P>
+		</div>
+	</script>
+</body>
+	<script>
+	var rac = new Ractive({
+		el:"#container",
+		template:"#temp",
+		data:{
+			templateName:"模板一"
+		}
+	});
+	rac.set("templateName","动态设定模板一");
+	console.log( rac.get("templateName") );
+	</script>
+</html>
