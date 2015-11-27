@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ractive-Mustache</title>
+</head>
+<body>
+	<ol>
+		<li>
+			变量:{{name}}
+		</li>
+		<li>
+			部件:
+			<br/>
+			<span style="color:red">false或空不显示原则</span>
+			<br/>
+				以{{#xxx}}开始,
+				以{{/xxx}}结束
+			<br/>
+			模板:
+			<br/>
+				Shown.
+				{{#person}}
+				  Never shown!
+				{{/person}}
+			<br/>
+			数据:
+			<br/>
+				{
+				  "person": false
+				}
+			<br/>
+			输出:
+				Shown.
+			<br/>
+			<span style="color:red">非空集合显示：</span>
+			<br/>
+			模板:
+			<br/>
+				{{#repo}}
+				  <b>{{name}}</b>
+				{{/repo}}
+			<br/>
+			数据:
+			<br/>
+				{
+				  "repo": [
+				    { "name": "resque" },
+				    { "name": "hub" },
+				    { "name": "rip" }
+				  ]
+				}
+			<br/>
+			输出:
+			<br/>
+				&ltb&gtresque&lt/b&gt   <br/>
+				&ltb&gthub&lt/b&gt		<br/>	
+				&ltb&gtrip&lt/b&gt
+			<br/>
+
+			<span style="color:red">非空变量:</span>
+			<br/>
+			模板:
+			<br/>
+				{{#person?}}
+				  Hi {{name}}!
+				{{/person?}}
+			<br/>
+
+			数据:
+			<br/>
+				{
+				  "person?": { "name": "Jon" }
+				}
+			<br/>
+			输出:
+			<br/>
+				Hi Jon!
+			<br/>
+			<span style="color:red">反转集合：</span>
+			<br/>
+			以{{^xxx}}开始，
+			以{{/xxx}}结束
+			<br/>
+			反转集合取false或空
+		</li>
+	</ol>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ractive嵌入HTML</title>
+</head>
+<body>
+	<h2>模板：</h2>
+	&ltp&gtThis is a normal mustache: {{content}}&lt/p&gt
+	<br>
+	&ltp&gtAnd this is a triple mustache: {{{content}}}&lt/p&gt
+
+	<h2>javascript</h2>
+	<pre>
+	var ractive = new Ractive({   
+		  el: output,				  
+		  template: template,			
+		  data: {						
+		    content: '&ltstrong&gtSpot the difference?&lt/strong&gt'   
+		  }      <br>
+	});
+	</pre>
+
+	<h2>输出：</h2>
+	This is a normal mustache: &ltstrong&gtSpot the difference?&lt/strong&gt
+	<br>
+
+	And this is a triple mustache: <strong>Spot the difference?</strong>
+</body>
+</html>
