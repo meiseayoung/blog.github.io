@@ -2,6 +2,8 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$/jQuery/animate/animate.html" libraries="{jQuery}" />
-    <file url="PROJECT" libraries="{angularjs-DefinitelyTyped, bootstrap-DefinitelyTyped, jQuery, jQuery-2.0.0}" />
+    <file url="PROJECT" libraries="{jQuery, ractive-DefinitelyTyped}" />
+    <includedPredefinedLibrary name="ECMAScript 6" />
+    <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>
