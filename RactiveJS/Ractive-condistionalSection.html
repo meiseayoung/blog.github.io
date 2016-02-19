@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Ractive 条件部件</title>
+	<style>
+		a.button{
+			display: inline-block;
+			height: 1em;
+			line-height: 1em;
+			background-color: red;
+		}
+	</style>
+	<script src="ractive.js"></script>
+</head>
+<body>
+<div id="tempContainer"></div>
+<script id="temp" type="script/ractive">
+	{{#if signedIn}}
+  	<!-- message for signed-in users -->
+  	<p>Welcome back, {{username}}!</p>
+	{{/if}}
+
+	{{#if notSignedIn}}
+	  <!-- message for non-signed-in users -->
+	  <p>Hi there! Please <a class='button' on-click='signIn'>sign in</a></p>
+	{{/if}}
+</script>
+<script>
+	var ractive = new Ractive({
+	  el: "#tempContainer",
+	  template: "#temp",
+	  data: {
+	    signedIn: false,
+	    notSignedIn: true
+	  }
+	});
+
+	ractive.on( 'signIn', function () {
+	  var name = prompt( 'Enter your username to sign in', 'ractive_fan' );
+	  ractive.set({
+	    username: name,
+	    signedIn: true,
+	    notSignedIn: false
+	  });
+	});
+</script>
+</body>
+</html>
