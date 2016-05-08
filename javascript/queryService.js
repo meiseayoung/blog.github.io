@@ -55,29 +55,61 @@ var QueryService = Class.extend({
 		];
 		this.config = {
 			data: data,
-			startTime: new Date("2016/01/01 00:00").getTime(),
-			endTime: new Date("2017/01/01 00:00").getTime(),
-			netChannel: "all",
+			dateFormat: "YYYY-MM-DD hh:mm:ss~YYYY-MM-DD hh:mm:ss",
+			time: {
+				from: new Date("2000/01/01 00:00").getTime(),
+				to: new Date("2087/05/09 00:00").getTime()
+			},
+			filters: [{
+				filterKey: "Access Type",
+				filterValue: "ALL"
+			}],
+			granularity: "hh",
+			rules: []
 		};
 		this.config = $.extend({}, this.config, opt);
-		this.data = null;
-		this.dataJson = null;
+		this._originalData = null; //原始数据
+		this._validData = null; //开始和结束时间筛选后的数据
+		this._dataJson = null; //开始和结束时间筛选后的二维数据转成的JSON格式数据
+		this._mix = null; //执行mixData方法筛选后的数据
+		this.cache = {}; //各时间粒度下的整合数据
+		this.processedData = null; //处理(求和求均)之后的数据
 		this._cloneBaseData();
+		this._filterDataByTime();
 		this._format2JSON();
+		this.mixData(this.config.filters);
+		this.mergeTime(this._mix, this.config.granularity);
 	},
 	/**
 	 *拷贝原始数据
 	 */
 	_cloneBaseData: function() {
 		var me = this;
-		me.data = me.config.data.concat([]);
+		me._originalData = me.config.data.concat([]);
+	},
+	/**
+	 *通过开始和结束时间筛选数据
+	 */
+	_filterDataByTime: function() {
+		var me = this;
+		var data = me._originalData;
+		var _validData = [];
+		var startTime = me.config.time.from;
+		var endTime = me.config.time.to;
+		for (var i = 1; i < data.length; i++) {
+			if (startTime <= new Date(data[i][0].split("~")[0].replace(/-/gi, "/")).getTime() && new Date(data[i][0].split("~")[0].replace(/-/gi, "/")).getTime() < endTime) {
+				_validData.push(data[i])
+			}
+		}
+		_validData.splice(0, 0, data[0]);
+		me._validData = _validData;
 	},
 	/**
 	 *获取表头信息
 	 */
 	_getSheetTitles: function() {
 		var me = this;
-		var titles = me.data[0];
+		var titles = me._originalData[0];
 		for (var i = 0; i < titles.length; i++) {
 			titles[i] = titles[i].trim();
 		}
@@ -90,7 +122,7 @@ var QueryService = Class.extend({
 	_format2JSON: function(array) {
 		var me = this;
 		var data;
-		var data = me.config.data;
+		var data = me._validData;
 		if (array instanceof Array) {
 			data = array
 		}
@@ -105,12 +137,11 @@ var QueryService = Class.extend({
 					}
 				}
 			};
-			me.dataJson = result;
+			me._dataJson = result;
 			return result;
 		} else {
 			console.error("表头格式错误,请检查")
 		}
-
 	},
 	/**
 	 *根据指定维度或指标过滤数据
@@ -118,12 +149,12 @@ var QueryService = Class.extend({
 	 */
 	_filterData: function(filterKey, filterValue) {
 		var me = this;
-		var data = me.dataJson;
+		var data = me._dataJson;
 		var filterValueIndex = null;
 		var tempArray = [];
 		if (data[filterKey] == null) {
 			console.warn("没有找到对应过滤指标名:" + filterKey);
-			for (var i = 1; i < me.data.length; i++) {
+			for (var i = 1; i < me._validData.length; i++) {
 				tempArray.push(i)
 			}
 			return tempArray;
@@ -150,8 +181,9 @@ var QueryService = Class.extend({
 			resultIndexs = allIndex;
 		}
 		for (var i = 0; i < resultIndexs.length; i++) {
-			resultData.push(me.data[resultIndexs[i] + 1]);
+			resultData.push(me._validData[resultIndexs[i] + 1]);
 		};
+		me._mix = resultData;
 		return resultData;
 	},
 	/**
@@ -163,7 +195,7 @@ var QueryService = Class.extend({
 		var tempArray = array.concat([]);
 		var result = [];
 		for (var i = 0; i < tempArray.length; i++) {
-			if (tempArray[i] === value) {
+			if (tempArray[i].toLowerCase() === value.toLowerCase()) {
 				result.push(i)
 			}
 		}
@@ -176,7 +208,7 @@ var QueryService = Class.extend({
 	getBaseData: function() {
 		var me = this;
 		if (me.hasData == true) {
-			return me.data;
+			return me._originalData;
 		}
 	},
 	/**
@@ -199,7 +231,17 @@ var QueryService = Class.extend({
 	 *@return  归整后二维数组                                                 type:Array
 	 */
 	mergeTime: function(source, interval) {
+		var me = this;
 		var dis = {};
+		if(interval == "min"){
+			interval = "hh:mm"
+		}
+		if(interval == "hour"){
+			interval = "hh"
+		}
+		if(interval == "day"){
+			interval = "" 
+		}
 		for (var i = 0; i < source.length; i++) {
 			if (dis[new Date(source[i][0].split("~")[0].replace(/-/gi, "/")).format("YYYY-MM-DD " + interval)] == null) {
 				dis[new Date(source[i][0].split("~")[0].replace(/-/gi, "/")).format("YYYY-MM-DD " + interval)] = [];
@@ -210,6 +252,19 @@ var QueryService = Class.extend({
 		for (j in dis) {
 			result.push(dis[j])
 		};
+		switch (interval) {
+			case "hh:mm":
+				me.cache.min = result;
+				break;
+			case "hh":
+				me.cache.hour = result;
+				break;
+			case "":
+				me.cache.day = result;
+				break;
+			default:
+				console.warn("时间粒度标识传入错误,请核对!");
+		}
 		return result;
 	},
 	/**
@@ -230,7 +285,7 @@ var QueryService = Class.extend({
 				var itemSize = 0;
 				for (var j = 0; j < data[i].length; j++) {
 					sum += (data[i][j][colIdx] - 0);
-					itemSize = j+1
+					itemSize = j + 1
 				}
 				result.push(sum / itemSize);
 			}
@@ -246,16 +301,4 @@ var QueryService = Class.extend({
 		}
 		return result;
 	},
-	/**
-	 *合并二维数组中的各一维数组数据
-	 *@param data 需要合并的数据                 type:Array
-	 *@param mergedTarget 需要合并的指标列表[{name:指标1,type:0求和/1求均}]         type:Number
-	 *@param isAverage (可选)是否取平均          type:Boolean
-	 *@return  归整后数组                        type:Array
-	 */
-	mergeData: function(data, mergedTarget) {
-		var me = this;
-		var result = [];
-		var dataObject = me._format2JSON(data);
-	}
-})
+});
