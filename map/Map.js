@@ -57,6 +57,7 @@ var Map = Class.extend({
 			layers: [
 				new ol.layer.Tile({
 					source: source
+					/****************下面的source适用于google瓦片**************/
 					// source: new ol.source.XYZ({
 					// 		url: opts.tilePath + "/{z}/{x}/{y}.png",
 					// 		tileSize: [256, 256]
