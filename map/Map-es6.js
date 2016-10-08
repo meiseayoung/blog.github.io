@@ -1,7 +1,7 @@
 /**************************************************
 @author 杨尚波
 @email  meiseayoung@gmail.com
-@baseBy openLayer 3
+@baseon openLayer 3
 @version 0.1.0
 ***************************************************/
 import $ from "jquery";
