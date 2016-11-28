@@ -19,9 +19,10 @@ class Select extends Handle{
 			this.createDOM(this.store);
 			this._initListContainerSize();
 			this._initMenuClick();
-			this._showList();
+			this._initShowClick();
+			this._initInputMatch();
 			$(document).on("click",(e)=>{
-				this._hideList(this.getUID());
+				this.hideList();
 			});
 	}
 	/**
@@ -35,6 +36,7 @@ class Select extends Handle{
 	 **/
 	createDOM(data){
 		var uid = this.uid;
+		$("div.z9-select[data-select-uid='"+uid+"']").remove();
 		function createList(list){
 			var listHTML = "";
 			for(var i=0;i<list.length;i++){
@@ -69,20 +71,28 @@ class Select extends Handle{
 	/**
 	 *点击输入框展现下拉
      */
-    _showList(){
+    _initShowClick(){
     	var me = this;
     	var uid = me.uid;
     	$(this.config.renderTo).on("click",function(e){
+    		console.log(1);
     		e.stopPropagation();
     		$("body").find("div[data-select-uid='"+uid+"']").toggleClass('show');
     		me.on("beforeShowList",null)
     	})
     }
     /**
+	 *点击输入框展现下拉
+     */
+    showList(){
+    	var uid = this.uid;
+    	$("body").find("div[data-select-uid='"+uid+"']").addClass('show');
+    }
+    /**
 	 *点击列表项隐藏列表
      */
-	_hideList(uid){
-		var me = this;
+	hideList(){
+		var uid = this.uid;
 		$("body").find("div[data-select-uid='"+uid+"']").removeClass('show');
 	}
 	/**
@@ -111,7 +121,6 @@ class Select extends Handle{
 				$(me.config.renderTo).val(values.join(", "));
 				//重置组件值
 				me.values = [];
-
 				me.values = me.store.filter(function(item,index){
 						 return item.value == values[i]
 				});
@@ -131,10 +140,33 @@ class Select extends Handle{
 					if(me.store[i].text == opts.text )
 					me.values.push( me.store[i] )
 				}
-				me._hideList(uid);
+				me.hideList();
 			}
 			me.on("menuClick",opts)
 		})
+	}
+	/**
+	 *输入模糊匹配
+	 *
+	 */
+	_initInputMatch(){
+		var me = this;
+		$(this.config.renderTo).on("input",function(e){
+			var value = e.target.value;
+			if(value.trim() === ""){
+				me.createDOM(me.store);
+			}
+			var matchs = me.store.filter(function(item,index){
+				return (item.text+"").indexOf(value) !==-1
+			});
+			
+			me.createDOM(matchs);
+    		me._initListContainerSize();
+    		me._initMenuClick();
+    		me.showList();
+			console.log(matchs);
+			me.on("beforeSearch")
+		});
 	}
 	/**
 	 *获取组件唯一标识
@@ -162,7 +194,7 @@ class Select extends Handle{
     		this.createDOM(data);
     		this._initListContainerSize();
     		this._initMenuClick();
-    		this._showList();
+    		this.showList();
     	}
     	else{
     		console.warn("数据格式要求为数组，请检查传入的数据")
