@@ -7,7 +7,7 @@ class Select extends Handle{
 			super(opts);
 			this.store = [];
 			this.values = [];
-			this.uid = null;
+			this.uid = util.createUID(6);
 			this.handlers = {}
 			this.config = {
 				renderTo:"body",
@@ -34,8 +34,7 @@ class Select extends Handle{
 	 *功能说明 ：创建DOM
 	 **/
 	createDOM(data){
-		var uid = util.createUID(6);
-		this.uid = uid;
+		var uid = this.uid;
 		function createList(list){
 			var listHTML = "";
 			for(var i=0;i<list.length;i++){
