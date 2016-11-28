@@ -12,7 +12,7 @@ class Select extends Handle{
 			this.config = {
 				renderTo:"body",
 				multiple:false,
-				data:[]         //[{value:"1",text:"测试数据1"},{value:"2",text:"测试数据2"}]
+				data:[]         //[{value,text},{value,text}]
 			};
 			this.config = $.extend({}, this.config, opts);			
 			this._cacheData(this.config.data);
