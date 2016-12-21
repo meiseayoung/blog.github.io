@@ -1,3 +1,4 @@
+//此方法要求第一个参数必须为小数
 function thousandSplit(number,splitSymbol) {
 	return (number+"").replace(/(\d)(?=(\d{3})+\.)/g, function($0, $1) {
 		return $1 + (splitSymbol || ",");
