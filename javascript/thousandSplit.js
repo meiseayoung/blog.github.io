@@ -10,23 +10,24 @@ function thousandSplit(number,splitSymbol) {
  * @param  {[String]} sign   [分割符号]
  * @return {[String]}        [description]
  */
-function formatNumber(string,n,sign){
-	var symbol = sign||","; 
+function formatNumber(string, n, sign) {
+	var symbol = sign || ",";
+	var splitNumber = n || 3;
 	var numbers = string.split("."),
-	    numberInt = numbers[0],
-		numberFloat = (numbers.length<=1 ?"" : ("."+numbers[1]));
+		numberInt = numbers[0],
+		numberFloat = (numbers.length <= 1 ? "" : ("." + numbers[1]));
 	var result = "";
-	var rest = numberInt.slice(0,numberInt.length% (n||3) );
-	var divide = numberInt.slice(numberInt.length% (n||3) ).split("");
-	if(divide===""){
+	var rest = numberInt.slice(0, numberInt.length % splitNumber);
+	var divide = numberInt.slice(numberInt.length % splitNumber).split("");
+	if (divide === "") {
 		result = rest;
-	}else{
-		result = (rest===""?rest:(rest + symbol)) + divide.map(function(value,index){
-			if( (index+1)%3 === 0 && (index+1)!==divide.length){
+	} else {
+		result = (rest === "" ? rest : (rest + symbol)) + divide.map(function(value, index) {
+			if ((index + 1) % splitNumber === 0 && (index + 1) !== divide.length) {
 				return value + symbol
-			}else{
+			} else {
 				return value;
-			} 
+			}
 		}).join("");
 	}
 	return result + numberFloat;
