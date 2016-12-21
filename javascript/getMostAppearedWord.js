@@ -3,14 +3,15 @@ var string = "The officials say tougher legislation is needed because some telec
 function getMostAppearedWord(string) {
 	var beginTime = new Date().getTime();
 	//取得所有单词匹配项
-	var matchs = string.match(/\s*\w+\s*/gi);
+	//var matchs = string.match(/\s*\w+\s*/gi);//使用空格匹配单词前后会出现空格，后面的处理多了去空格的步骤
+        var matchs = string.match(/\b\w+\b/gi);   //使用单词边界匹配项单词前后不会有空格  
 	//数组转对象，用于统计单词出现的次数
 	var o = {};
 	for (var i = 0; i < matchs.length; i++) {
-		if (o[matchs[i].trim()] === undefined) {
-			o[matchs[i].trim()] = 1;
+		if (o[matchs[i]] === undefined) {
+			o[matchs[i]] = 1;
 		} else {
-			o[matchs[i].trim()] += 1;
+			o[matchs[i]] += 1;
 		}
 	};
 	//对象转数组，方便调用数组的高级方法
