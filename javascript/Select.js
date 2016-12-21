@@ -157,14 +157,14 @@ class Select extends Handle{
 				me.createDOM(me.store);
 			}
 			var matchs = me.store.filter(function(item,index){
-				return (item.text+"").indexOf(value) !==-1
+				//return (item.text+"").indexOf(value) !==-1
+				return new RegExp(value,"i").test(item.text+"");    //不区分大小写			
 			});
 			
 			me.createDOM(matchs);
-    		me._initListContainerSize();
-    		me._initMenuClick();
-    		me.showList();
-			console.log(matchs);
+			me._initListContainerSize();
+			me._initMenuClick();
+			me.showList();
 			me.on("beforeSearch")
 		});
 	}
