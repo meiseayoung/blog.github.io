@@ -4,6 +4,15 @@ function thousandSplit(number,splitSymbol) {
 		return $1 + (splitSymbol || ",");
 	});
 };
+//此方法最佳
+function formatNumber(string) {
+	if (isNaN(string)) {
+		return '-';
+	}
+	string = (string + '').split('.');
+	return string[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + (string.length > 1 ? ('.' + string[1]) : '');
+};
+
 /**
  * 数字三位分割
  * @param  {[String | Number]} string [字符]
