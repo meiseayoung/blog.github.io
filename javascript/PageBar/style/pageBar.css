@@ -1,0 +1,19 @@
+.navs li {
+	list-style: none;
+	float: left;
+	background-color: #ddd;
+	margin: 0 5px;
+}
+.navs li:hover {
+	cursor: pointer;
+}
+.navs li[data-disabled=true]:hover {
+	cursor: not-allowed;
+}
+.navs li.active {
+	background-color: #999;
+}
+.navs li>span {
+	padding: 5px 20px;
+	display: inline-block;
+}

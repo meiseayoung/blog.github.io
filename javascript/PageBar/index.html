@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<style type="text/css">
+		#pageBar{
+			width: 100%;
+			height: 32px;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="style/PageBar.css">
+	<script type="text/javascript" src="immutable.js"></script>
+	<script type="text/javascript" src="superClass.js"></script>
+	<script type="text/javascript" src="BaseComponent.js"></script>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="PageBar.js"></script>
+	<script type="text/javascript">
+        $(function(){
+        	var pageBar = new PageBar({
+				selector:"#pageBar",
+				pages:[{
+					value:0,
+					text:"页签一",
+					disabled:false
+				},{
+					value:1,
+					text:"页签二",
+					disabled:true
+				},{
+					value:2,
+					text:"页签三"
+				},{
+					value:3,
+					text:"页签四"
+				}],
+				currentPage:1
+			});
+			window.pageBar = pageBar;
+			pageBar.on("beforeActivePage",function(value){
+				console.log("beforeActivePage",value);
+			});
+			pageBar.on("pageClick",function(value){
+				console.log("pageClick",value);
+			});
+        });	
+	</script>
+</head>
+<body>
+	<div id="pageBar"></div>
+</body>
+</html>
