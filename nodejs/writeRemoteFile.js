@@ -6,6 +6,9 @@ var path = require("path");
 var tilesFileName = "map" + new Date().getTime();
 fs.mkdir(tilesFileName);
 
+//自定义瓦片样式查询条件字符串
+var STYLE = "t%3Awater%7Ce%3Aall%7Cc%3A%23021019%2Ct%3Ahighway%7Ce%3Ag.f%7Cc%3A%23000000%2Ct%3Ahighway%7Ce%3Ag.s%7Cc%3A%23147a92%2Ct%3Aarterial%7Ce%3Ag.f%7Cc%3A%23000000%2Ct%3Aarterial%7Ce%3Ag.s%7Cc%3A%230b3d51%2Ct%3Alocal%7Ce%3Ag%7Cc%3A%23000000%2Ct%3Aland%7Ce%3Aall%7Cc%3A%2308304b%2Ct%3Arailway%7Ce%3Ag.f%7Cc%3A%23000000%2Ct%3Arailway%7Ce%3Ag.s%7Cc%3A%2308304b%2Ct%3Asubway%7Ce%3Ag%7Cl%3A-70%2Ct%3Abuilding%7Ce%3Ag.f%7Cc%3A%23000000%2Ct%3Aall%7Ce%3Al.t.f%7Cc%3A%23857f7f%2Ct%3Aall%7Ce%3Al.t.s%7Cc%3A%23000000%2Ct%3Abuilding%7Ce%3Ag%7Cc%3A%23022338%2Ct%3Agreen%7Ce%3Ag%7Cc%3A%23062032%2Ct%3Aboundary%7Ce%3Aall%7Cc%3A%231e1c1c%2Ct%3Amanmade%7Ce%3Aall%7Cc%3A%23022338";
+
 
 //地图瓦片缩放层级
 var zoom = {
@@ -14,93 +17,95 @@ var zoom = {
 };
 //每个缩放层级下对应的瓦片信息
 var y = [{
-	zoom:11,
-	min: 1665,
-	max: 1673,
-	file:{
-		min:811,
-		max:816
+	zoom: 11,
+	min: 123,
+	max: 126,
+	file: {
+		min: 382,
+		max: 388
 	}
-},{
-	zoom:12,
-	min:3330,
-	max:3347,
-	file:{
-		min:1623,
-		max:1631
+}, {
+	zoom: 12,
+	min: 247,
+	max: 252,
+	file: {
+		min: 765,
+		max: 776
 	}
-},{
-	zoom:13,
-	min:6661,
-	max:6695,
-	file:{
-		min:3246,
-		max:3262
+}, {
+	zoom: 13,
+	min: 495,
+	max: 504,
+	file: {
+		min: 1531,
+		max: 1552
 	}
-},{
-	zoom:14,
-	min:13322,
-	max:13390,
-	file:{
-		min:6493,
-		max:6525
+}, {
+	zoom: 14,
+	min: 990,
+	max: 1009,
+	file: {
+		min: 3063,
+		max: 3104
 	}
-},{
-	zoom:15,
-	min:26644,
-	max:26781,
-	file:{
-		min:12988,
-		max:13047
+}, {
+	zoom: 15,
+	min: 1980,
+	max: 2016,
+	file: {
+		min: 6127,
+		max: 6209
 	}
-},{
-	zoom:16,
-	min:53289,
-	max:53562,
-	file:{
-		min:25976,
-		max:26094
+}, {
+	zoom: 16,
+	min: 3963,
+	max: 4032,
+	file: {
+		min: 12254,
+		max: 12418
 	}
 }];
 
+//用于存放请求。只有上一个请求结束才开始下一个请求，防止TCP连接过多引起的连接资源耗尽
+var stack = [];
 
-function createXYZFile(x,y,zoom){
-	//创建ZOOM级(z)
+
+function createXYZFile(y, zoom) {
+	//创建ZOOM级文件夹
 	for (var i = zoom.min; i <= zoom.max; i++) {
-		var filePath = path.join(__dirname,tilesFileName,i+"");
+		var filePath = path.join(__dirname, tilesFileName, i + "");
 		fs.mkdir(filePath);
 	};
-	// 创建Y级
-	fs.readdir((__dirname+"/"+tilesFileName), function(err, files) {
+	// 创建Y级文件夹并生成对应的瓦片
+	fs.readdir((__dirname + "/" + tilesFileName), function(err, files) {
 		if (err) {
-			// throws(err);
 			console.log(err);
-		}else{
-			console.log("files", files);
-			[11,12,13,14,15,16].forEach(function(value,index){
-				var currentZoom = y.filter(function(val,idx){
-					return	val.zoom == value 
+		} else {
+			var zooms = [];
+			for(var i=zoom.min;i<=zoom.max;i++){
+				zooms.push(i);
+			};
+			zooms.forEach(function(value, index) {
+				var currentZoom = y.filter(function(val, idx) {
+					return val.zoom == value
 				})[0];
-				for(var i=currentZoom.min;i<=currentZoom.max;i++){
-					var filePath = path.join(__dirname,tilesFileName,currentZoom.zoom+"",i+"")
+				for (var i = currentZoom.min; i <= currentZoom.max; i++) {
+					var filePath = path.join(__dirname, tilesFileName, currentZoom.zoom + "", i + "")
 					fs.mkdir(filePath);
-					// getRemoteTile(currentZoom,)
-					for(var k=currentZoom.file.min;k<=currentZoom.file.max;k++){
-						requestTile(filePath,k+"",{
-							x:k,
-							y:i,
-							z:currentZoom.zoom
+					for (var k = currentZoom.file.min; k <= currentZoom.file.max; k++) {
+						stack.push({
+							filePath: filePath,
+							fileName: k + "",
+							tileInfo: {
+								x: k,
+								y: i,
+								z: currentZoom.zoom
+							},
+							fn: requestTile
 						});
-						if(k=== (currentZoom.file.min+3)){
-							break;
-						}
-					}
-					
+					};
+					stack[0].fn(stack[0].filePath, stack[0].fileName, stack[0].tileInfo);
 				}
-				// for(var i=y.min;i<=y.max;i++){
-				// 	fs.mkdir((__dirname+"/"+tilesFileName+"/"+value+"/"+i));
-				// 	getRemoteTile(value,i,1);
-				// }				
 			});
 		}
 	});
@@ -116,33 +121,33 @@ function createXYZFile(x,y,zoom){
  *                             		z:缩放层级
  * }]
  */
-function requestTile(filePath,fileName,tileInfo){
-	// console.log("url","http://api1.map.bdimg.com/customimage/tile?&x="+tileInfo.x+"&y="+tileInfo.y+"&z="+tileInfo.z+"&udt=20170107&scale=1&customid=dark");
-	http.get("http://api1.map.bdimg.com/customimage/tile?&x="+tileInfo.x+"&y="+tileInfo.y+"&z="+tileInfo.z+"&udt=20170107&scale=2&customid=dark", function(res) {
-		var writeStream = fs.createWriteStream(fileName+".png");
+function requestTile(filePath, fileName, tileInfo) {
+	http.get("http://api1.map.bdimg.com/customimage/tile?&x=" + tileInfo.x + "&y=" + tileInfo.y + "&z=" + tileInfo.z + "&udt=20170107&scale=2&styles="+STYLE, function(res) {
+		var writeStream = fs.createWriteStream(filePath + "/" + fileName + ".png");
+		writeStream.on("error", function(err) {
+			writeStream.close();
+			stack.shift();
+			if (stack.length > 0) {
+				stack[0].fn(stack[0].filePath, stack[0].fileName, stack[0].tileInfo);
+			} else {
+				console.log("所有资源请求完毕！");
+				return;
+			}
+		});
 		res.on("data", function(chunk) {
-			console.log("chunk",chunk);
 			writeStream.write(chunk);
 		});
-		res.on("end", function() {
-			
+		res.on("end", function(err) {
+			writeStream.close();
+			stack.shift();
+			if (stack.length > 0) {
+				stack[0].fn(stack[0].filePath, stack[0].fileName, stack[0].tileInfo);
+			} else {
+				console.log("所有资源请求完毕！");
+				return;
+			}
 		});
 	});
 };
 
-
-/*//远程获取资源并写入本地
-function getRemoteTile(x,y,z){
-	http.get("http://api1.map.bdimg.com/customimage/tile?&x="+x+"&y="+y+"&z="+z+"&udt=20170107&scale=1&customid=dark", function(res) {
-		var writeStream = fs.createWriteStream(  (__dirname+"/"+tilesFileName+ "/"+ x +"/" + y+"/"+z)+".png");
-		res.on("data", function(chunk) {
-			writeStream.write(chunk);
-		});
-		res.on("end", function() {
-			writeStream = null;
-		});
-	});
-};*/
-
-
-createXYZFile(0,y,zoom);
+createXYZFile(y, zoom);
