@@ -8,7 +8,7 @@ class Select extends Handle{
 			this.store = [];
 			this.values = [];
 			this.uid = util.createUID(6);
-			this.handlers = {}
+			this.handlers = {};
 			this.config = {
 				renderTo:"body",
 				multiple:false,
@@ -78,7 +78,7 @@ class Select extends Handle{
     		console.log(1);
     		e.stopPropagation();
     		$("body").find("div[data-select-uid='"+uid+"']").toggleClass('show');
-    		me.on("beforeShowList",null)
+    		me.fire("beforeShowList");
     	})
     }
     /**
@@ -142,7 +142,7 @@ class Select extends Handle{
 				}
 				me.hideList();
 			}
-			me.on("menuClick",opts)
+			me.fire("menuClick",opts)
 		})
 	}
 	/**
@@ -165,7 +165,7 @@ class Select extends Handle{
 			me._initListContainerSize();
 			me._initMenuClick();
 			me.showList();
-			me.on("beforeSearch")
+			me.fire("beforeSearch",matchs)
 		});
 	}
 	/**
