@@ -1,4 +1,13 @@
 Date.prototype.format = function(pattern){
+    var weeks = {
+                    "Mon":1,
+                    "Tue":2,
+                    "Wed":3,
+                    "Thu":4,
+                    "Fri":5,
+                    "Sat":6,
+                    "Sun":7
+    };
     var pattern = pattern;    //    YYYY-MM-DD 或 MM-DD-YYYY 或 YYYY-MM-DD , hh : mm : ss
     var dateObj = {
         "Y" : this.getFullYear(),
@@ -6,9 +15,10 @@ Date.prototype.format = function(pattern){
         "D" : this.getDate(),
         "h" : this.getHours(),
         "m" : this.getMinutes(),
-        "s" : this.getSeconds()
+        "s" : this.getSeconds(),
+        "w" : weeks[this.toDateString().split("")[0]]
     };
-    return pattern.replace(/YYYY|MM|DD|hh|mm|ss/g,function(match){
+    return pattern.replace(/YYYY|MM|DD|hh|mm|ss|w/g,function(match){
         switch(match){
             case "YYYY" :
                 return dateObj.Y;
@@ -22,10 +32,21 @@ Date.prototype.format = function(pattern){
                 return dateObj.m;
             case "ss" :
                 return dateObj.s;
+            case "w"  :
+                return dateObj.w
         };
     });
 };
 Date.prototype.past = function(pattern,pastDays){
+    var weeks = {
+                    "Mon":1,
+                    "Tue":2,
+                    "Wed":3,
+                    "Thu":4,
+                    "Fri":5,
+                    "Sat":6,
+                    "Sun":7
+    };
     var pastday = new Date((this - 0) - 1000*60*60*24*pastDays);
     var pattern = pattern;    //    YYYY-MM-DD 或 MM-DD-YYYY 或 YYYY-MM-DD , hh : mm : ss
     var dateObj = {
@@ -34,9 +55,10 @@ Date.prototype.past = function(pattern,pastDays){
         "D" : pastday.getDate(),
         "h" : pastday.getHours(),
         "m" : pastday.getMinutes(),
-        "s" : pastday.getSeconds()
+        "s" : pastday.getSeconds(),
+        "w" : weeks[this.toDateString().split("")[0]]
     };
-    return pattern.replace(/YYYY|MM|DD|hh|mm|ss/g,function(match){
+    return pattern.replace(/YYYY|MM|DD|hh|mm|ss|w/g,function(match){
         switch(match){
             case "YYYY" :
                 return dateObj.Y;
@@ -50,6 +72,8 @@ Date.prototype.past = function(pattern,pastDays){
                 return dateObj.m;
             case "ss" :
                 return dateObj.s;
+            case "w"  :
+                return dateObj.w
         };
     });
 };
