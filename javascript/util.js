@@ -411,11 +411,13 @@ const util = {
 	 */
 	fetch: function(opts){
 		var me = this;
+		var token = $("meta[name='_csrf']").attr("content");
 		fetch(opts.url,
 		      {
 			method:"POST",
 			headers:{
-				"Content-Type" : "application/x-www-form-urlencoded;charset=utf-8"
+				"Content-Type" : "application/x-www-form-urlencoded;charset=utf-8",
+				"X-CSRF-TOKEN" : token
 			},
 			body:me.object2urlParams(opts.data)
 		})
