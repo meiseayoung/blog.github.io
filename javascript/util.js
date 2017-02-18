@@ -399,6 +399,18 @@ const util = {
 				e.target.value = e.target.value.slice(0, '.'.indexOf(e.target.value)) + e.target.value.slice('.'.indexOf(e.target.value), -1).replace(/\./);
 			}
 		}
+	},
+	fetch: function(url,params,callBack){
+		fetch(url,
+		      {
+			method:"POST",
+			headers:{
+				"Content-Type" : "application/x-www-form-urlencoded;charset=utf-8"
+			},
+			body:""
+		})
+		.then(function(res){return res.json()})
+		.then(function(json){callBack(json)})
 	}
 };
 
