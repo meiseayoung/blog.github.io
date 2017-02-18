@@ -1,4 +1,7 @@
 Date.prototype.format = function(pattern){
+    function zeroize(num) {
+        return num < 10 ? "0" + num : num;
+    };
     var weeks = {
                     "Mon":1,
                     "Tue":2,
@@ -11,11 +14,11 @@ Date.prototype.format = function(pattern){
     var pattern = pattern;    //    YYYY-MM-DD 或 MM-DD-YYYY 或 YYYY-MM-DD , hh : mm : ss
     var dateObj = {
         "Y" : this.getFullYear(),
-        "M" : this.getMonth()+1,
-        "D" : this.getDate(),
-        "h" : this.getHours(),
-        "m" : this.getMinutes(),
-        "s" : this.getSeconds(),
+        "M" : zeroize(this.getMonth()+1),
+        "D" : zeroize(this.getDate()),
+        "h" : zeroize(this.getHours()),
+        "m" : zeroize(this.getMinutes()),
+        "s" : zeroize(this.getSeconds()),
         "w" : weeks[this.toDateString().split("")[0]]
     };
     return pattern.replace(/YYYY|MM|DD|hh|mm|ss|w/g,function(match){
@@ -38,6 +41,9 @@ Date.prototype.format = function(pattern){
     });
 };
 Date.prototype.past = function(pattern,pastDays){
+    function zeroize(num) {
+        return num < 10 ? "0" + num : num;
+    };
     var weeks = {
                     "Mon":1,
                     "Tue":2,
@@ -51,11 +57,11 @@ Date.prototype.past = function(pattern,pastDays){
     var pattern = pattern;    //    YYYY-MM-DD 或 MM-DD-YYYY 或 YYYY-MM-DD , hh : mm : ss
     var dateObj = {
         "Y" : pastday.getFullYear(),
-        "M" : pastday.getMonth()+1,
-        "D" : pastday.getDate(),
-        "h" : pastday.getHours(),
-        "m" : pastday.getMinutes(),
-        "s" : pastday.getSeconds(),
+        "M" : zeroize(pastday.getMonth()+1),
+        "D" : zeroize(pastday.getDate()),
+        "h" : zeroize(pastday.getHours()),
+        "m" : zeroize(pastday.getMinutes()),
+        "s" : zeroize(pastday.getSeconds()),
         "w" : weeks[this.toDateString().split("")[0]]
     };
     return pattern.replace(/YYYY|MM|DD|hh|mm|ss|w/g,function(match){
