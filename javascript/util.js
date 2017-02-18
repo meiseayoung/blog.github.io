@@ -432,7 +432,7 @@ const util = {
 			}
 			
 		})
-		.then(function(json){params.done(json)})
+		.then(function(json){opts.done(json)})
 	}
 };
 
