@@ -400,17 +400,39 @@ const util = {
 			}
 		}
 	},
-	fetch: function(url,params,callBack){
-		fetch(url,
+	/**
+	 * 使用fetch请求数据	
+	 * @params         {[Object]}  
+	 * @params.url     {[String]}    url   [请求地址]
+	 * @params.data    {[Object]}    data  [请求参数] {a:1,b:2}
+	 * @params.done    {[Function]}  done  [成功回调] 
+	 * @params.fail    {[Function]}  fail  [失败回调]
+	 * @params.always  {[Function]}  always[请求发出回调]
+	 */
+	fetch: function(opts){
+		var me = this;
+		fetch(opts.url,
 		      {
 			method:"POST",
 			headers:{
 				"Content-Type" : "application/x-www-form-urlencoded;charset=utf-8"
 			},
-			body:""
+			body:me.object2urlParams(opts.data)
 		})
-		.then(function(res){return res.json()})
-		.then(function(json){callBack(json)})
+		.then(function(res){
+			if(res.ok){
+				return res.json();
+			}else{
+				if(opts.fail && $.type(opts.fail) === "function"){
+					opts.fail(res)
+				}
+				return {
+					errorMessage : "something was wrong when requesting" 
+				}
+			}
+			
+		})
+		.then(function(json){params.done(json)})
 	}
 };
 
