@@ -422,8 +422,8 @@ const util = {
 			body:me.object2urlParams(opts.data)
 		})
 		.then(function(res){
-			if(res.ok){
-				return res.json();
+			if(res.ok){ 
+				return res.json();	
 			}else{
 				if(opts.fail && $.type(opts.fail) === "function"){
 					opts.fail(res)
@@ -433,6 +433,11 @@ const util = {
 				}
 			}
 			
+		})
+		.catch(function(error){
+                	return {
+				errorMessage : "the response data is not validity" 
+			};	
 		})
 		.then(function(json){opts.done(json)})
 	}
