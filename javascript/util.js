@@ -415,6 +415,7 @@ const util = {
 		fetch(opts.url,
 		      {
 			method:"POST",
+			credentials: 'include',   //携带cookie认证信息
 			headers:{
 				"Content-Type" : "application/x-www-form-urlencoded;charset=utf-8",
 				"X-CSRF-TOKEN" : token
