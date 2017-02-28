@@ -402,12 +402,12 @@ const util = {
 	},
 	/**
 	 * 使用fetch请求数据	
-	 * @params         {[Object]}  
-	 * @params.url     {[String]}    url   [请求地址]
-	 * @params.data    {[Object]}    data  [请求参数] {a:1,b:2}
-	 * @params.done    {[Function]}  done  [成功回调] 
-	 * @params.fail    {[Function]}  fail  [失败回调]
-	 * @params.always  {[Function]}  always[请求发出回调]
+	 * @param         {[Object]}  
+	 * @param.url     {[String]}    url   [请求地址]
+	 * @param.data    {[Object]}    data  [请求参数] {a:1,b:2}
+	 * @param.done    {[Function]}  done  [成功回调] 
+	 * @param.fail    {[Function]}  fail  [失败回调]
+	 * @param.always  {[Function]}  always[请求发出回调]
 	 */
 	fetch: function(opts) {
 		var method = (opts.type.toUpperCase() === "GET" || opts.type.toUpperCase() === "POST") ? opts.type.toUpperCase() : "POST";
