@@ -409,39 +409,47 @@ const util = {
 	 * @params.fail    {[Function]}  fail  [失败回调]
 	 * @params.always  {[Function]}  always[请求发出回调]
 	 */
-	fetch: function(opts){
-		var method = (opts.method === "GET" || opts.method === "POST") ? opts.method : "POST" ;		
+	fetch: function(opts) {
+		var method = (opts.type.toUpperCase() === "GET" || opts.type.toUpperCase() === "POST") ? opts.type.toUpperCase() : "POST";
 		var me = this;
 		var token = $("meta[name='_csrf']").attr("content");
-		fetch(opts.url,
-		      {
-			method:method,
-			credentials: 'include',   //携带cookie认证信息
-			headers:{
-				"Content-Type" : "application/x-www-form-urlencoded;charset=utf-8",
-				"X-CSRF-TOKEN" : token
+		var url = opts.url;
+		var options = {
+			method: method,
+			credentials: 'include', //携带cookie认证信息
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+				"X-CSRF-TOKEN": token
 			},
-			body:me.object2urlParams(opts.data)
-		})
-		.then(function(res){
-			if(res.ok){ 
-				return res.json();	
-			}else{
-				if(opts.fail && $.type(opts.fail) === "function"){
-					opts.fail(res)
+			body: me.object2urlParams(opts.data)
+		}
+		if (method === "GET") {
+			delete options.method;
+			delete options.body;
+			url += ("?"+me.object2urlParams(opts.data))
+		}
+		fetch(url, options)
+			.then(function(res) {
+				if (res.ok) {
+					return res.json();
+				} else {
+					if (opts.fail && $.type(opts.fail) === "function") {
+						opts.fail(res)
+					}
+					return {
+						errorMessage: "something was wrong when requesting"
+					}
 				}
+
+			})
+			.catch(function(error) {
 				return {
-					errorMessage : "something was wrong when requesting" 
-				}
-			}
-			
-		})
-		.catch(function(error){
-                	return {
-				errorMessage : "the response data is not validity" 
-			};	
-		})
-		.then(function(json){opts.done(json)})
+					errorMessage: "the response data is not validity"
+				};
+			})
+			.then(function(json) {
+				opts.done(json)
+			})
 	}
 };
 
