@@ -410,11 +410,12 @@ const util = {
 	 * @params.always  {[Function]}  always[请求发出回调]
 	 */
 	fetch: function(opts){
+		var method = (opts.method === "GET" || opts.method === "POST") ? opts.method : "POST" ;		
 		var me = this;
 		var token = $("meta[name='_csrf']").attr("content");
 		fetch(opts.url,
 		      {
-			method:"POST",
+			method:method,
 			credentials: 'include',   //携带cookie认证信息
 			headers:{
 				"Content-Type" : "application/x-www-form-urlencoded;charset=utf-8",
