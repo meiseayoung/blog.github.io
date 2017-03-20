@@ -13,8 +13,8 @@ function postMessage2iframeById(message,id) {
 		src = iframe.src;
 		iframe.postMessage(message,src);
 	}else{
-    console.warn("没有找到指定iframe,操作失败");
-  }
+    		console.warn("没有找到指定iframe,操作失败");
+  	}
 };
 
 export default postMessage2iframeById;
