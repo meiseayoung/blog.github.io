@@ -4,6 +4,18 @@ function thousandSplit(number,splitSymbol) {
 		return $1 + (splitSymbol || ",");
 	});
 };
+/**
+ * 数字三位分割
+ * @param  {[String | Number]} string [字符]
+ * @param  {[Number]} n      [分割位数]
+ * @param  {[String]} sign   [分割符号]
+ * @return {[String]}        [description]
+ */
+function thousandSplit(string,n,sign){
+        var len = n || 3;
+	var reg = new RegExp(`\\B(?=(\\d{${len}})+(?!\\d))`,"gi");
+	return String(string).replace(reg,sign||",")
+};
 //此方法最佳
 function formatNumber(string) {
 	if (isNaN(string)) {
