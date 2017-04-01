@@ -76,6 +76,33 @@
             ipt1.value=ipt1.value.slice(0,'.'.indexOf(ipt1.value))+ipt1.value.slice('.'.indexOf(ipt1.value),-1).replace(/\./);
     }
 </pre>
+    
+<p><em>方案四<i>(最新最优解)</i></em></p>
+<pre>
+    var numberic = function(event){
+  		var value = event.target.value;
+  		function toNumber(string){
+  			if( isNaN(string.slice(0,-1)) ){
+  				//包含非数字及小数点的字符，直接切掉
+  				if(/[^\d|\.]/gi.test(string)){
+  					return string.replace(/[^\d\.]/gi,"")
+  				}
+  				//第一位为小数点，直接切掉
+  				if(string.indexOf(".") === 0){
+  					return string.slice(1)
+  				}
+  				//包含两个小数点，切掉最后一个小数点
+  				let lastDotIndex = string.lastIndexOf("."); 
+  				let strings = string.split("");
+  				strings.splice(lastDotIndex,1);
+  				return strings.join("")
+  			}else{
+  				return string.slice(0,-1)
+  			}
+  		};
+  		event.target.value = (isNaN(value) ? toNumber(value) : value)
+  	};
+</pre>
 
 <h2>方案二相对方案一优秀的地方在于：代码少，并且自动处理粘贴进来的内容或软键盘输入的内容。方案一只会在当下次键入值不为数字才会处理软键盘或粘贴进来的内容，如果下次键入值为数字则不会处理</h2>
 <script>
