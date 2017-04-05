@@ -401,6 +401,34 @@ const util = {
 		}
 	},
 	/**
+	 * 用于输入字符转数字
+	 * @param  {[String]} value [当前输入的字符] 
+	 * @return 转换后的字符数字
+	 */
+	numberic(value){
+  		function toNumber(string){
+  			if( isNaN(string.slice(0,-1)) ){
+  				//包含非数字及小数点的字符，直接切掉
+  				if(/[^\d|\.]/gi.test(string)){
+  					return string.replace(/[^\d\.]/gi,"")
+  				}
+  				//第一位为小数点，直接切掉
+  				if(string.indexOf(".") === 0){
+  					return string.slice(1)
+  				}
+  				//包含两个小数点，切掉最后一个小数点
+  				let lastDotIndex = string.lastIndexOf("."); 
+  				let strings = string.split("");
+  				strings.splice(lastDotIndex,1);
+  				return strings.join("")
+  			}else{
+  				return string.slice(0,-1)
+  			}
+  		};
+  		var result = (isNaN(value) ? toNumber(value) : value)
+  		return result;
+  	},
+	/**
 	 * 使用fetch请求数据	
 	 * @param         {[Object]}  
 	 * @param.url     {[String]}    url   [请求地址]
