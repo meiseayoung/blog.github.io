@@ -3,8 +3,8 @@ const util = {
 	string: {
 		/**
 		 *重复生成某段字符串N次
-		 *param string 原字符串 type:String
-		 *param times 生成次数  type:Number
+		 * @param string 原字符串 type:String
+		 * @param times 生成次数  type:Number
 		 **/
 		repeat: function(string, times) {
 			var temp = [];
@@ -104,9 +104,9 @@ const util = {
 		},
 	},
 	/**
-	 *解析请求URL参数
-	 *@param s 需要解析的url字符串             type:String
-	 *@return {param1:param1,param2:param2}    type:Object
+	 * 解析请求URL参数
+	 * @param s 需要解析的url字符串             type:String
+	 * @return {param1:param1,param2:param2}    type:Object
 	 **/
 	parseURL: function(s) {
 		if (arguments.length == 0) {
@@ -204,10 +204,10 @@ const util = {
 		}
 	},
 	/**
-	 *时间向下归整 
-	 *@param date 需要归整的时间           type:Date
-	 *@param interval 归整粒度(单位-秒)    type:Number
-	 *@return  归整后的时间毫秒数          type:Number
+	 * 时间向下归整 
+	 * @param date 需要归整的时间           type:Date
+	 * @param interval 归整粒度(单位-秒)    type:Number
+	 * @return  归整后的时间毫秒数          type:Number
 	 */
 	fixTime: function(date, interval) { //interval间隔秒数
 		var minutes = date.format("mm");
@@ -272,9 +272,9 @@ const util = {
 	// 	}
 	// },
 	/**
-	 *删除指定行内样式值
-	 *@param   propertyName
-	 *@return  删除后的行内样式值 type:String
+	 * 删除指定行内样式值
+	 * @param   propertyName
+	 * @return  删除后的行内样式值 type:String
 	 */
 	removeInnerProperty: function(jQObj, propertyName) {
 		function getInnerProperties() {
@@ -290,9 +290,9 @@ const util = {
 		jQObj.attr("style", lastProperties);
 	},
 	/**
-	 *生成随机字符UID
-	 *param lenth    随机字符的长度  type:Number
-	 *return 随机字符串              type:String	
+	 * 生成随机字符UID
+	 * param lenth    随机字符的长度  type:Number
+	 * return 随机字符串              type:String	
 	 **/
 	createUID: function(length) {
 		var string = "abcdefghijklmnopqrstuvwxyzABCDEFJHIJKLMNOPQRSTUVWXYZ1234567890_";
