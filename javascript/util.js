@@ -176,9 +176,17 @@ const util = {
 		x = (x + '').split('.');
 		return x[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + (x.length > 1 ? ('.' + x[1]) : '');
 	},
-	thousanded: function(numberedString){
-		var reg = new RegExp(`\\B(?=(\\d{3})+(?!\\d))`,"gi")
-		(numberedString+"").replace(reg,",")
+	/**
+	 * 数字三位分割
+	 * @param  {[String | Number]} string [字符]
+	 * @param  {[Number]} n      [分割位数]
+	 * @param  {[String]} sign   [分割符号]
+	 * @return {[String]}        [description]
+	 */
+	thousandSplit:function(string,n,sign){
+		var len = n || 3;
+		var reg = new RegExp(`\\B(?=(\\d{${len}})+(?!\\d))`,"gi");
+		return String(string).replace(reg,sign||",")
 	},
 	/**
 	 *判断是否为闰年
