@@ -176,6 +176,10 @@ const util = {
 		x = (x + '').split('.');
 		return x[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + (x.length > 1 ? ('.' + x[1]) : '');
 	},
+	thousanded: function(numberedString){
+		var reg = new RegExp(`\\B(?=(\\d{3})+(?!\\d))`,"gi")
+		(numberedString+"").replace(reg,",")
+	},
 	/**
 	 *判断是否为闰年
 	 *@param   year 年             type:Number
