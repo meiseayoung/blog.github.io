@@ -461,7 +461,7 @@ const util = {
          * 函数柯里化相加
          * @return result type:number 
          **/
-	function curryAdd(){
+	curryAdd:function(){
 		  var result = 0;
 		  function _calc(args){
 		    var temp = 0;
@@ -479,7 +479,7 @@ const util = {
 			return result;
 		  }
 		  return calc;
-	};
+	},
 	/**
 	 * 使用fetch请求数据	
 	 * @param         {[Object]}  
