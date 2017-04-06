@@ -438,7 +438,7 @@ const util = {
   			}
   		};
   		var result = (isNaN(value) ? toNumber(value) : value)
-  		return result;
+  		return result.trim();
   	},
 	 /**
          * 函数柯里化相加
