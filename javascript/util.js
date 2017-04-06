@@ -304,6 +304,23 @@ const util = {
 		return strings.join("");
 	},
 	/**
+	  * 对象深拷贝
+	  * @param obj 被克隆的对象
+	  * @return result 克隆后的新对象
+	  **/
+	cloneDeep:function(obj) {
+	    var result =  {};
+	    for (var key in obj) {
+	      if (typeof obj[key] === 'object') {
+		result[key] = (obj[key].constructor === Array) ? [] : {};
+		deepCopy(obj[key], result[key]);
+	      } else {
+		 result[key] = obj[key];
+	      }
+	    }
+	    return result;
+　　     },
+	/**
 	 *数组首尾替换 JS模拟无缝轮播     (注意:此方法会改变数组本身，请谨慎使用)
 	 *param array 需要轮播的DOM数组 type:Array
 	 *return  新的轮播DOM数组       type:Array
