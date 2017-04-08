@@ -313,7 +313,7 @@ const util = {
 	    for (var key in obj) {
 	      if (typeof obj[key] === 'object') {
 		result[key] = (obj[key].constructor === Array) ? [] : {};
-		deepCopy(obj[key], result[key]);
+		cloneDeep(obj[key], result[key]);
 	      } else {
 		 result[key] = obj[key];
 	      }
