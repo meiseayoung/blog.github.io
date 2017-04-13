@@ -489,6 +489,22 @@ const util = {
 		  return calc;
 	},
 	/**
+	 * setState性能优化
+	 * @param context {[reactComponentInstance]} React组件实例上下文环境 
+	 * @param states  {[Object]} 需要更新的状态集合 
+	 * @return undefined 无返回值
+	 **/
+	optimizeSetState: function(context, states) {
+		var componentState = context.state;
+		var newUpdateStates = {};
+		for (let key in states) {
+			if (!isEqule(states[key], componentState[key])) {
+				newUpdateStates[key] = states[key];
+			}
+		};
+		context.setState(newUpdateStates);
+	},
+	/**
 	 * 使用fetch请求数据	
 	 * @param         {[Object]}  
 	 * @param.url     {[String]}    url   [请求地址]
