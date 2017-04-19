@@ -19,3 +19,5 @@
     win.addEventListener(resizeEvt, recalc, false);
     doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window); 
+// 注意：这段代码最好写在body中最前面。REACT中组件构建成功componentDidMount生命周期内还没有进入doc.addEventListener('DOMContentLoaded', recalc, false);
+// 因此获取不到正确的html根元素的font-size
