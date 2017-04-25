@@ -183,10 +183,10 @@ const util = {
 	 * @param  {[String]} sign   [分割符号]
 	 * @return {[String]}        [description]
 	 */
-	thousandSplit:function(string,n,sign){
+	thousandSplit: function(string, n, sign) {
 		var len = n || 3;
-		var reg = new RegExp(`\\B(?=(\\d{${len}})+(?!\\d))`,"gi");
-		return String(string).replace(reg,sign||",")
+		var reg = new RegExp(`\\B(?=(\\d{${len}})+(?!\\d))`, "gi");
+		return String(string).replace(reg, sign || ",")
 	},
 	/**
 	 *判断是否为闰年
@@ -304,29 +304,29 @@ const util = {
 		return strings.join("");
 	},
 	/**
-	  * 对象深拷贝
-	  * @param obj 被克隆的对象
-	  * @return result 克隆后的新对象
-	  **/
-	cloneDeep: function(obj){
-		  var result = {};
-		  for(var key in obj){
-		     if(typeof(obj[key]) === "object"){
-			switch( Object.prototype.toString.call(obj[key]) ){
-			   case "[object Array]":
-			     result[key] = obj[key].concat([]);
-			     break;
-			   case "[object Object]":
-			     result[key] = cloneDeep(obj[key]);
-			     break;
-			   defalut:
-			     result = obj[key];
+	 * 对象深拷贝
+	 * @param obj 被克隆的对象
+	 * @return result 克隆后的新对象
+	 **/
+	cloneDeep: function(obj) {
+		var result = {};
+		for (var key in obj) {
+			if (typeof(obj[key]) === "object") {
+				switch (Object.prototype.toString.call(obj[key])) {
+					case "[object Array]":
+						result[key] = obj[key].concat([]);
+						break;
+					case "[object Object]":
+						result[key] = cloneDeep(obj[key]);
+						break;
+						defalut:
+							result = obj[key];
+				}
+			} else {
+				result[key] = obj[key]
 			}
-		     }else{
-		       result[key] = obj[key]
-		     }
-		  };
-		  return result;
+		};
+		return result;
 	},
 	/**
 	 *数组首尾替换 JS模拟无缝轮播     (注意:此方法会改变数组本身，请谨慎使用)
@@ -442,51 +442,52 @@ const util = {
 	 * @param  {[String]} value [当前输入的字符] 
 	 * @return 转换后的字符数字
 	 */
-	numberic(value){
-  		function toNumber(string){
-  			if( isNaN(string.slice(0,-1)) ){
-  				//包含非数字及小数点的字符，直接切掉
-  				if(/[^\d|\.]/gi.test(string)){
-  					return string.replace(/[^\d\.]/gi,"")
-  				}
-  				//第一位为小数点，直接切掉
-  				if(string.indexOf(".") === 0){
-  					return string.slice(1)
-  				}
-  				//包含两个小数点，切掉最后一个小数点
-  				let lastDotIndex = string.lastIndexOf("."); 
-  				let strings = string.split("");
-  				strings.splice(lastDotIndex,1);
-  				return strings.join("")
-  			}else{
-  				return string.slice(0,-1)
-  			}
-  		};
-  		var result = (isNaN(value) ? toNumber(value) : value)
-  		return result.trim();
-  	},
-	 /**
-         * 函数柯里化相加
-         * @return result type:number 
-         **/
-	curryAdd:function(){
-		  var result = 0;
-		  function _calc(args){
-		    var temp = 0;
-			for(let i=0;i<args.length;i++){
-			temp += args[i]
-		    };
-		    return temp;
-		  };
-		  result += _calc(arguments);
-		  var calc =  function(){
-		    result += _calc(arguments);
+	numberic(value) {
+		function toNumber(string) {
+			if (isNaN(string.slice(0, -1))) {
+				//包含非数字及小数点的字符，直接切掉
+				if (/[^\d|\.]/gi.test(string)) {
+					return string.replace(/[^\d\.]/gi, "")
+				}
+				//第一位为小数点，直接切掉
+				if (string.indexOf(".") === 0) {
+					return string.slice(1)
+				}
+				//包含两个小数点，切掉最后一个小数点
+				let lastDotIndex = string.lastIndexOf(".");
+				let strings = string.split("");
+				strings.splice(lastDotIndex, 1);
+				return strings.join("")
+			} else {
+				return string.slice(0, -1)
+			}
+		};
+		var result = (isNaN(value) ? toNumber(value) : value)
+		return result.trim();
+	},
+	/**
+	 * 函数柯里化相加
+	 * @return result type:number 
+	 **/
+	curryAdd: function() {
+		var result = 0;
+
+		function _calc(args) {
+			var temp = 0;
+			for (let i = 0; i < args.length; i++) {
+				temp += args[i]
+			};
+			return temp;
+		};
+		result += _calc(arguments);
+		var calc = function() {
+			result += _calc(arguments);
 			return calc;
-		  };
-		  calc.toString = function(){
+		};
+		calc.toString = function() {
 			return result;
-		  }
-		  return calc;
+		}
+		return calc;
 	},
 	/**
 	 * setState性能优化
@@ -509,8 +510,8 @@ const util = {
 	 * @param {[any]} target [需要判断类型的对象] 
 	 * @return String
 	 */
-	type:function(target){
-		return Object.prototype.toString.call(target).slice(7,-1).trim();
+	type: function(target) {
+		return Object.prototype.toString.call(target).slice(7, -1).trim();
 	},
 	/**
 	 * 使用fetch请求数据	window.fetch无法设置超时，蛋疼
@@ -539,7 +540,7 @@ const util = {
 		if (method === "GET") {
 			delete options.method;
 			delete options.body;
-			url += ("?"+me.object2urlParams(opts.data))
+			url += ("?" + me.object2urlParams(opts.data))
 		}
 		fetch(url, options)
 			.then(function(res) {
@@ -563,6 +564,63 @@ const util = {
 			.then(function(json) {
 				opts.done(json)
 			})
+	},
+	customFetch: function(opts) {
+		var method = (opts.type.toUpperCase() === "GET" || opts.type.toUpperCase() === "POST") ? opts.type.toUpperCase() : "POST";
+		var me = this;
+		var csrfSelector = document.querySelector("meta[name='_csrf']");
+		var token = csrfSelector ? csrfSelector.getAttribute("content") : "none";
+		var url = opts.url;
+		var options = {
+			method: method,
+			credentials: 'include', //携带cookie认证信息
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+				"X-CSRF-TOKEN": token
+			},
+			body: me.object2urlParams(opts.data)
+		}
+		if (method === "GET") {
+			delete options.method;
+			delete options.body;
+			url += ("?" + me.object2urlParams(opts.data))
+		}
+		return new Promise(function(resolve, reject) {
+			var fetchTimes = 0;
+			fetch(url, options)
+				.then(function(res) {
+					if (res.ok) {
+						return res.json();
+					} else {
+						if (opts.fail && me.type(opts.fail) === "Function") {
+							opts.fail(res)
+						}
+						return {
+							errorMessage: "something was wrong when requesting"
+						}
+					}
+
+				})
+				.catch(function(error) {
+					reject(error);
+				})
+				.then(function(json) {
+					resolve(json);
+				});
+			var fetchTimer = setInterval(function() {
+				fetchTimes += 1;
+				if (fetchTimes * 1000 >= opts.timeout) {
+					clearInterval(fetchTimer);
+					reject("timeout of " + opts.timeout + "ms");
+				}
+			}, 1000);
+		}).then(function(res) {
+			console.log("done", res);
+			opts.done(res);
+		}).catch(function(err) {
+			console.log("err", err);
+			opts.fail(err);
+		})
 	}
 };
 
