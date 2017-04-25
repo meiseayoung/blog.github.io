@@ -586,8 +586,10 @@ const util = {
 			delete options.body;
 			url += ("?" + me.object2urlParams(opts.data))
 		}
-		return new Promise(function(resolve, reject) {
+		var rejectPointer = null;
+		var result =  new Promise(function(resolve, reject) {
 			var fetchTimes = 0;
+			rejectPointer = reject;
 			fetch(url, options)
 				.then(function(res) {
 					if (res.ok) {
@@ -621,7 +623,11 @@ const util = {
 		}).catch(function(err) {
 			console.log("err", err);
 			opts.fail(err);
-		})
+		});
+		result.abort = function(){
+                	rejectPointer();
+                };
+                return result;
 	}
 };
 
