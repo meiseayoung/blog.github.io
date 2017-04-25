@@ -571,6 +571,7 @@ const util = {
 		var csrfSelector = document.querySelector("meta[name='_csrf']");
 		var token = csrfSelector ? csrfSelector.getAttribute("content") : "none";
 		var url = opts.url;
+		var timeout = opts.timeout || 60*1000 ; //默认一分钟超时处理
 		var options = {
 			method: method,
 			credentials: 'include', //携带cookie认证信息
@@ -593,11 +594,11 @@ const util = {
 						return res.json();
 					} else {
 						if (opts.fail && me.type(opts.fail) === "Function") {
-							opts.fail(res)
+							reject(res);
 						}
-						return {
+						reject({
 							errorMessage: "something was wrong when requesting"
-						}
+						});
 					}
 
 				})
@@ -609,9 +610,9 @@ const util = {
 				});
 			var fetchTimer = setInterval(function() {
 				fetchTimes += 1;
-				if (fetchTimes * 1000 >= opts.timeout) {
+				if (fetchTimes * 1000 >= timeout) {
 					clearInterval(fetchTimer);
-					reject("timeout of " + opts.timeout + "ms");
+					reject("timeout of " + timeout + "ms");
 				}
 			}, 1000);
 		}).then(function(res) {
