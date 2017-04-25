@@ -505,7 +505,15 @@ const util = {
 		context.setState(newUpdateStates);
 	},
 	/**
-	 * 使用fetch请求数据	
+	 * 类型判断
+	 * @param {[any]} target [需要判断类型的对象] 
+	 * @return String
+	 */
+	type:function(target){
+		return Object.prototype.toString.call(target).slice(7,-1).trim();
+	},
+	/**
+	 * 使用fetch请求数据	window.fetch无法设置超时，蛋疼
 	 * @param         {[Object]}  
 	 * @param.url     {[String]}    url   [请求地址]
 	 * @param.data    {[Object]}    data  [请求参数] {a:1,b:2}
@@ -516,7 +524,8 @@ const util = {
 	fetch: function(opts) {
 		var method = (opts.type.toUpperCase() === "GET" || opts.type.toUpperCase() === "POST") ? opts.type.toUpperCase() : "POST";
 		var me = this;
-		var token = $("meta[name='_csrf']").attr("content");
+		var csrfSelector = document.querySelector("meta[name='_csrf']");
+		var token = csrfSelector ? csrfSelector.getAttribute("content") : "none";
 		var url = opts.url;
 		var options = {
 			method: method,
@@ -537,7 +546,7 @@ const util = {
 				if (res.ok) {
 					return res.json();
 				} else {
-					if (opts.fail && $.type(opts.fail) === "function") {
+					if (opts.fail && me.type(opts.fail) === "Function") {
 						opts.fail(res)
 					}
 					return {
