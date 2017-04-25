@@ -622,7 +622,7 @@ const util = {
 			opts.done(res);
 		}).catch(function(err) {
 			console.log("err", err);
-			opts.fail(err);
+			opts.fail && me.type(opts.fail) === "Function" ? opts.fail(err) : function(){} ;
 		});
 		result.abort = function(){
                 	rejectPointer();
