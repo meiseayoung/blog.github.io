@@ -111,12 +111,12 @@ const util = {
 	parseURL: function(s) {
 		if (arguments.length == 0) {
 			var errorParams = 0;
-			var paramsStr = window.location.search.slice(1);
+			var paramsStr = encodeURIComponent(window.location.search.slice(1));
 			var params = paramsStr.split("&");
 			var paramsObj = {};
 			for (var i = 0; i < params.length; i++) {
 				if (params[i].slice(0, params[i].indexOf("=")) != "") {
-					paramsObj[params[i].slice(0, params[i].indexOf("="))] = decodeURI(params[i].slice(params[i].indexOf("=") + 1));
+					paramsObj[params[i].slice(0, params[i].indexOf("="))] = (params[i].slice(params[i].indexOf("=") + 1));
 				} else {
 					console.warn("存在" + (errorParams += 1) + "个无效参数对！");
 				}
@@ -129,7 +129,7 @@ const util = {
 			arr = s.split("&");
 			for (var i = 0; i < arr.length; i++) {
 				tempArr = arr[i].split("=");
-				obj[tempArr[0]] = decodeURI(tempArr[1]);
+				obj[tempArr[0]] = tempArr[1];
 			}
 			return obj;
 		} else if (typeof(s) !== "string") {
@@ -145,7 +145,7 @@ const util = {
 		var string = null;
 		var params = [];
 		for (var key in obj) {
-			params.push(key + "=" + encodeURI(obj[key]))
+			params.push(key + "=" + encodeURIComponent(obj[key]))
 		}
 		string = params.join("&");
 		return string;
