@@ -40,9 +40,6 @@ fs.readdir(filePath, function(err, files) {
             } else if (stats.isDirectory()) {
                 //返回指定文件名的扩展名称 
                 if (filename == 'css' || filename == 'images') {
-                    //var readurl = filePath+'/'+filename;
-                    //filePath+"/"+filename不能用/直接连接，Unix系统是”/“，Windows系统是”\“
-                    //    console.log(path.join(filePath,filename));
                     var name = filename;
                     readFile(path.join(filePath, filename), name);
                 }
@@ -70,8 +67,6 @@ function readFile(readurl, name) {
         }
 
         files.forEach(function(filename) {
-            // console.log(path.join(readurl,filename));
-
             fs.stat(path.join(readurl, filename), function(err, stats) {
                 if (err) throw err;
                 //是文件
@@ -83,8 +78,6 @@ function readFile(readurl, name) {
                 } else if (stats.isDirectory()) {
                     var dirName = filename;
                     readFile(path.join(readurl, filename), name + '/' + dirName);
-                    //利用arguments.callee(path.join())这种形式利用自身函数，会报错
-                    //arguments.callee(path.join(readurl,filename),name+'/'+dirName);
                 }
             });
         });
@@ -94,7 +87,6 @@ function readFile(readurl, name) {
 
 // 写txt文件
 function writeFile(data,fileName) {
-    console.log("data",data);
     fs.writeFile(filePath + "/" + fileName + ".txt", data + '\n', function(err) {
         if (err) throw err;
         console.log("写入成功");
