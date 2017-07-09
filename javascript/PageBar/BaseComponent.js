@@ -23,7 +23,11 @@ var BaseComponent = Class.extend({
 		if (typeof me.handlers[type] == "undefined") {
 			me.handlers[type] = [];
 		}
-		me.handlers[type].push(handler);
+		//防止重复添加同一个事件处理函数
+		if ( me.handlers[ type ].indexOf( handler ) === - 1 ) { 
+			me.handlers[type].push(handler);
+		}
+		
 	},
 	/**
 	 *功能说明 ：触发自定义事件
