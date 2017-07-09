@@ -17,6 +17,9 @@ var BaseComponent = Class.extend({
 	 **/
 	on: function(type, handler) {
 		var me = this;
+		if ( this.handlers === undefined ){
+			this.handlers = {};
+		} 
 		if (typeof me.handlers[type] == "undefined") {
 			me.handlers[type] = [];
 		}
