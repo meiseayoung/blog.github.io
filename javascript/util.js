@@ -101,8 +101,9 @@ const util = {
 		},
 		/*
 		 *
-		 * 将[255, 222, 12] rgb通道的颜色值转换为16进制的颜色值 * @param rgbArr rgb颜色值的数据 type: Array * @return 返回16进制的颜色值 type: String
-		 *
+		 * 将[255, 222, 12] rgb通道的颜色值转换为16进制的颜色值
+		 * @param rgbArr rgb颜色值的数据 type: Array 
+		 * @return 返回16进制的颜色值 type: String
 		 **/
 
 		rgb2color: function(rgbArr) {
@@ -117,6 +118,15 @@ const util = {
 
 			return "0x" + s.toUpperCase();
 		},
+		/**
+		 * 源码来自THREEJS Color 对象
+		 * 将[255, 222, 12] rgb通道的颜色值转换为16进制的颜色值
+		 * @param rgbArr rgb颜色值的数据 type: Array 
+		 * @return 返回16进制的颜色值 type: String
+		 **/
+		rgb3colorv2: function(rgb){
+			return ( rgb[0] * 255 ) << 16 ^ ( rgb[1] * 255 ) << 8 ^ ( rgb[2] * 255 ) << 0; 
+		}
 	},
 	/**
 	 * 解析请求URL参数
