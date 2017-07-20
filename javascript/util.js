@@ -78,26 +78,25 @@ const util = {
 		 * @param color 16进制的颜色值 type:String
 		 * @return  返回rgb的颜色值    type:Array
 		 **/
-		color2rgb: function(color) {
-			var r = parseInt(color.substr(1, 2), 16);
-			var g = parseInt(color.substr(3, 2), 16);
-			var b = parseInt(color.substr(5, 2), 16);
-			return [r, g, b];
+		color2rgb: function(color,alpha) {
+            		// var r = parseInt(color.substr(1, 2), 16);    //Math.floor取整性能比parseInt性能高出一千倍
+			var r = Math.floor(color.substr(1, 2), 16);
+			var g = Math.floor(color.substr(3, 2), 16);
+			var b = Math.floor(color.substr(5, 2), 16);
+			return [r, g, b,alpha||1];
 		},
 		/**
 		 * 源码来自THREEJS Color对象
 		 * 将16进制的颜色值转换为[255, 222, 12]rgb通道的颜色值
-		 * @param color 16进制的颜色值 type:String
+		 * @param color 16进制的颜色值 type:String 此处颜色值强制传入0x000000,传入#000000再使用字符串替换会产生严重的性能问题
 		 * @return  返回rgb的颜色值    type:Array
 		 **/
-		color2rgbv2:function(color){
-			color = Math.floor( color );  
-  
-			var r = ( hex >> 16 & 255 ) / 255;  
-			var g = ( hex >> 8 & 255 ) / 255;  
-			var b = ( hex & 255 ) / 255; 
-
-			return [r, g, b];
+		color2rgbv2:function(color,alpha){
+			color = Math.floor( color );
+			var r = ( color >> 16 & 255 );  
+			var g = ( color >> 8 & 255 );  
+			var b = ( color & 255 ); 
+			return [r, g, b,alpha];
 		},
 		/*
 		 *
