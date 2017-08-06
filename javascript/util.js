@@ -514,6 +514,24 @@ const util = {
 		return calc;
 	},
 	/**
+	 * 暴力深度获取对象下的KEY
+	 *
+	 */
+	function getProps(obj){
+	  var result = [];
+	  return function(obj){
+	    for (firstProps in obj){
+	       result.push(firstProps)
+	       debugger
+	       if(Object.prototype.toString.call(obj[firstProps]).slice(7, -1).trim() === "Object"){
+		   debugger 
+		   arguments.callee(obj[firstProps])
+	       }
+	    }
+	    return result
+	  }
+	},
+	/**
 	 * setState性能优化
 	 * @param context {[reactComponentInstance]} React组件实例上下文环境 
 	 * @param states  {[Object]} 需要更新的状态集合 
