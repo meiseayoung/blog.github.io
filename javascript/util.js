@@ -517,7 +517,7 @@ const util = {
 	 * 暴力深度获取对象下的KEY
 	 *
 	 */
-	function getProps(obj){
+	getProps　:　function(obj){
 	  var result = [];
 	  return function(obj){
 	    for (firstProps in obj){
@@ -530,6 +530,25 @@ const util = {
 	    }
 	    return result
 	  }
+	},
+	/**
+	 * 获取扁平化对象字符串下的对象KEY对应的值 
+	 * @object type:Object 对象
+	 * @keyString 扁平化对象字符串的KEY
+	 * @return type:Any
+	 **/
+	flattenObject : function(object,keyString){
+		if(typeof keyString !== "string"){
+			console.error("parameter error : \n the second parameter must be type of string,please check it");
+			return;
+		}
+		if(keyString === ""){
+			return object;
+		}
+		var keys = keyString.split(".");
+		return keys.reduce((p,n)=>{
+			return p[n];
+		},object)
 	},
 	/**
 	 * setState性能优化
