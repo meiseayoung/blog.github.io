@@ -533,11 +533,12 @@ const util = {
 	},
 	/**
 	 * 获取扁平化对象字符串下的对象KEY对应的值 
-	 * @object type:Object 对象
-	 * @keyString 扁平化对象字符串的KEY
+	 * @param object type:Object 对象
+	 * @param key type:String 扁平化对象字符串的KEY
+	 * @param errorReturn 获取发生错误undefined时返回的值
 	 * @return type:Any
 	 **/
-	flattenObject : function(object,keyString){
+	flattenObject : function(object,keyString,errorReturn){
 		if(typeof keyString !== "string"){
 			console.error("parameter error : \n the second parameter must be type of string,please check it");
 			return;
@@ -547,7 +548,10 @@ const util = {
 		}
 		var keys = keyString.split(".");
 		return keys.reduce((p,n)=>{
-			return p[n];
+			if(p[n]){
+			    return p[n];
+			}
+			return errorReturn;
 		},object)
 	},
 	/**
