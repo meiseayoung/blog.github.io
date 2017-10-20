@@ -555,6 +555,16 @@ const util = {
 		},object)
 	},
 	/**
+	 * 动态创建函数 
+	 * @param context this执行环境
+	 * @param args 函数函数
+	 * @param fnBody 函数体
+	 ** return Function 
+	 **/
+	dynamicFunction : function(context,args,fnBody){
+		return Function.apply(context,args.concat(fnBody))
+	},
+	/**
 	 * setState性能优化
 	 * @param context {[reactComponentInstance]} React组件实例上下文环境 
 	 * @param states  {[Object]} 需要更新的状态集合 
