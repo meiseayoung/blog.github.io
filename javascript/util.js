@@ -562,7 +562,7 @@ const util = {
 	 ** return Function 
 	 **/
 	dynamicFunction : function(context,args,fnBody){
-		return Function.apply(context,args.concat(fnBody))
+		return Function.apply(null,args.concat(fnBody)).bind(context)
 	},
 	/**
 	 * setState性能优化
