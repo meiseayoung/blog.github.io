@@ -557,7 +557,7 @@ const util = {
 	/**
 	 * 动态创建函数 
 	 * @param context this执行环境
-	 * @param args 函数函数
+	 * @param args 函数参数
 	 * @param fnBody 函数体
 	 ** return Function 
 	 **/
