@@ -22,7 +22,7 @@
                 "h": zeroize(this.getHours()),
                 "m": zeroize(this.getMinutes()),
                 "s": zeroize(this.getSeconds()),
-                "w": weeks[this.toDateString().split("")[0]]
+                "w": weeks[this.toDateString().split(" ")[0]]
             };
             return pattern.replace(/YYYY|MM|DD|hh|mm|ss|w/g, function(match) {
                 switch (match) {
