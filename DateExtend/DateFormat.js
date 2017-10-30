@@ -102,4 +102,17 @@
             return this.past(pattern, -1);
         }
     }
+    
+    if(!Date.prototype.getMonthDays){
+        Date.prototype.getMonthDays = function() {
+            var currentMonth = this.format("MM");
+            var currentMonthUTC = this.getTime();
+            var oneDay = 24 * 60 * 60 * 1000;
+            while(new Date(currentMonthUTC).format("MM") == currentMonth){
+                currentMonthUTC += oneDay;
+            }
+            return Number(new Date(currentMonthUTC - oneDay).format("DD"));
+        };    
+    }
+    
 })();
