@@ -314,6 +314,26 @@ const util = {
 		jQObj.attr("style", lastProperties);
 	},
 	/**
+	 * 监听元素滚动到顶部和底部
+	 * @param elem type:HTML Element 需要监听的元素
+	 * @param scrollTopBackFn type:Function 元素滚动到顶部时的回调
+	 * @param scrollBottomBackFn type:Function 元素滚动到底部时的回调
+	 * @return undefined 无返回值
+	 **/
+	monitorElementScrolling: function(elem, scrollTopBackFn, scrollBottomBackFn) {
+		$(elem).on("scroll", function(e) {
+			var scrollHeight = e.target.scrollHeight;
+			var scrollTop = e.target.scrollTop;
+			var height = $(e.target).height();
+			if (scrollTop === 0) {
+				scrollTopBackFn()
+			}
+			if (scrollTop === (scrollHeight - height)) {
+				scrollBottomBackFn()
+			}
+		});
+	},
+	/**
 	 * 生成随机字符UID
 	 * param lenth    随机字符的长度  type:Number
 	 * return 随机字符串              type:String	
