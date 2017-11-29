@@ -608,6 +608,23 @@ const util = {
 	type: function(target) {
 		return Object.prototype.toString.call(target).slice(7, -1).trim();
 	},
+	/** 
+	 * 获取元素第一个指定选择器的父级元素
+	 * @param {[DOM]} el DOM元素
+	 * @param {[String]} 选择器
+	 * return DOM
+	 **/
+	closest: function(el, selector) {
+	    var matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+
+	    while (el) {
+		if (matchesSelector.call(el, selector)) {
+		    break;
+		}
+		el = el.parentElement;
+	    }
+	    return el;
+	},
 	/**
 	 * 使用fetch请求数据	window.fetch无法设置超时，蛋疼
 	 * @param         {[Object]}  
