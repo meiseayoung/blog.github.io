@@ -1,0 +1,230 @@
+app.title = '气泡图';
+var colors = ['#e24ca1', '#8042f5', '#00aede', '#00d0ad', '#e15c29', '#f2cf10', '#f3448e', '#f5206f', '#f846da', '#4e3bea', '#3bacc5', '#0dd54e', '#eb9418', '#0ef1d7', '#00a1c5', '#f76a2b'];
+var option = {
+        color: colors,
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        series: [{
+            name: 'x1',
+            type: 'pie',
+            radius: ['45%', '55%'],
+            label: {
+                normal: {
+                    show: true,
+                    formatter: '{per|{d}%}\n{hr|}\n     {a|{b}}',
+                    // backgroundColor: '#eee',
+                    // borderColor: '#aaa',
+                    // borderWidth: 0,
+                    // borderRadius: 4,
+                    // shadowBlur:3,
+                    // shadowOffsetX: 2,
+                    // shadowOffsetY: 2,
+                    // shadowColor: '#999',
+                    padding: [0, -3],
+                    rich: {
+                        a: {
+                            // color: '#999',
+                            lineHeight: 22,
+                            align: 'center',
+                            // padding: [25,10,25,10],
+                            fontSize: 14
+                        },
+                        // abg: {
+                        //     backgroundColor: '#333',
+                        //     width: '100%',
+                        //     align: 'right',
+                        //     height: 22,
+                        //     borderRadius: [4, 4, 0, 0]
+                        // },
+                        hr: {
+                            borderColor: 'orange',
+                            width: '100%',
+                            borderWidth: 2,
+                            height: 0
+                        },
+                        /*b: {
+                         fontSize: 16,
+                         lineHeight: 33
+                         },*/
+                        per: {
+                            color: '#fff',
+                            // backgroundColor: '#334455',
+                            padding: [4, 14, 0, 14],
+                            borderRadius: 2,
+                            fontSize: 18
+                        }
+                    }
+                }
+            },
+            labelLine: {
+                normal: {
+                    show: true,
+                    length: 20,
+                    length2: 0,
+                    lineStyle: {
+                        width: 2
+                    }
+                }
+
+            },
+            data: [{
+                value: 335,
+                name: 'd1',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[0],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 310,
+                name: 'd2',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[1],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 234,
+                name: 'd3',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[2],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 135,
+                name: 'd4',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[3],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 548,
+                name: 'd5',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[4],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 248,
+                name: 'd6',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[5],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 248,
+                name: 'd7',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[6],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 248,
+                name: 'd8',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[7],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 248,
+                name: 'd9',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[8],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 248,
+                name: 'd10',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[9],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 248,
+                name: 'd11',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[10],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 248,
+                name: 'd12',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[11],
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 248,
+                name: 'd13',
+                label: {
+                    normal: {
+                        rich: {
+                            hr: {
+                                borderColor: colors[12],
+                            }
+                        }
+                    }
+                }
+            }]
+        }]
+    };
