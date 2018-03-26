@@ -12,9 +12,11 @@ function thousandSplit(number,splitSymbol) {
  * @return {[String]}        [description]
  */
 function thousandSplit(string,n,sign){
+        string = String(string);
         var len = n || 3;
-	var reg = new RegExp(`\\B(?=(\\d{${len}})+(?!\\d))`,"gi");
-	return String(string).replace(reg,sign||",")
+        var reg = new RegExp(`\\B(?=(\\d{${len}})+(?!\\d))`,"gi");
+        var strings = string.split(".");
+        return (strings.length === 2 ? strings[0].replace(reg,sign||",") +"."+ strings[1] : strings[0].replace(reg,sign||","))
 };
 //此方法最佳
 function formatNumber(string) {
