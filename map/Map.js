@@ -150,7 +150,7 @@ var Map = Class.extend({
 		view.setZoom(zoomSize || 8);
 	},
 	/**
-	 * [注册地图]
+	 * [注册地图] ol自动发送请求
 	 * @param  {[String]} url [地图边界信息url]
 	 * @param  {[String]} name [地图名称]
 	 * @param  {[Object]} name [地图样式]
@@ -186,6 +186,44 @@ var Map = Class.extend({
 				me.areaInfo[name].features = layer.getSource().getFeatures();
 			}
 		}, 20);
+	},
+	/**
+	 * [注册地图] 主动发送请求
+	 * @param  {[String]} url [地图边界信息url]
+	 * @param  {[String]} name [地图名称]
+	 * @param  {[Object]} name [地图样式]
+	 * @return {[undefined]}         [undefined]
+	 */
+	registerMap2: function(url,name,style) {
+		var me = this;
+		fetch(url)
+			.then(res=>res.json())
+			.then(json=>{
+				var vectorSource = new ol.source.Vector({
+				    features: (new ol.format.GeoJSON()).readFeatures(json)
+				});
+				var layer = new ol.layer.Vector({
+					source: vectorSource,
+					style: new ol.style.Style({
+						fill: new ol.style.Fill({
+							color: style ? style.fillColor : "rgba(255, 255, 255, 0.5)"
+						}),
+						stroke: new ol.style.Stroke({
+							color: style ? style.strokeColor : "#40F835",
+							width: style ? style.strokeWidth : 2
+						})
+					})
+				});
+				layer.setMap(me.map);
+				me.areaInfo[name] = {
+					name: name,
+					vector: layer,
+					features: layer.getSource().getFeatures() //因为请求数据是异步的，所有这里获取的features为[];
+				};
+			})
+			.catch(err=>{
+			   console.error(`fetch${url} error`);
+			});
 	},
 	/***
 	 * [高亮指定区域]
