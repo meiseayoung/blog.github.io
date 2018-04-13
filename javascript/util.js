@@ -125,7 +125,20 @@ const util = {
 		 **/
 		rgb3colorv2: function(rgb){
 			return ( rgb[0] * 255 ) << 16 ^ ( rgb[1] * 255 ) << 8 ^ ( rgb[2] * 255 ) << 0; 
-		}
+		},
+		/**
+		 * @desc 获取随机的16进制颜色值
+		 * @return 返回16进制的颜色值 type:String
+		 *
+		 **/
+		randomHexColor: function(){
+			var prefixed = "0x" ; 
+			for(var i=0;i<3;i++){
+				var color16 = Math.floor(Math.random()*255).toString(16);
+				prefixed += (color16.length<2 ? "0"+color16 : color16);
+			}
+			return prefixed ;
+                }
 	},
 	/**
 	 * 解析请求URL参数
