@@ -13,7 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
 					lazyImageObsersver.unobserve(lazyImage);
 				}
 			})
-		})
+		},{
+		    rootMargin:"100px"  //距离100px触发
+		});
 		lazyImages.forEach((lazyImage) => {
 			lazyImageObserver.observe(lazyImage);
 		});
