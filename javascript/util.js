@@ -571,26 +571,28 @@ const util = {
 	 * @param errorReturn 获取发生错误undefined时返回的值
 	 * @return type:Any
 	 **/
-	flattenObject : function(object,keyString,errorReturn){
-		if(typeof keyString !== "string"){
+	flattenObject: function( object, keyString) {
+		return new Promise((resolve, reject) => {
+		    if (typeof keyString !== "string") {
 			console.error("parameter error : \n the second parameter must be type of string,please check it");
 			return;
-		}
-		if(keyString === ""){
+		    }
+		    if (keyString === "") {
 			return object;
-		}
-		var keys = keyString.split(".");
-		try{
-			return keys.reduce((p,n)=>{
-				if(p[n]){
-				    return p[n];
-				}
-				return errorReturn;
-			},object);
-		}catch(err){
-			return undefined;
-		}
-	},
+		    }
+		    var keys = keyString.split(".");
+		    try {
+			resolve(keys.reduce((p, n) => {
+			    if (p[n]) {
+				return p[n];
+			    }
+			}, object));
+		    } catch (err) {
+			reject(err);
+		    }
+		});
+
+	 },
 	/**
 	 * 动态创建函数 
 	 * @param context this执行环境
