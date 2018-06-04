@@ -580,12 +580,16 @@ const util = {
 			return object;
 		}
 		var keys = keyString.split(".");
-		return keys.reduce((p,n)=>{
-			if(p[n]){
-			    return p[n];
-			}
-			return errorReturn;
-		},object)
+		try{
+			return keys.reduce((p,n)=>{
+				if(p[n]){
+				    return p[n];
+				}
+				return errorReturn;
+			},object);
+		}catch(err){
+			return undefined;
+		}
 	},
 	/**
 	 * 动态创建函数 
