@@ -72,6 +72,22 @@ const util = {
 			return;
 		}
 	},
+	fn:{
+		/**
+		 * @describtion 只执行一次的函数
+		 * @pararm {Function} fn 需要执行的函数
+		 * @returns Function 
+		 **/
+		once: function(fn) {
+		  let called = false
+		  return function () {
+		    if (!called) {
+		      called = true
+		      fn.apply(this, arguments)
+		    }
+		  }
+		}
+        },
 	color: {
 		/**
 		 * 将16进制的颜色值转换为[255, 222, 12]rgb通道的颜色值
