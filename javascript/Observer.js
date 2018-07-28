@@ -5,6 +5,7 @@ const toString = Object.prototype.toString
 let observerChache = {}//需要被监听的对象
 let propsWatchers = [];//监听列表事件
 let propsWatchFns = {};//监听属性对象的监听事件
+let lastFns = [];      //最近一次update的监听函数
 /**
  * @description 获取函数的参数列表
  * @param  {String} fnstring function.toString()字符串
@@ -167,12 +168,19 @@ class Observer {
 				let fndependences = getArguments(fn.toString()).map(arg=>{
 					return observerChache[arg]
 				});
-				fn(...fndependences);
+				if(!lastFns.some(f=>f===fn)){
+					fn(...fndependences);
+					lastFns.push(fn)
+				}else{
+
+				}
 			})
 		}
 	}
 	update(observer){
+		lastFns = [];
 		this._diff(observer)
+		lastFns = [];
 	}
 
 }
