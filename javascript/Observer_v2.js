@@ -89,7 +89,6 @@ class Observer {
 	 */
 	_collectionDependence(){
 		propsWatchFns = propsWatchers.map((watcher,index)=>{
-			// return getArguments(watcher.toString())
 			return watcher.dependences;
 		}).reduce((p,n,i,a)=>{
 			n.forEach(item=>{
