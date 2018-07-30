@@ -26,7 +26,7 @@ function getArguments(fnstring){
  **/
 function getProp(object, prop) {
 	if (typeof prop !== "string") {
-		console.error("parameter error : \n the second parameter must be type of string,please check it");
+		console.error("参数错误 : \n 第二个参数类型为字符串,请检查");
 		return;
 	}
 	if (prop === "") {
@@ -112,8 +112,9 @@ class Observer {
 		//搜集发生变化的依赖
 		let needUpdateProps = [];
 		Object.keys(propsWatchFns).forEach(prop=>{
-			if( !isEqual(getProp(value,prop),getProp(oldVal,prop) ) ){
-				console.log(`属性${prop}对应的值变了`,value,oldVal)
+			let newValue = getProp(value,prop);
+			let oldValue = getProp(oldVal,prop);
+			if( !isEqual(newValue,oldValue) ){
 				needUpdateProps.push(prop);
 			}
 		});
@@ -124,7 +125,7 @@ class Observer {
 	}
 	/**
 	 * @description 添加监听
-     * @param {Array<string>} dependences 依赖被监听的对象的属性列表
+     	 * @param {Array<string>} dependences 依赖被监听的对象的属性列表
 	 * @param {undefined} fn 无返回值
 	 */
 	addWatcher(dependences,fn){
@@ -141,7 +142,7 @@ class Observer {
 	 */
 	removeWatcherByFn(fn){
 		for(let i=0;i<propsWatchers.length;i++){
-			if(propsWatchers[i] === fn){
+			if(propsWatchers[i].fn === fn){
 				propsWatchers.splice(i,1);
 				this._collectionDependence();
 				break;
@@ -154,8 +155,8 @@ class Observer {
 	 * @return {undefined}   无返回值
 	 */
 	removeWatcherByProp(prop){
-		for(let i=propsWatchers.length-1;i>0;i--){
-			if(getArguments(propsWatchers[i].toString()).indexOf(prop) !== -1){
+		for(let i=propsWatchers.length-1;i>=0;i--){
+			if(propsWatchers[i].dependences.some(dependence=>dependence === prop)){
 				propsWatchers.splice(i,1);
 			}
 		}
@@ -169,9 +170,6 @@ class Observer {
 	execute(dependence){
 		if(propsWatchFns[dependence] && toString.call(propsWatchFns[dependence]) === "[object Array]"){
 			propsWatchFns[dependence].forEach(fn=>{
-				// let fndependences = getArguments(fn.toString()).map(arg=>{
-				// 	return observerChache[arg]
-                // });
                 let fndependences = fn.dependences.map(arg=>{
                     return getProp(observerChache,arg);
                 });
@@ -184,10 +182,17 @@ class Observer {
 			})
 		}
 	}
+	/**
+	 * @description 更新监听对象
+	 * @param {Object} observer 新的监听对象
+	 * @return {undefined} 无返回值
+	 **/
 	update(observer){
+		console.time();
 		lastFns = [];
 		this._diff(observer)
 		lastFns = [];
+		console.timeEnd();
 	}
 
 }
