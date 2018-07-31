@@ -1,25 +1,81 @@
+/*************************************************************
+@author 杨尚波
+@email meiseayoung@163.com 
+@description 为多个对象的属性添加监听函数
+@date 2018/07/30
+@version 0.02
+
+@example
+	let oberver = new Observer({
+		description:{
+			name:"Ysb",
+			job:"Front end developer",
+			favourites:['eating','reading']
+		}		
+	})
+	//单个属性变化监听
+	observer.addWather(['name'],funtion(name){
+		console.log("name",name)
+	});
+	//多个属性变化监听
+	observer.addWather(['name','job'],funtion(name,job){
+		console.log("name,job",name,job)
+	});
+	//根据条件触发监听函数
+	observer.addWather(['favourites'],funtion(favourites){
+		console.log("favourites",favourites)
+	},function(newObserver,oldObserver,path){
+		return newObserver.length > 3
+	});
+	//更新监听的对象
+	observer.update({
+		name:"YSB",
+		job:"Front end developer",
+		favourites:['loving','eating','reading']
+	});
+	observer.update({
+		name:"YSB---",
+		job:"jser",
+		favourites:['loving','eating']
+	});
+	observer.update({
+		name:"YSB---",
+		job:"jser",
+		favourites:['loving','eating','woking','swimming']
+	});
+*************************************************************/
 import cloneDeep from 'lodash/cloneDeep.js'
 import isEqual from 'lodash/isEqual.js'
 import getProp from 'lodash/get.js';
+import setProp from 'lodash/set.js';
 
 const toString = Object.prototype.toString
 let observerChache = {}//需要被监听的对象
 let propsWatchers = []//监听列表事件
 let propsWatchFns = {}//监听属性对象的监听事件
 let lastFns = []      //最近一次update的监听函数
-/**
- * @description 获取函数的参数列表
- * @param  {String} fnstring function.toString()字符串
- * @return {Number<string>} 函数的参数列表
- */
-function getArguments(fnstring){
-	var start = fnstring.indexOf("(");
-	var end = fnstring.indexOf(")");
-	var args = fnstring.slice(start+1, end).split(",").map(item=>item.trim());
-	return args
-}
+
 
 class Observer {
+	/**
+	 * @description 根据对象下的属性路径获取对应的值
+	 * @param  {Object} object 对象
+	 * @param  {String} path   属性路径 如: a.b.c[0]
+	 * @return {Any}        对象下的属性路径获取对应的值
+	 */
+	static _get(object,path){
+		return getProp(object,path)
+	}
+	/**
+	 * @description 设置对象指定属性路径的值
+	 * @param  {Object} object 对象
+	 * @param  {String} path   属性路径 如: a.b.c[0]
+	 * @param  {Any} value     要设置属性的值
+	 * @return {undefined}     无返回值
+	 */
+	static _set(object,path,value){
+		setProp(object,path,value)
+	}
 	/**
 	 * @description 初始化
 	 * @param {Object} observer 被监听的对象
@@ -97,9 +153,9 @@ class Observer {
 	}
 	/**
 	 * @description 添加监听
-         * @param {Array<string>} dependences 依赖被监听的对象的属性列表
-         * @param {Function} fn 监听函数
-         * @param {?Function|Boolean} shouldExecuteWatcher (可选)是否执行监听函数
+     * @param {Array<string>} dependences 依赖被监听的对象的属性列表
+     * @param {Function} fn 监听函数
+     * @param {?Function|Boolean} shouldExecuteWatcher (可选)是否执行监听函数
 	 * @param {undefined} fn 无返回值
 	 */
 	addWatcher(dependences,fn,shouldExecuteWatcher){
