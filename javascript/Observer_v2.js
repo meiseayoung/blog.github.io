@@ -203,23 +203,29 @@ class Observer {
 	execute(dependence,newObserver,oldObserver){
 		if(propsWatchFns[dependence] && toString.call(propsWatchFns[dependence]) === "[object Array]"){
 			propsWatchFns[dependence]
-			.filter(fn=>{
-				if(fn.shouldExecuteWatcher === undefined){
-					return true;
-				}if(typeof fn.shouldExecuteWatcher === 'boolean'){
-					return fn.shouldExecuteWatcher
-				}else if(typeof fn.shouldExecuteWatcher === 'function'){
-					return fn.shouldExecuteWatcher(newObserver,oldObserver,fn.dependences)
-				}else{
-					return true;
-				}
-			})
 			.forEach(fn=>{
                 let fndependences = fn.dependences.map(arg=>{
                     return getProp(observerChache,arg)
                 });
 				if(!lastFns.some(f=>f===fn.fn)){
-					fn.fn(...fndependences);
+					new Promise((resolve,reject)=>{
+						let result = true;
+						if(fn.shouldExecuteWatcher === undefined){
+							result = true;
+						}if(typeof fn.shouldExecuteWatcher === 'boolean'){
+							result = fn.shouldExecuteWatcher
+						}else if(typeof fn.shouldExecuteWatcher === 'function'){
+							result = fn.shouldExecuteWatcher(newObserver,oldObserver,fn.dependences)
+						}else{
+							result = true;
+						}
+						if(result === true){
+							resolve(fn,fndependences)
+						}
+					})
+					.then(()=>{
+						fn.fn(...fndependences);
+					})
 					lastFns.push(fn.fn)
 				}else{
 
