@@ -19,34 +19,6 @@ function getArguments(fnstring){
 	return args
 }
 
-/**
- * 获取扁平化对象字符串下的对象KEY对应的值 
- * @param {object} object 对象
- * @param {string} prop 扁平化对象字符串的KEY  数组下标使用.符号获取
- * @return type:Any
- **/
-// function getProp(object, prop) {
-// 	if (typeof prop !== "string") {
-// 		console.error("参数错误 : \n 第二个参数类型为字符串,请检查");
-// 		return;
-// 	}
-// 	if (prop === "") {
-// 		return object;
-// 	}
-// 	var keys = prop.split(".");
-// 	try {
-// 		return (keys.reduce((p, n) => {
-// 			if (p[n]) {
-// 				return p[n];
-// 			}
-// 		}, object));
-// 	} catch (err) {
-// 		return (err);
-// 	}
-// }
-
-
-
 class Observer {
 	/**
 	 * @description 初始化
@@ -120,18 +92,21 @@ class Observer {
 		});
 		this.setObserver(value);
 		needUpdateProps.forEach(prop=>{
-			this.execute(prop)
+			this.execute(prop,value,oldVal)
 		});
 	}
 	/**
 	 * @description 添加监听
-     * @param {Array<string>} dependences 依赖被监听的对象的属性列表
+         * @param {Array<string>} dependences 依赖被监听的对象的属性列表
+         * @param {Function} fn 监听函数
+         * @param {?Function|Boolean} shouldExecuteWatcher (可选)是否执行监听函数
 	 * @param {undefined} fn 无返回值
 	 */
-	addWatcher(dependences,fn){
+	addWatcher(dependences,fn,shouldExecuteWatcher){
 		propsWatchers.push({
             dependences,
-            fn
+            fn,
+            shouldExecuteWatcher
         });
 		this._collectionDependence();
 	}
@@ -165,11 +140,25 @@ class Observer {
 	/**
 	 * @description 执行依赖对应的函数
 	 * @param  {String} dependence 依赖属性
+	 * @param  {?Object} newObserver (可选)新的监听对象
+	 * @param  {?Object} oldObserver (可选)旧的监听对象
 	 * @return {undefined}  无返回值
 	 */
-	execute(dependence){
+	execute(dependence,newObserver,oldObserver){
 		if(propsWatchFns[dependence] && toString.call(propsWatchFns[dependence]) === "[object Array]"){
-			propsWatchFns[dependence].forEach(fn=>{
+			propsWatchFns[dependence]
+			.filter(fn=>{
+				if(fn.shouldExecuteWatcher === undefined){
+					return true;
+				}if(typeof fn.shouldExecuteWatcher === 'boolean'){
+					return fn.shouldExecuteWatcher
+				}else if(typeof fn.shouldExecuteWatcher === 'function'){
+					return fn.shouldExecuteWatcher(newObserver,oldObserver,fn.dependences)
+				}else{
+					return true;
+				}
+			})
+			.forEach(fn=>{
                 let fndependences = fn.dependences.map(arg=>{
                     return getProp(observerChache,arg)
                 });
