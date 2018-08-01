@@ -53,7 +53,8 @@ const toString = Object.prototype.toString
 let observerChache = {}//需要被监听的对象
 let propsWatchers = []//监听列表事件
 let propsWatchFns = {}//监听属性对象的监听事件
-let lastFns = []      //最近一次update的监听函数
+// let lastFns = []      //最近一次update的监听函数
+let lastFns = new Map()      //最近一次update的监听函数
 
 
 class Observer {
@@ -75,6 +76,23 @@ class Observer {
 	 */
 	static _set(object,path,value){
 		setProp(object,path,value)
+	}
+	/**
+	 * @description 判断两个对象是否相等
+	 * @param  {Any}  o1  比较值
+	 * @param  {Any}  o2  比较目标值
+	 * @return {Boolean}  返回是否相等布尔值
+	 */
+	static _isEqual(o1,o2){
+		return isEqual(o1,o2)
+	}
+	/**
+	 * @description 深拷贝对象
+	 * @param  {Object} object 拷贝的对象
+	 * @return {Object}        拷贝出来的对象
+	 */
+	static _cloneDeep(object){
+		return cloneDeep(object)
 	}
 	/**
 	 * @description 初始化
@@ -130,12 +148,29 @@ class Observer {
 		},{})
 	}
 	/**
+	 * @description 设置最近需要执行的函数 要多次执行的函数标记+1 用于在execute时只执行相同的函数引用一次
+	 * @return {undefined} 无返回值
+	 */
+	_setLastFns(){
+		console.time("_setLastFns");
+		for(var i=0;i<propsWatchers.length;i++){
+			if(lastFns.get(propsWatchers[i].fn) === undefined){
+				lastFns.set(propsWatchers[i].fn,1)
+			}else{
+				let count = lastFns.get(propsWatchers[i].fn);
+				lastFns.set(propsWatchers[i].fn,count+1)
+			}
+		}
+		console.timeEnd("_setLastFns");
+	}
+	/**
 	 * @description 脏值检测
 	 * @param  {Object} value  新值
 	 * @param  {Object} oldVal 旧值
 	 * @return {undefined}     无返回值
 	 */
 	_diff(value){
+		this._setLastFns();
 		let oldVal = this.getObserver();
 		//搜集发生变化的依赖
 		let needUpdateProps = [];
@@ -153,17 +188,17 @@ class Observer {
 	}
 	/**
 	 * @description 添加监听
-     * @param {Array<string>} dependences 依赖被监听的对象的属性列表
-     * @param {Function} fn 监听函数
-     * @param {?Function|Boolean} shouldExecuteWatcher (可选)是否执行监听函数
+         * @param {Array<string>} dependences 依赖被监听的对象的属性列表
+         * @param {Function} fn 监听函数
+         * @param {?Function|Boolean} shouldExecuteWatcher (可选)是否执行监听函数
 	 * @param {undefined} fn 无返回值
 	 */
 	addWatcher(dependences,fn,shouldExecuteWatcher){
 		propsWatchers.push({
-            dependences,
-            fn,
-            shouldExecuteWatcher
-        });
+		    dependences,
+		    fn,
+		    shouldExecuteWatcher
+		});
 		this._collectionDependence();
 	}
 	/**
@@ -207,7 +242,9 @@ class Observer {
                 let fndependences = fn.dependences.map(arg=>{
                     return getProp(observerChache,arg)
                 });
-				if(!lastFns.some(f=>f===fn.fn)){
+                let count = lastFns.get(fn.fn);
+				if(count >= 1){
+					lastFns.set(fn.fn,0);
 					new Promise((resolve,reject)=>{
 						let result = true;
 						if(fn.shouldExecuteWatcher === undefined){
@@ -224,12 +261,13 @@ class Observer {
 						}
 					})
 					.then(()=>{
-						fn.fn(...fndependences);
+							fn.fn(...fndependences);
 					})
-					lastFns.push(fn.fn)
 				}else{
 
 				}
+				
+
 			})
 		}
 	}
@@ -239,11 +277,11 @@ class Observer {
 	 * @return {undefined} 无返回值
 	 **/
 	update(observer){
-		console.time();
-		lastFns = [];
+		console.time("执行更新时长");
+		lastFns.clear();
 		this._diff(observer)
-		lastFns = [];
-		console.timeEnd();
+		lastFns.clear();
+		console.timeEnd("执行更新时长");
 	}
 
 }
