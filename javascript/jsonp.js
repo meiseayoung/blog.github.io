@@ -1,5 +1,6 @@
+
 /**
- * [对象转url请求参数]
+ * @description 对象转url请求参数
  * @param  {[Object]} obj [请求参数对象]
  * @return {[String]}     [请求参数字符串]
  */
@@ -12,45 +13,59 @@ function object2urlParams(obj) {
 	string = params.join("&");
 	return string;
 };
+
 /**
- * [创建脚本标签并在]
- * @param  {[String]} url         [请求地址]
- * @param  {[Object} params       [请求参数]
- * @param  {[Function]} doneFn    [成功回调]
- * @param  {[Function]} errorFn   [失败回调]
- * @return {[undefined]}          [无返回值]
+ * @description 生成jsonp的名称
+ * @return {String} [jsonp的名称]
  */
-function scripting(url, params, doneFn, errorFn) {
-	var jsonpCallBackName = "jsonp_" + Math.random().toString(16).slice(2);
-	window[jsonpCallBackName] = function(data) {
-		doneFn(data);
-		delete window[jsonpCallBackName];
+function createJsonpCallBackName(){
+	return "jsonp_" + Math.random().toString(16).slice(2);
+}
+/**
+ * @description 生成jsonp回调函数
+ * @param  {String} name    jsonp的名称
+ * @param  {Function} resolve promise的resolve
+ * @return {undefined}        无返回值
+ */
+function createJsonpCallBack(name,resolve){
+	window[name] = function(data) {
+		resolve(data);
+		delete window[name];
 	};
+}
+/**
+ * @description 生成jsonp的script标签
+ * @param  {String} url    jsonp请求地址
+ * @param  {String} name   jsonp的名称
+ * @param  {Object} params jsonp的请求参数
+ * @return {HTMLScriptElement}  生成的script标签
+ */
+function createJsonpScript(url,name,params){
 	var script = document.createElement("script");
-	script.setAttribute("src", `${url}?callback=${jsonpCallBackName}&${object2urlParams(params)}`);
+	script.setAttribute("src", `${url}?callback=${name}&${object2urlParams(params)}`);
 	document.body.appendChild(script);
-	script.onload = function() {
-		document.body.removeChild(script);
-	};
-	script.onerror = function(err) {
-		document.body.removeChild(script);
-		errorFn(err);
-	}
-};
+	return script;
+}
 /**
- * [jsonp请求]
- * @param  {[type]} args [description]
- * @param {[String]} args.url             [请求地址]
- * @param {[Object]} args.data            [请求参数]
- * @param {[Function]} args.doneFn        [成功回调]
- * @param {[Function]} args.errorFn       [失败回调]
- * @return {[Object]}                     [无返回值]
+ * @description jsonp服务主函数
+ * @param  {String} url    jsonp请求地址
+ * @param  {Object} params jsonp的请求参数
+ * @return {Promise}    jsonp promise
  */
-const jsonp = function(args) {
-	try {
-		let validateURL = new URL(args.url);
-	} catch (err) {
-		console.error("jsonp请求url为无效地址,请检查");
-	}
-	scripting(args.url, args.data, args.doneFn, args.errorFn)
-};
+function jsonp(url="",params={}){
+	return new Promise((resolve,reject)=>{
+		let jsonpName = createJsonpCallBackName();
+		createJsonpCallBack(jsonpName,resolve);
+		let script = createJsonpScript(url,jsonpName,params);
+		script.onload = function() {
+			document.body.removeChild(script);
+		};
+		script.onerror = function(err) {
+			document.body.removeChild(script);
+			delete window[jsonpName];
+			reject(err);
+		}
+	});
+}
+
+export default jsonp;
