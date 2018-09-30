@@ -381,25 +381,22 @@ const util = {
 	 * @param obj 被克隆的对象
 	 * @return result 克隆后的新对象
 	 **/
-	cloneDeep: function(obj) {
-		var result = {};
-		for (var key in obj) {
-			if (typeof(obj[key]) === "object") {
-				switch (Object.prototype.toString.call(obj[key])) {
-					case "[object Array]":
-						result[key] = obj[key].concat([]);
-						break;
-					case "[object Object]":
-						result[key] = cloneDeep(obj[key]);
-						break;
-						defalut:
-							result = obj[key];
-				}
-			} else {
+	cloneDeep: function(obj){
+	    var result = {};
+	    if(({}).toString.call(obj) === '[object Array]'){ 
+		  return obj.map(item=>{
+				return arguments.callee(item) 
+		  })
+	    }
+		for(key in obj){
+			if(typeof obj[key] !== 'object'){
 				result[key] = obj[key]
 			}
-		};
-		return result;
+		else{
+			result[key] = arguments.callee(obj[key])
+		}
+	    };
+	    return result
 	},
 	/**
 	 *数组首尾替换 JS模拟无缝轮播     (注意:此方法会改变数组本身，请谨慎使用)
