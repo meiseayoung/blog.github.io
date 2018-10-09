@@ -1,4 +1,7 @@
 import Date from "./DateExtend.js";
+
+const URL_MATCH_REGEXP = /(?<protocol>(?:http)s*)*:\/\/(?<host>\w+\.(?:\w+\.)*[a-zA-Z]+)(?<path>\/(?:[\w|-]|\/)+)(?<query>\?[\w|\=]+)*(?<dash>(?:#).*)*/;
+
 const util = {
 	string: {
 		/**
