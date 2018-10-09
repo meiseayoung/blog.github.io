@@ -1,6 +1,11 @@
 import Date from "./DateExtend.js";
 
 const URL_MATCH_REGEXP = /(?<protocol>(?:http)s*)*:\/\/(?<host>\w+\.(?:\w+\.)*[a-zA-Z]+)(?<path>\/(?:[\w|-]|\/)+)(?<query>\?[\w|\=]+)*(?<dash>(?:#).*)*/;
+const CHINESE_CHARACTERS_REGEXP = /[\u4E00-\u9FA5]+/g;
+const CHINESE_CHARACTERS = [];
+for(let i=19968;i<40869;i++){
+	CHINESE_CHARACTERS.push(String.fromCharCode(i));
+};
 
 const util = {
 	string: {
