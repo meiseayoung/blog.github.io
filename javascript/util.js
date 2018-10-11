@@ -1,6 +1,6 @@
 import Date from "./DateExtend.js";
 
-const HTML_TAG_REGEXP = /(\<\s*([a-zA-Z]+(-[a-zA-Z]+)*\d*)(\s+\w+\s*=\s*([\'\"]*)\w+([\'\"]*)\s*)*\s*\>.*\<\/\s*\2\s*\>)|\<\s*[a-zA-Z]+\d*\s*\/\>/gm;
+const HTML_TAG_REGEXP = /(\<\s*([a-zA-Z]+(-[a-zA-Z]+)*\d*)(\s+\w+\s*=\s*([\'\"]?)\w+\5\s*)*\s*\>.*\<\/\s*\2\s*\>)|\<\s*[a-zA-Z]+\d*\s*\/\>/gm;
 const URL_MATCH_REGEXP = /(?<protocol>(?:http)s*)*:\/\/(?<host>\w+\.(?:\w+\.)*[a-zA-Z]+)(?<path>\/(?:[\w|-]|\/)+)(?<query>\?[\w|\=]+)*(?<dash>(?:#).*)*/;
 const CHINESE_CHARACTERS_REGEXP = /[\u4E00-\u9FA5]+/g;
 const CHINESE_CHARACTERS = [];
