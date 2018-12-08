@@ -81,6 +81,10 @@ const util = {
 			return;
 		}
 	},
+	requestNotification:new Promise(resolve =>
+							window.Notification.requestPermission(resolve)
+			    )
+			   .then(),
 	fn:{
 		/**
 		 * @describtion 只执行一次的函数
