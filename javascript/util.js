@@ -7,6 +7,9 @@ const CHINESE_CHARACTERS = [];
 for(let i=19968;i<40869;i++){
 	CHINESE_CHARACTERS.push(String.fromCharCode(i));
 };
+string.replace(/url\(www\.(a)\.com\/dist\/static\/.*[png|jpg]\)/g,function(match,g1){
+    return match.replace(g1,'b');
+});//匹配路径并替换
 
 const util = {
 	string: {
