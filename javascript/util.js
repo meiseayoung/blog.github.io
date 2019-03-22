@@ -788,6 +788,36 @@ const util = {
                 	rejectPointer();
                 };
                 return result;
+	},
+	/**
+	 * 下载文件
+	 * @param {Object{url,method,data}} 请求信息 url:请求地址 method:请求类型 data:请求参数
+	 * @returns {undefined} 无返回值
+	 */
+	downloadFile(opt={url:'',method:'POST',data:{}}) {
+			let config = {
+					url: '',
+					method: 'POST',
+					data:{}
+			};
+		  opt = Object.assign(config,opt);
+			const downloadFileFrame = document.createElement('iframe');
+			document.body.appendChild(downloadFileFrame);
+			const form = document.createElement('form');
+			form.setAttribute('method',opt.method.toUpperCase());
+			form.setAttribute('action',opt.url);
+			form.setAttribute('data-url',opt.url);
+			downloadFileFrame.ownerDocument.body.appendChild(form);
+			downloadFileFrame.style.display = 'none';
+			for (let key in opt.data) {
+				let input = document.createElement('input');
+				input.name = key;
+				input.value = opt.data[key];
+				form.appendChild(input);
+			};
+			form.submit();
+			downloadFileFrame.ownerDocument.body.removeChild(form);
+			document.body.removeChild(downloadFileFrame);
 	}
 };
 
