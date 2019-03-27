@@ -818,6 +818,23 @@ const util = {
 			form.submit();
 			downloadFileFrame.ownerDocument.body.removeChild(form);
 			document.body.removeChild(downloadFileFrame);
+	},
+        /**
+	 * 获取指定元素的第一个定位方法为relative的父元素(功能等同于elem.offsetParent)
+         * @param {Element} elem
+         * @returns Element 相对父元素
+	 */
+	getOffsetParent: function(elem){
+	    let parent = elem;
+		while(parent.parentNode.nodeType === 1 && getComputedStyle(parent.parentNode).position !== 'relative'){
+			parent = parent.parentNode;
+		if(parent === document.body){
+				return parent;
+		}
+		}
+	    if(parent.parentNode.nodeType === 1){
+			return parent.parentNode;
+		}
 	}
 };
 
