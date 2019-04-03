@@ -11,6 +11,71 @@ string.replace(/url\(www\.(a)\.com\/dist\/static\/.*[png|jpg]\)/g,function(match
     return match.replace(g1,'b');
 });//匹配路径并替换
 
+/**
+ * 图片转blob
+ * @param {ImageElement} image
+ * @return {Promise} 
+ */
+export function image2blob(image){
+  let resolvePointer = null;
+  let rejectPointer = null;
+  let promise = new Promise((resolve,reject)=>{
+    resolvePointer = resolve;
+    rejectPointer = reject;
+  });
+  if(!image instanceof Element){
+    rejectPointer('传入参数不是元素');
+  }
+  let {width,height} = image.getBoundingClientRect();
+  let offScreenCanvas = document.createElement('canvas');
+  let context = offScreenCanvas.getContext('2d');
+  offScreenCanvas.width = width;
+  offScreenCanvas.height = height;
+  try{
+    context.drawImage(image,0,0,width,height);
+  }catch(err){
+    rejectPointer('传入的参数不是图片元素');
+  }
+  let readTimer = setTimeout(()=>{
+    rejectPointer('读取图片数据超时');
+  },1000)
+  offScreenCanvas.toBlob((blob)=>{
+     clearTimeout(readTimer);
+     resolvePointer(blob);
+  });
+  return promise;
+}
+/**
+ * blob转图片base64
+ * @param {Blob} blob
+ * @return {base64String} 
+ */
+export function blob2image(blob){
+  let resolvePointer = null;
+  let rejectPointer = null;
+  let promise = new Promise((resolve,reject)=>{
+    resolvePointer = resolve;
+    rejectPointer = reject;
+  });
+  if(!blob instanceof Blob){
+    rejectPointer('传入参数不是blob对象');
+  }
+  else if(!/image\/\w*/.test(blob.type)){
+    rejectPointer('blob对象的类型不是图片');
+  }
+  let reader = new FileReader();
+  try{
+    reader.readAsDataURL(blob);
+  }catch(err){
+    rejectPointer('读取blob对象失败');
+  }
+  reader.onload = function(event){
+    let {result} = event.target;
+    resolvePointer(result);
+  };
+  return promise
+}
+
 const util = {
 	string: {
 		/**
