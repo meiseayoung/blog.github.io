@@ -19,11 +19,17 @@
                 "Y": this.getFullYear(),
                 "M": zeroize(this.getMonth() + 1),
                 "D": zeroize(this.getDate()),
+                "H": zeroize(this.getHours() % 12),
                 "h": zeroize(this.getHours()),
                 "m": zeroize(this.getMinutes()),
                 "s": zeroize(this.getSeconds()),
                 "w": weeks[this.toDateString().split(" ")[0]]
             };
+            Object.defineProperty(dateObj,'apm',{
+				get(){
+					return (dateObj.h > 0 && dateObj.h < 12) ? 'am' : 'pm';
+                }
+            });
             return pattern.replace(/YYYY|MM|DD|hh|mm|ss|w/g, function(match) {
                 switch (match) {
                     case "YYYY":
@@ -32,6 +38,10 @@
                         return dateObj.M;
                     case "DD":
                         return dateObj.D;
+                    case "HH":
+                        return dateObj.H;
+                    case "apm":
+                        return dateObj.apm;
                     case "hh":
                         return dateObj.h;
                     case "mm":
