@@ -849,12 +849,12 @@ const util = {
 	 */
 	getOffsetParent: function(elem){
 	    let parent = elem;
-		while(parent.parentNode.nodeType === 1 && getComputedStyle(parent.parentNode).position !== 'relative'){
-			parent = parent.parentNode;
-			if(parent === document.body){
-				return parent;
-			}
+	    while(parent.parentNode.nodeType === 1 && getComputedStyle(parent.parentNode).position !== 'relative'){
+		parent = parent.parentNode;
+		if(parent === document.body){
+		    return parent;
 		}
+	    }
 	    if(parent.parentNode.nodeType === 1){
 		return parent.parentNode;
 	    }
