@@ -351,26 +351,6 @@ const util = {
 		return new Date(latelyTime).getTime();
 	},
 	/**
-	 *忙闲时控件值解析
-	 *@param s 需要解析的字符串 type:String
-	 *@return  解析后的数组 type:Array
-	 */
-	parseTimeSchedule: function(s) {
-		s = s.replace(/\s/gi, "").slice(0, -1);
-		var tmep = [];
-		var arr = s.split(";");
-		for (var i = 0; i < arr.length; i++) {
-			tmep.push(arr[i].split("-"));
-		}
-		var lastArr = [];
-		for (var i = 0; i < tmep.length; i++) {
-			for (var j = tmep[i][0].slice(0, 2); j <= tmep[i][1].slice(0, 2); j++) {
-				lastArr.push(j - 0);
-			}
-		}
-		return lastArr;
-	},
-	/**
 	 *获取页面所有元素最大的z-index值
 	 *@param   rangeElem 获取最大z-index值的元素范围  type:DOM
 	 *@return  所有元素最大的z-index值 type:Number
@@ -456,28 +436,6 @@ const util = {
 		});
 		strings.length = length || 5;
 		return strings.join("");
-	},
-	/**
-	 * 对象深拷贝
-	 * @param obj 被克隆的对象
-	 * @return result 克隆后的新对象
-	 **/
-	cloneDeep: function(obj){
-	    var result = {};
-	    if(({}).toString.call(obj) === '[object Array]'){ 
-		  return obj.map(item=>{
-				return arguments.callee(item) 
-		  })
-	    }
-		for(key in obj){
-			if(typeof obj[key] !== 'object'){
-				result[key] = obj[key]
-			}
-		else{
-			result[key] = arguments.callee(obj[key])
-		}
-	    };
-	    return result
 	},
 	/**
 	 *数组首尾替换 JS模拟无缝轮播     (注意:此方法会改变数组本身，请谨慎使用)
@@ -893,13 +851,13 @@ const util = {
 	    let parent = elem;
 		while(parent.parentNode.nodeType === 1 && getComputedStyle(parent.parentNode).position !== 'relative'){
 			parent = parent.parentNode;
-		if(parent === document.body){
+			if(parent === document.body){
 				return parent;
-		}
+			}
 		}
 	    if(parent.parentNode.nodeType === 1){
-			return parent.parentNode;
-		}
+		return parent.parentNode;
+	    }
 	}
 };
 
