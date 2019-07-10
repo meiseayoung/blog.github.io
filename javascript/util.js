@@ -645,6 +645,17 @@ const util = {
 		});
 
 	 },
+	getValueByKeypath:function(obj,...args){
+	    return args.map(prop=>{
+                try{
+                  return args.map(prop=>{
+		    return Function.apply(null,[].concat(`return obj.${prop}`))()
+                  })
+                }catch(err){
+		    return new Error(err)
+                }
+	    })
+	},
 	/**
 	 * 动态创建函数 
 	 * @param context this执行环境
