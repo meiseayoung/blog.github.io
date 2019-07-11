@@ -869,7 +869,16 @@ const util = {
 	    if(parent.parentNode.nodeType === 1){
 		return parent.parentNode;
 	    }
-	}
+	},
+        paste: function(){
+	   document.addEventListener('paste', function (event) {
+	        console.log(event.clipboardData.items[0],event.clipboardData.items[1]);
+		console.log(event.clipboardData.items[1].getAsString(function(s){
+			console.log(s);
+		}))
+	   })
+        }
+        
 };
 
 export default util;
