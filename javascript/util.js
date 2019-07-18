@@ -11,6 +11,8 @@ string.replace(/url\(www\.(a)\.com\/dist\/static\/.*[png|jpg]\)/g,function(match
     return match.replace(g1,'b');
 });//匹配路径并替换
 
+window.addEventListener("mousewheel", e=>{console.log(e);e.preventDefault();}, {passive: false} );//https://developers.google.com/web/updates/2017/01/scrolling-intervention
+
 /**
  * 图片转blob
  * @param {ImageElement} image
