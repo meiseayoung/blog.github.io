@@ -10,6 +10,9 @@ for(let i=19968;i<40869;i++){
 string.replace(/url\(www\.(a)\.com\/dist\/static\/.*[png|jpg]\)/g,function(match,g1){
     return match.replace(g1,'b');
 });//匹配路径并替换
+urls.map(url=>{
+	return url.match(/(?<=elective=)([^&]*)(?=&|$)/g)
+});//正则零宽断言 ?<= 前置必须满足 ?= 后置必须满足
 
 window.addEventListener("mousewheel", e=>{console.log(e);e.preventDefault();}, {passive: false} );//https://developers.google.com/web/updates/2017/01/scrolling-intervention
 
