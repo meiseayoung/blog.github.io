@@ -81,6 +81,13 @@ export function blob2image(blob){
   return promise
 }
 
+/**
+ * base64转svg字符表示
+ */
+export function base64toSVG(base64){
+    return atob(base64.replace('data:image/svg+xml;base64,',''));
+}
+
 const util = {
 	string: {
 		/**
