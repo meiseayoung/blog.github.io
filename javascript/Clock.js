@@ -6,7 +6,7 @@ class Clock extends Emit {
   start(){
     this.timer = setTimeout(()=>{
           if(!this.inPause){
-            this.fire('change',performance.now()/1000);
+            this.fire('change',performance.timing.navigationStart + performance.now());
           }
           requestAnimationFrame(this.start.bind(this));  
     },1000)
