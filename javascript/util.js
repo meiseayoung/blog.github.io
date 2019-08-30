@@ -36,6 +36,18 @@ export function function isURLHashMode(url){
     };
     return isHashMode;
 }
+/**
+ * 获取URL的查询参数(包括hash模式的)
+ * @param {String} url
+ * @return {String} 
+ */
+export function getQueries(url){
+    if(isURLHashMode(url)){
+	return url.slice(url.indexOf('#')).replace(/^.+\?/,'')
+    }else{
+	return new URL(url).search
+    }
+}
 
 /**
  * 图片转blob
