@@ -17,6 +17,27 @@ urls.map(url=>{
 window.addEventListener("mousewheel", e=>{console.log(e);e.preventDefault();}, {passive: false} );//https://developers.google.com/web/updates/2017/01/scrolling-intervention
 
 /**
+ * 判断指定URL是不是hash模式
+ * @param {String} url
+ * @return {Boolean} 
+ */
+export function function isURLHashMode(url){
+    let isHashMode = false;
+     let hashIndex = url.indexOf('#');
+    let searchIndex = url.indexOf('?');
+    if(searchIndex === -1 || hashIndex === -1){
+	 isHashMode = false;
+    }else{
+	if(hashIndex < searchIndex){
+	    isHashMode = true;
+        }else{
+	    isHashMode = false;
+        }
+    };
+    return isHashMode;
+}
+
+/**
  * 图片转blob
  * @param {ImageElement} image
  * @return {Promise} 
