@@ -3,10 +3,9 @@ class EventEmiter {
     this.handlers = {};
   }
   /**
-   *功能说明 ：添加自定义事件
-   *参数说明 ：
-   *参数type-自定义事件类型(名称)
-   *参数hander-自定义事件类型对应的事件执行函数
+   * 添加自定义事件
+   * @params { String } type 自定义事件类型(名称)
+   * @params { Function } hander 自定义事件类型对应的事件执行函数
    **/
   on(type, handler) {
     if (typeof this.handlers[type] == "undefined") {
@@ -19,10 +18,9 @@ class EventEmiter {
     
   }
   /**
-   *功能说明 ：触发自定义事件
-   *参数说明 ：
-   *参数type-自定义事件类型(名称)
-   *参数data-自定义事件类型对应的事件执行函数的参数
+   * 触发自定义事件
+   * @params { String } type 自定义事件类型(名称)
+   * @params { Any } data 自定义事件类型对应的事件执行函数的参数
    **/
   fire(type, data) {
     if (this.handlers[type] instanceof Array) {
@@ -33,9 +31,9 @@ class EventEmiter {
     }
   }
   /**
-   *功能说明 ：移除事件
-   *参数说明 ：
-   *参数type-事件类型(名称)
+   * 移除事件
+   * @params { String } type 事件类型(名称)
+   * @params { Function } handle 自定义事件类型对应的事件执行函数
    **/
   off(type, handler) {
     var handlers = this.handlers[type];
@@ -83,17 +81,34 @@ class Dragger extends EventEmiter{
     });
     return checked;
   }
+  /**
+   * 获取app容器的zIndex
+   */
+  #getAppContainerZindex(){
+    return window.getComputedStyle(this.dropElement).zIndex;
+  }
+  /**
+   * 创建辅助层用于防止某个元素被阻止冒泡导致window上无法触发mouseup事件
+   */
   #createHelperElement(){
     let element = document.createElement('div');
-    element.style.position = 'absolute';
+    element.style.position = 'fixed';
     element.style.left = '0';
     element.style.top = '0';
     element.style.width = '100%';
     element.style.height = '100%';
-    element.style.zIndex = 100000;
+    let zIndex = this.#getAppContainerZindex();
+    if(zIndex === 'auto'){
+      element.style.zIndex = 'auto';
+    }else{
+      element.style.zIndex = Number(zIndex) + 1;
+    }
     document.body.appendChild(element);
     this.#helperElement = element;
   }
+  /**
+   * 销毁辅助层
+   */
   #destroyHelperElement(){
     if(this.#helperElement){
       document.body.removeChild(this.#helperElement);
