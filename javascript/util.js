@@ -874,29 +874,46 @@ const util = {
 	 * @returns {undefined} 无返回值
 	 */
 	downloadFile(opt={url:'',method:'POST',data:{}}) {
-			let config = {
-					url: '',
-					method: 'POST',
-					data:{}
-			};
-		  opt = Object.assign(config,opt);
-			const downloadFileFrame = document.createElement('iframe');
-			document.body.appendChild(downloadFileFrame);
-			const form = document.createElement('form');
-			form.setAttribute('method',opt.method.toUpperCase());
-			form.setAttribute('action',opt.url);
-			form.setAttribute('data-url',opt.url);
-			downloadFileFrame.ownerDocument.body.appendChild(form);
-			downloadFileFrame.style.display = 'none';
-			for (let key in opt.data) {
-				let input = document.createElement('input');
-				input.name = key;
-				input.value = opt.data[key];
-				form.appendChild(input);
-			};
-			form.submit();
-			downloadFileFrame.ownerDocument.body.removeChild(form);
-			document.body.removeChild(downloadFileFrame);
+		let config = {
+				url: '',
+				method: 'POST',
+				data:{}
+		};
+		opt = Object.assign(config,opt);
+		let canSupportDownload = 'download' in document.createElement('a');
+		  if(canSupportDownload){
+		    let link = document.createElement('a');
+		    let query = Object.entries(opt.data || {}).map(item=>{
+		      return `${item[0]}=${item[1]}`
+		    }).join('&');
+		    link.setAttribute('download',true);
+		    if(query !== ''){
+		      link.setAttribute('href',opt.url + '?' + query);
+		    }else{
+		      link.setAttribute('href',opt.url);
+		    }
+		    document.body.appendChild(link);
+		    link.click();
+		    document.body.removeChild(link);
+		    return;
+		  }
+		const downloadFileFrame = document.createElement('iframe');
+		document.body.appendChild(downloadFileFrame);
+		const form = document.createElement('form');
+		form.setAttribute('method',opt.method.toUpperCase());
+		form.setAttribute('action',opt.url);
+		form.setAttribute('data-url',opt.url);
+		downloadFileFrame.ownerDocument.body.appendChild(form);
+		downloadFileFrame.style.display = 'none';
+		for (let key in opt.data) {
+			let input = document.createElement('input');
+			input.name = key;
+			input.value = opt.data[key];
+			form.appendChild(input);
+		};
+		form.submit();
+		downloadFileFrame.ownerDocument.body.removeChild(form);
+		document.body.removeChild(downloadFileFrame);
 	},
         /**
 	 * 获取指定元素的第一个定位方法为relative的父元素(功能等同于elem.offsetParent)
