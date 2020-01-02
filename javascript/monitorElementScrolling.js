@@ -3,6 +3,7 @@
  * @param elem type:HTML Element 需要监听的元素
  * @param scrollTopBackFn type:Function 元素滚动到顶部时的回调
  * @param scrollBottomBackFn type:Function 元素滚动到底部时的回调
+ * @param isAnimateOpen type:Boolean 是否开启动画效果
  * @return undefined 无返回值
  **/
 export default function monitorElementScrolling(
@@ -12,7 +13,7 @@ export default function monitorElementScrolling(
   isAnimateOpen = false
 ) {
   let isScrolling = false;
-
+  let scale = 1;
   elem.addEventListener("mousedown", e => {
     isScrolling = true;
   });
@@ -37,7 +38,6 @@ export default function monitorElementScrolling(
       elem.style.transform = `unset`;
     }
   });
-  let scale = 1;
   elem.addEventListener('touchmove',e=>{
     let scrollHeight = elem.scrollHeight;
     let scrollTop = elem.scrollTop;
