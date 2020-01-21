@@ -813,6 +813,7 @@ const util = {
 		var timeout = opts.timeout || 60*1000 ; //默认一分钟超时处理
 		var options = {
 			method: method,
+			mode: 'cors',
 			credentials: 'include', //携带cookie认证信息
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
