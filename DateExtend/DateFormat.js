@@ -124,5 +124,11 @@
             return Number(new Date(currentMonthUTC - oneDay).format("DD"));
         };    
     }
-    
+    if(Date.prototype.toUTC){
+	Date.prototype.toUTC() = function(){
+	    var time = this.getTime();
+	    var offset = this.getTimezoneOffset();
+	    return utc - offset * 60 * 1000;
+	}
+    }
 })();
