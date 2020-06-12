@@ -124,11 +124,17 @@
             return Number(new Date(currentMonthUTC - oneDay).format("DD"));
         };    
     }
-    if(Date.prototype.toUTC){
-	Date.prototype.toUTC() = function(){
+    if(!Date.prototype.toUTC){
+	Date.prototype.toUTC = function(){
 	    var time = this.getTime();
 	    var offset = this.getTimezoneOffset();
 	    return utc - offset * 60 * 1000;
+	}
+    }
+    if(!Date.prototype.utc2Date){
+	Date.prototype.utc2Date = function(utc){
+	    var offset = this.getTimezoneOffset();
+	    return new Date(utc + offset * 60 * 1000);
 	}
     }
 })();
