@@ -940,6 +940,9 @@ const util = {
 			console.log(s);
 		}))
 	   })
+        },
+        innerText:function(elem){
+	    return elem.innerHTML.replace(/\<br\>/,'\n').replace(/\<[^\>]+\>/g,'');
         }
         
 };
