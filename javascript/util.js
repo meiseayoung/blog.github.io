@@ -49,6 +49,23 @@ export function getQueries(url){
     }
 }
 
+export function function dataURItoBlob(base64Data) {
+  let byteString;
+  if (base64Data.split(',')[0].indexOf('base64') >= 0) {byteString = atob(base64Data.split(',')[1]);}
+  else {
+    byteString = unescape(base64Data.split(',')[1]);
+  }
+  const mimeString = base64Data.split(',')[0].split(':')[1].split(';')[0];
+  const ia = new Uint8Array(byteString.length);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  const blob = new Blob([ia], {
+    type: mimeString,
+  });
+  return blob;
+}
+
 /**
  * 图片转blob
  * @param {ImageElement} image
