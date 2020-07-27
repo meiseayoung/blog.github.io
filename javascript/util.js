@@ -961,7 +961,24 @@ const util = {
         innerText:function(elem){
 	    return elem.innerHTML.replace(/\<br\>/,'\n').replace(/\<[^\>]+\>/g,'');
         }
-        
+	/**
+	 * 一维数组转树
+	 */
+        flatArray2Tree(array):function{
+	    const map = {};
+	    const tree = [];
+	    array.forEach(child=>{
+		child.children = [];
+		map[child.id] = child;
+		const item = map[child.parent_id];
+		if(item){
+		    (item.children || (item.children = [])).push(child);
+		}else{
+		    tree.push(child);
+		}
+	    });
+	    return tree;
+	}
 };
 
 export default util;
