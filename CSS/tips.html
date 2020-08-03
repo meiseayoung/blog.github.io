@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tips</title>
+  <style>
+    .tips{
+      padding: 5px 10px;
+      border-radius: 4px;
+      border:1px solid #f97583;
+      min-width: 120px;
+      min-height: 1.5em;
+    }
+    .tips::before,.tips::after{
+          position: absolute;
+          bottom: 100%;
+          left: 10px;
+          z-index: 15;
+          width: 0;
+          height: 0;
+          pointer-events: none;
+          content: " ";
+          border: solid transparent;
+    }
+    .tips::before{
+          border-width: 6px;
+          border-bottom-color: #f97583;
+    }
+    .tips::after{
+          margin-left: 1px;
+          border-width: 5px;
+          border-bottom-color: #ffeef0;
+    }
+    dt{
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <dl style="width: 600px;border: 1px solid #ddd;position: relative;padding: 12px;">
+       <dt>
+         <label for="user">用户名:</label><input type="text">
+       </dt>
+       <div style="position: absolute;background-color: #ffeef0;;color: red;" class="tips">
+         该用户不存在
+       </div>
+       <dt>
+         <label for="password">密码:</label><input type="text">
+       </dt>
+       <div style="position: absolute;background-color: #ffeef0;;color: red;" class="tips">
+         密码错误
+       </div>
+     </dl> 
+  </div>
+</body>
+</html>
