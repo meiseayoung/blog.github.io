@@ -138,6 +138,22 @@ export function base64toSVG(base64){
     return atob(base64.replace('data:image/svg+xml;base64,',''));
 }
 
+/**
+ * @desc 选中文本
+ * @params { Element } element 选中元素
+ * @params { number } index 选区开始位置 
+ * @params { number } end 选区结束位置 
+ */
+export function createSelectionRange(element,index,end){
+  let selection = window.getSelection();
+  let range = document.createRange();
+  range.setStart(element,start);
+  range.setEnd(element,end);
+  selection.removeAllRanges();
+  selection.addRange(range);
+}
+
+
 const util = {
 	string: {
 		/**
