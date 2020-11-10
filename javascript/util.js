@@ -16,6 +16,18 @@ urls.map(url=>{
 
 window.addEventListener("mousewheel", e=>{console.log(e);e.preventDefault();}, {passive: false} );//https://developers.google.com/web/updates/2017/01/scrolling-intervention
 
+if(!Function.prototype.call){
+	Function.prototype.call = function(){
+	    if(arguments.length === 0){
+		this();
+		return;
+	    }
+	    let ctx = arguments[0];
+	    let orignFnName = this.name;
+	    let fnCopy = ctx[orignFnName]([].slice.call(arguments,1));
+	}	
+}
+
 /**
  * 判断指定URL是不是hash模式
  * @param {String} url
